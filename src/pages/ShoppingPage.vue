@@ -1,74 +1,71 @@
 <script setup>
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, onMounted, watch, computed } from 'vue'
 
 //Components
-import GamePlatforms from "@/components/GamePlatforms.vue";
+import GamePlatforms from '@/components/GamePlatforms.vue'
 
 //Composables
-import fetchGameDetails from "@/composables/fetchGameDetails.js";
-import checkPromo from "@/composables/checkPromoCode.js";
+import fetchGameDetails from '@/composables/fetchGameDetails.js'
+import checkPromo from '@/composables/checkPromoCode.js'
 
 //Utils
-import { storageUtil } from "@/storage/localStorage";
-import { useRoute, useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { storageUtil } from '@/storage/localStorage'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
-const store = useStore();
+const store = useStore()
 
-const shoppingList = ref([]);
+const shoppingList = ref([])
 
 onMounted(() => {
-  const storageList = storageUtil.getList(storageUtil.shopping);
+  const storageList = storageUtil.getList(storageUtil.shopping)
 
   if (storageList) {
-    store.commit("setLoading", true);
+    store.commit('setLoading', true)
 
     storageList.forEach((gameId) => {
-      const game = ref([]);
+      const game = ref([])
 
       fetchGameDetails(game, gameId, router)
         .then(() => {
-          shoppingList.value.push(game.value);
+          shoppingList.value.push(game.value)
         })
         .then(() => {
           if (gameId == storageList[storageList.length - 1]) {
-            store.commit("setLoading", false);
+            store.commit('setLoading', false)
           }
-        });
-    });
+        })
+    })
   }
-});
+})
 
 function removeGame(gameItem) {
-  const index = shoppingList.value.indexOf(gameItem);
+  const index = shoppingList.value.indexOf(gameItem)
 
-  shoppingList.value.splice(index, 1);
-  storageUtil.setGame(storageUtil.shopping, gameItem.id);
+  shoppingList.value.splice(index, 1)
+  storageUtil.setGame(storageUtil.shopping, gameItem.id)
 }
 
-const promoCode = ref("");
+const promoCode = ref('')
 
 function checkPromoCode() {
-  console.log(promoCode.value);
-  checkPromo();
+  console.log(promoCode.value)
+  checkPromo()
 }
 
 const totalPrice = computed(() => {
-  const price = shoppingList.value.reduce(
-    (acc, elem) => (acc += elem.suggestions_count / 10),
-    0
-  );
-  return price.toFixed(2);
-});
+  const price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
+  return price.toFixed(2)
+})
 const salesTax = computed(() => {
-  return (totalPrice.value / 79).toFixed(2);
-});
+  return (totalPrice.value / 79).toFixed(2)
+})
 const grandTotal = computed(() => {
-  return (+salesTax.value + +totalPrice.value).toFixed(2);
-});
+  return (+salesTax.value + +totalPrice.value).toFixed(2)
+})
 </script>
 
 <template>
@@ -86,16 +83,17 @@ const grandTotal = computed(() => {
 
             <div class="cart_block__bar flex">
               <div class="cart-block__info flex flex-column">
-                <h3 @click="$router.push(`/game/${game.id}`)"
-                  class="cart-block__name main-white cursor-pointer" :title="game.name">
+                <h3
+                  @click="$router.push(`/game/${game.id}`)"
+                  class="cart-block__name main-white cursor-pointer"
+                  :title="game.name"
+                >
                   {{ game.name }}
                 </h3>
 
                 <game-platforms class="cart-block__icons" :platforms="game.parent_platforms" />
 
-                <p class="cart-block__price main-blue">
-                  ${{ game.suggestions_count / 10 }}
-                </p>
+                <p class="cart-block__price main-blue">${{ game.suggestions_count / 10 }}</p>
               </div>
 
               <div class="cart-block__remove cursor-pointer" @click="removeGame(game)"></div>
@@ -121,8 +119,12 @@ const grandTotal = computed(() => {
 
           <div class="shopping-info__promo flex flex-column">
             <h3 class="shopping-info_title main-white">Redeem Promo Code:</h3>
-            <input class="shopping-info__input" v-model="promoCode" placeholder="PROMO1"
-              @change="checkPromoCode" />
+            <input
+              class="shopping-info__input"
+              v-model="promoCode"
+              placeholder="PROMO1"
+              @change="checkPromoCode"
+            />
           </div>
 
           <button class="shopping-info__bttn bttn bttn_buy">Checkout</button>
@@ -180,7 +182,7 @@ const grandTotal = computed(() => {
 }
 
 .cart-block__remove {
-  background-image: url("@/assets/icons/cross.svg");
+  background-image: url('@/assets/icons/cross.svg');
   background-size: contain;
   background-repeat: no-repeat;
   height: 15px;
