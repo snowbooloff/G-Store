@@ -1,0 +1,157 @@
+<script>
+export default {
+  name: 'range-slider',
+};
+</script>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+
+const props = defineProps({
+  modelValue: {
+    type: Array,
+    required: true,
+  },
+  minValue: {
+    type: Number,
+    required: true,
+  },
+  maxValue: {
+    type: Number,
+    required: true,
+  },
+  stepValue: {
+    type: Number,
+    required: true,
+  },
+});
+
+const rangeInput1 = ref(null);
+const rangeInput2 = ref(null);
+
+const emit = defineEmits(['update:modelValue']);
+
+function updateRange() {
+  let newModelValue = [rangeInput1.value.value, rangeInput2.value.value];
+
+  newModelValue.sort((a, b) => a - b);
+
+  if (newModelValue[0] == newModelValue[1]) {
+    newModelValue[0] = props.minValue;
+    newModelValue[1] = props.maxValue;
+  }
+
+  emit('update:modelValue', newModelValue);
+}
+</script>
+
+<template>
+  <section class="range-slider">
+    <input
+      ref="rangeInput1"
+      type="range"
+      :min="minValue"
+      :max="maxValue"
+      :step="stepValue"
+      :value="modelValue[0]"
+      @change="updateRange"
+    />
+    <input
+      ref="rangeInput2"
+      type="range"
+      :min="minValue"
+      :max="maxValue"
+      :step="stepValue"
+      :value="modelValue[1]"
+      @change="updateRange"
+    />
+    <input
+      class="range-slider__input range-slider__input_1 main-white"
+      placeholder="Min"
+      v-model="modelValue[0]"
+      @change="updateRange"
+    />
+    <input
+      class="range-slider__input range-slider__input_2 main-white"
+      placeholder="Max"
+      v-model="modelValue[1]"
+      @change="updateRange"
+    />
+  </section>
+</template>
+
+<style scoped>
+.range-slider {
+  width: 100%;
+  padding-bottom: calc(39px + var(--medium-spacing));
+  position: relative;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  background: var(--second-white);
+  border-radius: 10px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: var(--main-blue);
+  box-shadow: 0px 0px 5px var(--main-blue);
+  margin-top: -6px;
+  position: relative;
+  top: 3px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+input[type='range']::-ms-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: var(--main-blue);
+  box-shadow: 0px 0px 5px var(--main-blue);
+  margin-top: -6px;
+  position: relative;
+  top: 3px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  background: var(--main-blue);
+  box-shadow: 0px 0px 5px var(--main-blue);
+  margin-top: -6px;
+  position: relative;
+  top: 3px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.range-slider__input {
+  position: absolute;
+  top: calc(9px + var(--medium-spacing));
+  background-color: transparent;
+  border: 2px solid var(--main-blue);
+  border-radius: 5px;
+  padding: 3px 3px 3px 7px;
+  width: 30%;
+}
+.range-slider__input_1 {
+  left: 5px;
+}
+.range-slider__input_2 {
+  right: 5px;
+}
+</style>

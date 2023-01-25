@@ -1,0 +1,32 @@
+.bttn {
+    border-radius: var(--small-radius);
+    border: none;
+    padding: var(--small-spacing) var(--medium-spacing);
+    font-weight: 700;
+    color: var(--main-white);
+    cursor: pointer;
+    transition: all 0.5s linear;
+}
+
+.bttn_buy {
+    background-color: var(--main-blue);
+    box-shadow: 0px 0px 6px var(--main-blue);
+}
+.bttn_buy-active {
+    background-color: var(--second-blue);
+    box-shadow: 0px 0px 10px var(--second-blue);
+}
+
+.bttn_like {
+    background-color: var(--main-green);
+    box-shadow: 0px 0px 6px var(--main-green);
+}
+.bttn_like-active {
+    background-color: var(--second-green);
+    box-shadow: 0px 0px 10px var(--second-green);
+}
+
+.bttn_transparent {
+    border: 2px solid var(--main-white);
+    background-color: transparent;
+}
