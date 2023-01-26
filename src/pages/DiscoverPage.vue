@@ -21,8 +21,13 @@ const date = {
   year: newDate.getFullYear(),
   nextYear: newDate.getFullYear() + 1,
   month:
-    `${newDate.getMonth() + 1}`.length == 1 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1,
-  day: `${newDate.getDate()}`.length == 1 ? `0${newDate.getDate()}` : newDate.getDate()
+    `${newDate.getMonth() + 1}`.length == 1
+      ? `0${newDate.getMonth() + 1}`
+      : newDate.getMonth() + 1,
+  day:
+    `${newDate.getDate()}`.length == 1
+      ? `0${newDate.getDate()}`
+      : newDate.getDate()
 }
 
 const pastDatePeriod = `${date.previousYear}-${date.month}-${date.day},${date.year}-${date.month}-${date.day}`
@@ -75,7 +80,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex-column" v-if="!$store.state.isLoading">
+  <div
+    class="page container pt-64px flex flex-column"
+    v-if="!$store.state.isLoading"
+  >
     <game-board
       v-if="gamesForBoard.length"
       :game="gamesForBoard[0]"

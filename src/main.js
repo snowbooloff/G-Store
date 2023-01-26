@@ -3,16 +3,23 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 
-//UI components
-import componentsUI from './components/UI'
+//UI Components
+import ComponentsUI from './components/ui'
 
-//UI Directives
+//Icons Components
+import ComponentsIcons from './components/icons'
+
+//Directives
 import Intersection from './directives/Vintersection'
 
 const app = createApp(App)
 
-componentsUI.forEach((element) => {
+ComponentsUI.forEach((element) => {
   app.component(element.name, element)
+})
+
+ComponentsIcons.forEach((element) => {
+  app.component(element.name, element.component)
 })
 
 app.directive('intersection', Intersection).use(store).use(router).mount('#app')

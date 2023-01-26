@@ -2,13 +2,9 @@
 
 <template>
   <header class="header container flex flex-space-between">
-    <div
-      class="label-block flex flex-align-center cursor-pointer no-copy"
-      @click="$router.push('/')"
-    >
-      <c-icon class="label-block__logo header__icon" :icon="'logo'" :color="'black'" />
-
-      <p class="label-block__title main-black">GStore</p>
+    <div class="logo main-black flex flex-align-center cursor-pointer" @click="$router.push('/')">
+      <icon-logo class="logo__icon icon" />
+      <p class="logo__title no-copy">GStore</p>
     </div>
 
     <nav class="header-nav-bar flex flex-align-center no-copy">
@@ -28,29 +24,23 @@
         Explore
       </p>
 
-      <c-icon
-        class="header__icon cursor-pointer"
-        :icon="$route.name == 'favorites' ? 'active-like' : 'like'"
-        :color="'black'"
+      <component
+        :is="$route.name == 'favorites' ? 'icon-like-active' : 'icon-like'"
+        class="icon main-black cursor-pointer"
         @click="$router.push('/favorites')"
       />
 
-      <c-icon
-        class="header__icon cursor-pointer"
-        :icon="$route.name == 'shopping' ? 'active-shopping' : 'shopping'"
-        :color="'black'"
+      <component
+        :is="$route.name == 'shopping' ? 'icon-cart-active' : 'icon-cart'"
+        class="icon main-black cursor-pointer"
         @click="$router.push('/shopping')"
       />
 
-      <nav class="user-block flex flex-align-center">
-        <c-icon class="user-block__avatar" :icon="'user'" :color="'white'" />
-
-        <div class="user-block__profile flex cursor-pointer">
-          <p class="user-block__text main-black">Log In</p>
-
-          <c-icon class="user-block__icon header__icon" :icon="'arrow-down'" :color="'black'" />
-        </div>
-      </nav>
+      <div class="user flex flex-align-center cursor-pointer main-black">
+        <icon-user class="user__avatar icon main-white" />
+        <p class="user__text">Log In</p>
+        <icon-arrow class="user__arrow icon" />
+      </div>
     </nav>
   </header>
 </template>
@@ -66,12 +56,11 @@
   z-index: 150;
 }
 
-.header__icon {
+.icon {
   height: 20px;
-  width: 20px;
 }
 
-.label-block__title {
+.logo__title {
   font-weight: 700;
 }
 
@@ -79,11 +68,11 @@
   gap: var(--medium-spacing);
 }
 
-.user-block {
-  gap: var(--small-spacing);
+.user__text {
+  margin-left: var(--small-spacing);
 }
 
-.user-block__avatar {
+.user__avatar {
   width: 30px;
   height: 30px;
   padding: var(--small-spacing);

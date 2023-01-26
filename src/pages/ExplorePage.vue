@@ -93,7 +93,9 @@ function loadMoreGames() {
   <div class="page container pt-64px flex flex-column">
     <section class="page-block flex flex-column">
       <div class="nav-bar flex flex-space-between flex-align-center">
-        <h1 class="nav-bar__title main-white">{{ $route.query.title || 'Explore Games' }}</h1>
+        <h1 class="nav-bar__title main-white">
+          {{ $route.query.title || 'Explore Games' }}
+        </h1>
 
         <c-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
           Select orders
