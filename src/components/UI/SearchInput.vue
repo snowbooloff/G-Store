@@ -1,28 +1,28 @@
 <script>
-import { ref } from 'vue';
+import { ref } from 'vue'
 export default {
-  name: 'search-input',
-};
+  name: 'search-input'
+}
 </script>
 
 <script setup>
-const prop = defineProps(['modelValue']);
-const emit = defineEmits(['update:modelValue']);
+const prop = defineProps(['modelValue'])
+const emit = defineEmits(['update:modelValue'])
 
-let delayTime;
+let delayTime
 
-const debouncedValue = ref('');
+const debouncedValue = ref('')
 
 const debounceListener = (e) => {
   if (!!delayTime) {
-    clearTimeout(delayTime);
+    clearTimeout(delayTime)
   }
 
   delayTime = setTimeout(() => {
-    debouncedValue.value = e.target.value;
-    emit('update:modelValue', debouncedValue.value);
-  }, 800);
-};
+    debouncedValue.value = e.target.value
+    emit('update:modelValue', debouncedValue.value)
+  }, 800)
+}
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const debounceListener = (e) => {
   font-size: 14px;
   padding: 8px 8px 8px 32px;
   line-height: 14px;
-  background: url('@/assets/icons/search.svg') no-repeat scroll 12px;
+  /* background: url('@/assets/icons/search.svg') no-repeat scroll 12px; */
   background-size: 14px;
   background-color: var(--main-white);
   outline: none;

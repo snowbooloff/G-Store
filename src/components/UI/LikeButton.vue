@@ -1,51 +1,52 @@
 <script>
 export default {
-  name: 'like-bttn',
-};
+  name: 'like-bttn'
+}
 </script>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 //Components
-import Notification from '@/components/Notification.vue';
+import Notification from '../Notification.vue'
 
 //Utils
-import { storageUtil } from '@/storage/localStorage';
+import { localStorageUtil } from '../../localStorage'
 
 const props = defineProps({
   gameId: {
-    type: Number,
+    type: Number
   },
   gameName: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
-const checkGame = storageUtil.getList(storageUtil.favorite).includes(props.gameId);
+const checkGame = localStorageUtil.getList(localStorageUtil.favorites).includes(props.gameId)
 
-const activeIcon = ref(checkGame ? 'active-like' : 'like');
-const activeClass = ref(checkGame ? 'bttn_like-active' : 'bttn_like');
+const activeIcon = ref(checkGame ? 'active-like' : 'like')
+const activeClass = ref(checkGame ? 'bttn_like-active' : 'bttn_like')
 
-const notificationText = ref('');
+const notificationText = ref('')
 
-const isShow = ref(false);
+const isShow = ref(false)
 
 function setFavGame() {
-  const { gameStatus } = storageUtil.setGame(storageUtil.favorite, props.gameId);
-  if (gameStatus) {
-    activeIcon.value = 'active-like';
-    activeClass.value = 'bttn_like-active';
-    notificationText.value = 'added to favorite games';
+  const itemStatus = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)
+  if (itemStatus) {
+    console.log(1)
+    activeIcon.value = 'active-like'
+    activeClass.value = 'bttn_like-active'
+    notificationText.value = 'added to favorite games'
   } else {
-    activeIcon.value = 'like';
-    activeClass.value = 'bttn_like';
-    notificationText.value = 'removed from favorite games';
+    activeIcon.value = 'like'
+    activeClass.value = 'bttn_like'
+    notificationText.value = 'removed from favorite games'
   }
-  isShow.value = true;
+  isShow.value = true
   setTimeout(() => {
-    isShow.value = false;
-  }, 2500);
+    isShow.value = false
+  }, 2500)
 }
 </script>
 

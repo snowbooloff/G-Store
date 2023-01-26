@@ -9,7 +9,7 @@ import GameItem from '../components/GameItem.vue'
 import fetchGameDetails from '../composables/fetchGameDetails.js'
 
 //Utils
-import { storageUtil } from '../storage/localStorage.js'
+import { localStorageUtil } from '../localStorage'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -21,7 +21,7 @@ const store = useStore()
 const favGamesList = ref([])
 
 onMounted(() => {
-  const storageList = storageUtil.getList(storageUtil.favorite)
+  const storageList = localStorageUtil.getList(localStorageUtil.favorites)
 
   if (storageList.length) {
     store.commit('setLoading', true)

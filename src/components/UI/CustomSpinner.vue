@@ -1,7 +1,7 @@
 <script>
 export default {
-  name: 'c-loading',
-};
+  name: 'c-loading'
+}
 </script>
 
 <script setup></script>
@@ -26,7 +26,7 @@ export default {
 .loading__spiner {
   height: 150px;
   width: 150px;
-  mask-image: url('@/assets/icons/logo.svg');
+  /* mask-image: url('@/assets/icons/logo.svg'); */
   mask-size: contain;
   mask-repeat: no-repeat;
   background-color: var(--main-white);

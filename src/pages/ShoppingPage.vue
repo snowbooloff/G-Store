@@ -2,14 +2,14 @@
 import { ref, onMounted, watch, computed } from 'vue'
 
 //Components
-import GamePlatforms from '@/components/GamePlatforms.vue'
+import GamePlatforms from '../components/GamePlatforms.vue'
 
 //Composables
-import fetchGameDetails from '@/composables/fetchGameDetails.js'
-import checkPromo from '@/composables/checkPromoCode.js'
+import fetchGameDetails from '../composables/fetchGameDetails.js'
+import checkPromo from '../composables/checkPromoCode.js'
 
 //Utils
-import { storageUtil } from '@/storage/localStorage'
+import { localStorageUtil } from '../localStorage'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
@@ -21,7 +21,7 @@ const store = useStore()
 const shoppingList = ref([])
 
 onMounted(() => {
-  const storageList = storageUtil.getList(storageUtil.shopping)
+  const storageList = localStorageUtil.getList(localStorageUtil.shopping)
 
   if (storageList) {
     store.commit('setLoading', true)
@@ -46,7 +46,7 @@ function removeGame(gameItem) {
   const index = shoppingList.value.indexOf(gameItem)
 
   shoppingList.value.splice(index, 1)
-  storageUtil.setGame(storageUtil.shopping, gameItem.id)
+  localStorageUtil.placeItem(storageUtil.shopping, gameItem.id)
 }
 
 const promoCode = ref('')
@@ -182,7 +182,7 @@ const grandTotal = computed(() => {
 }
 
 .cart-block__remove {
-  background-image: url('@/assets/icons/cross.svg');
+  /* background-image: url('@/assets/icons/cross.svg'); */
   background-size: contain;
   background-repeat: no-repeat;
   height: 15px;

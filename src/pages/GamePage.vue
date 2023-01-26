@@ -2,11 +2,11 @@
 import { ref, watch, onMounted } from 'vue'
 
 //Components
-import MetacriticScore from '@/components/MetacriticScore.vue'
-import GamePlatforms from '@/components/GamePlatforms.vue'
+import MetacriticScore from '../components/MetacriticScore.vue'
+import GamePlatforms from '../components/GamePlatforms.vue'
 
 //Composables
-import fetchGameDetails from '@/composables/fetchGameDetails.js'
+import fetchGameDetails from '../composables/fetchGameDetails.js'
 
 //Utils
 import { useRoute, useRouter } from 'vue-router'

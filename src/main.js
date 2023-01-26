@@ -1,22 +1,18 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import store from "./store";
-import router from "@/router/router.js";
+import { createApp } from 'vue'
+import App from './App.vue'
+import store from './store'
+import router from './router'
 
 //UI components
-import componentsUI from "@/components/UI";
+import componentsUI from './components/UI'
 
 //UI Directives
-import Intersection from "@/directives/Vintersection.js";
+import Intersection from './directives/Vintersection'
 
-const app = createApp(App);
+const app = createApp(App)
 
 componentsUI.forEach((element) => {
-  app.component(element.name, element);
-});
+  app.component(element.name, element)
+})
 
-app
-  .directive("intersection", Intersection)
-  .use(store)
-  .use(router)
-  .mount("#app");
+app.directive('intersection', Intersection).use(store).use(router).mount('#app')

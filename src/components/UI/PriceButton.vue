@@ -1,53 +1,53 @@
 <script>
 export default {
-  name: 'price-bttn',
-};
+  name: 'price-bttn'
+}
 </script>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from 'vue'
 
 //Components
-import Notification from '@/components/Notification.vue';
+import Notification from '../Notification.vue'
 
 //Utils
-import { storageUtil } from '@/storage/localStorage';
-import { useRoute, useRouter } from 'vue-router';
+import { localStorageUtil } from '../../localStorage'
+import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
 const props = defineProps({
   price: {
-    type: Number,
+    type: Number
   },
   gameId: {
-    type: Number,
+    type: Number
   },
   gameName: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
-const checkGame = storageUtil.getList(storageUtil.shopping).includes(props.gameId);
-const text = ref(checkGame ? 'Added to kart' : props.price == 0 ? 'Free' : '$' + props.price);
+const checkGame = localStorageUtil.getList(localStorageUtil.shopping).includes(props.gameId)
+const text = ref(checkGame ? 'Added to kart' : props.price == 0 ? 'Free' : '$' + props.price)
 
-const activeClass = ref(checkGame ? 'bttn_buy-active' : 'bttn_buy');
+const activeClass = ref(checkGame ? 'bttn_buy-active' : 'bttn_buy')
 
-const isShow = ref(false);
+const isShow = ref(false)
 
 function setGameToShopping() {
   if (text.value != 'Added to kart') {
-    text.value = 'Added to kart';
-    activeClass.value = 'bttn_buy-active';
-    storageUtil.setGame(storageUtil.shopping, props.gameId);
+    text.value = 'Added to kart'
+    activeClass.value = 'bttn_buy-active'
+    localStorageUtil.placeItem(localStorageUtil.shopping, props.gameId)
   } else {
-    router.push('/shopping');
+    router.push('/shopping')
   }
-  isShow.value = true;
+  isShow.value = true
   setTimeout(() => {
-    isShow.value = false;
-  }, 2500);
+    isShow.value = false
+  }, 2500)
 }
 </script>
 

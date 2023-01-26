@@ -8,7 +8,7 @@
 
 <script setup>
 //Components
-import CustomHeader from '@/components/CustomHeader.vue'
+import CustomHeader from './components/CustomHeader.vue'
 
 //Utils
 import { useStore } from 'vuex'
@@ -19,10 +19,10 @@ store.dispatch('fetchGenres')
 </script>
 
 <style>
-@import url('@/assets/styles/normalize.css');
-@import url('@/assets/styles/roots.css');
-@import url('@/assets/styles/flex-box.css');
-@import url('@/assets/styles/buttons.css');
+@import url('./assets/normalize.css');
+@import url('./assets/roots.css');
+@import url('./assets/flex-box.css');
+@import url('./assets/buttons.css');
 
 body {
   background-color: var(--main-black);

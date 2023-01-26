@@ -1,19 +1,24 @@
 <script setup>
 //Components
-import MetacriticScore from '../components/MetacriticScore.vue'
-import GamePlatforms from '../components/GamePlatforms.vue'
+import MetacriticScore from './MetacriticScore.vue'
+import GamePlatforms from './GamePlatforms.vue'
 
 const props = defineProps({
   game: {
     type: Object,
-    required: true,
-  },
+    required: true
+  }
 })
 </script>
 
 <template>
   <article class="game-item">
-    <lazy-image class="game-item__pic" :alt="game.name" :imgSrc="game.background_image" />
+    <lazy-image
+      class="game-item__pic cursor-pointer"
+      @click="$router.push(`/game/${game.id}`)"
+      :alt="game.name"
+      :imgSrc="game.background_image"
+    />
 
     <div class="game-nav-bar flex flex-column">
       <div class="game-info flex flex-align-center">
@@ -23,7 +28,7 @@ const props = defineProps({
       </div>
 
       <h3
-        ..click="$router.push(`/game/${game.id}`)"
+        @click="$router.push(`/game/${game.id}`)"
         class="game-nav-bar__title main-white cursor-pointer"
         :title="game.name"
       >

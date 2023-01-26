@@ -23,8 +23,8 @@ export default async function fetchGames(
         key: '6be3bec5eec246719e96cc8c4b02ca8f',
         exclude_additions: true,
 
-        search_precise: true,
-      },
+        search_precise: true
+      }
     })
     arr.value = response.data.results
 

@@ -2,13 +2,13 @@
 import { ref, onMounted } from 'vue'
 
 //Components
-import ItemsList from '@/components/ItemsList.vue'
-import GameItem from '@/components/GameItem.vue'
-import GenreItem from '@/components/GenreItem.vue'
-import GameBoard from '@/components/GameBoard.vue'
+import ItemsList from '../components/ItemsList.vue'
+import GameItem from '../components/GameItem.vue'
+import GenreItem from '../components/GenreItem.vue'
+import GameBoard from '../components/GameBoard.vue'
 
 //Composables
-import fetchGames from '@/composables/fetchGames.js'
+import fetchGames from '../composables/fetchGames.js'
 
 //Utils
 import { useStore } from 'vuex'
@@ -22,7 +22,7 @@ const date = {
   nextYear: newDate.getFullYear() + 1,
   month:
     `${newDate.getMonth() + 1}`.length == 1 ? `0${newDate.getMonth() + 1}` : newDate.getMonth() + 1,
-  day: `${newDate.getDate()}`.length == 1 ? `0${newDate.getDate()}` : newDate.getDate(),
+  day: `${newDate.getDate()}`.length == 1 ? `0${newDate.getDate()}` : newDate.getDate()
 }
 
 const pastDatePeriod = `${date.previousYear}-${date.month}-${date.day},${date.year}-${date.month}-${date.day}`
@@ -42,7 +42,7 @@ onMounted(() => {
     size: 8,
     platforms: [1, 2, 3],
     sort: '-released',
-    rating: [20, 100],
+    rating: [20, 100]
   })
 
   const f2 = fetchGames(comingSoonGamesList, 1, {
@@ -50,7 +50,7 @@ onMounted(() => {
     size: 8,
     platforms: [1, 2, 3],
     sort: '-added',
-    rating: ['-'],
+    rating: ['-']
   })
 
   const f3 = fetchGames(highestRatingGamesList, 1, {
@@ -58,14 +58,14 @@ onMounted(() => {
     size: 8,
     platforms: [1, 2, 3],
     sort: '-metacritic',
-    rating: [20, 96],
+    rating: [20, 96]
   })
 
   const f4 = fetchGames(gamesForBoard, randomPage, {
     date: '',
     size: 3,
     platforms: [1, 2, 3],
-    rating: [20, 96],
+    rating: [20, 96]
   })
 
   Promise.all([f1, f2, f3, f4]).then(() => {
@@ -92,8 +92,8 @@ onMounted(() => {
               path: '/explore',
               query: {
                 sort: '-released',
-                title: 'New Releases',
-              },
+                title: 'New Releases'
+              }
             })
           "
         >
@@ -125,8 +125,8 @@ onMounted(() => {
               query: {
                 date: nextDatePeriod,
                 rating: [0, 100],
-                title: 'Coming Soon',
-              },
+                title: 'Coming Soon'
+              }
             })
           "
         >
@@ -157,8 +157,8 @@ onMounted(() => {
               path: '/explore',
               query: {
                 sort: '-metacritic',
-                title: 'Highest rating',
-              },
+                title: 'Highest rating'
+              }
             })
           "
         >
@@ -185,8 +185,8 @@ onMounted(() => {
                 path: '/explore',
                 query: {
                   genres: [slotProps.item.id],
-                  title: `${slotProps.item.name} Games`,
-                },
+                  title: `${slotProps.item.name} Games`
+                }
               })
             "
           />
