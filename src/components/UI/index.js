@@ -1,5 +1,4 @@
 import CheckBox from './CustomCheckbox.vue'
-import CustomIcon from './CustomIcon.vue'
 import CustomSelect from './CustomSelect.vue'
 import CustomSpinner from './CustomSpinner.vue'
 import LazyImage from './LazyImage.vue'
@@ -10,7 +9,6 @@ import SearchInput from './SearchInput.vue'
 
 export default [
   CheckBox,
-  CustomIcon,
   CustomSelect,
   CustomSpinner,
   LazyImage,

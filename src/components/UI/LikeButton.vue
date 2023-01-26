@@ -24,7 +24,7 @@ const props = defineProps({
 
 const checkGame = localStorageUtil.getList(localStorageUtil.favorites).includes(props.gameId)
 
-const activeIcon = ref(checkGame ? 'active-like' : 'like')
+const activeIcon = ref(checkGame ? 'icon-like-active' : 'icon-like')
 const activeClass = ref(checkGame ? 'bttn_like-active' : 'bttn_like')
 
 const notificationText = ref('')
@@ -35,11 +35,11 @@ function setFavGame() {
   const itemStatus = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)
   if (itemStatus) {
     console.log(1)
-    activeIcon.value = 'active-like'
+    activeIcon.value = 'icon-like-active'
     activeClass.value = 'bttn_like-active'
     notificationText.value = 'added to favorite games'
   } else {
-    activeIcon.value = 'like'
+    activeIcon.value = 'icon-like'
     activeClass.value = 'bttn_like'
     notificationText.value = 'removed from favorite games'
   }
@@ -52,9 +52,7 @@ function setFavGame() {
 
 <template>
   <button class="bttn" :class="activeClass" @click="setFavGame">
-    <transition name="slide-fade">
-      <c-icon class="bttn__icon" :icon="activeIcon" />
-    </transition>
+    <component :is="activeIcon" class="bttn__icon" />
     <notification v-if="isShow">{{ gameName }}: {{ notificationText }}</notification>
   </button>
 </template>
@@ -62,19 +60,5 @@ function setFavGame() {
 <style scoped>
 .bttn__icon {
   height: 20px;
-}
-
-.slide-fade-enter-active {
-  transition: all 0.3s ease-out;
-}
-
-.slide-fade-leave-active {
-  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  transform: translateY(5px);
-  opacity: 0;
 }
 </style>

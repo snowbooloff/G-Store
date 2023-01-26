@@ -116,10 +116,9 @@ function loadMoreGames() {
           @click="filterIsActive = !filterIsActive"
         >
           Filter
-          <c-icon
+          <icon-arrow
             class="search-block__icon"
             :class="{ 'search-block__icon_active': filterIsActive }"
-            :icon="'arrow-down'"
           />
         </button>
       </div>
