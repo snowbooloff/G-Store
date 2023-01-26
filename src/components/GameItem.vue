@@ -76,7 +76,7 @@ const props = defineProps({
 }
 
 .game-info {
-  height: 24px;
+  height: 26px;
 }
 
 .game-info__platform {

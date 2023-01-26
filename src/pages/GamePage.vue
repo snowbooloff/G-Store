@@ -72,7 +72,11 @@ watch(route, () => {
 
         <div class="game-platforms">
           <h2 class="game-platforms main-white">Platforms</h2>
-          <game-platforms class="game-platforms__icons" :platforms="game.parent_platforms" />
+          <game-platforms
+            v-if="!!game.parent_platforms"
+            class="game-platforms__icons main-white"
+            :platforms="game.parent_platforms"
+          />
         </div>
       </div>
 

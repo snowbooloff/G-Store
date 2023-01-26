@@ -42,13 +42,13 @@ onMounted(() => {
     size: 8,
     platforms: [1, 2, 3],
     sort: '-released',
-    rating: [20, 100]
+    rating: [10, 100]
   })
 
   const f2 = fetchGames(comingSoonGamesList, 1, {
     date: nextDatePeriod,
     size: 8,
-    platforms: [1, 2, 3],
+    platforms: [''],
     sort: '-added',
     rating: ['-']
   })
@@ -56,16 +56,16 @@ onMounted(() => {
   const f3 = fetchGames(highestRatingGamesList, 1, {
     date: '',
     size: 8,
-    platforms: [1, 2, 3],
+    platforms: [''],
     sort: '-metacritic',
-    rating: [20, 96]
+    rating: [10, 96]
   })
 
   const f4 = fetchGames(gamesForBoard, randomPage, {
     date: '',
     size: 3,
-    platforms: [1, 2, 3],
-    rating: [20, 96]
+    platforms: [''],
+    rating: [10, 100]
   })
 
   Promise.all([f1, f2, f3, f4]).then(() => {
