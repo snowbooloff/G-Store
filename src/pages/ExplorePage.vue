@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive, watch, computed } from 'vue'
+import { ref, onMounted, reactive, watch, computed, provide } from 'vue'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -27,20 +27,11 @@ const query = reactive({
   date: route.query.date || '',
   rating: route.query.rating || [10, 100],
   genres: route.query.genres || [],
-  platforms: [],
+  platforms: route.query.platforms || [],
   tags: [],
   search: '',
   size: 24
 })
-
-const filterIsActive = ref(true)
-
-const sortOptions = reactive([
-  { value: '-metacritic', name: 'Rating: High to Low' },
-  { value: 'metacritic', name: 'Rating: Low to High' },
-  { value: '-released', name: 'Date: Newest to Oldest' },
-  { value: 'released', name: 'Date: Oldest to Newest' }
-])
 
 function clearFilters() {
   query.sort = ''
@@ -51,6 +42,19 @@ function clearFilters() {
   query.tags = []
   query.search = ''
 }
+
+provide('platforms', {
+  query
+})
+
+const filterIsActive = ref(true)
+
+const sortOptions = reactive([
+  { value: '-metacritic', name: 'Rating: High to Low' },
+  { value: 'metacritic', name: 'Rating: Low to High' },
+  { value: '-released', name: 'Date: Newest to Oldest' },
+  { value: 'released', name: 'Date: Oldest to Newest' }
+])
 
 function fetching() {
   store.commit('setLoading', true)
@@ -68,10 +72,10 @@ const totalPagesCount = computed(() => {
 })
 
 watch(query, () => {
-  router.push({ path: route.path })
-
   currentPage = 1
   query.date = ''
+
+  router.push(route.path)
 
   let firstCondition1 = query.rating[0] >= 10 && query.rating[0] <= 100
   let firstCondition2 = query.rating[1] >= 10 && query.rating[1] <= 100
@@ -93,9 +97,7 @@ function loadMoreGames() {
   <div class="page container pt-64px flex flex-column">
     <section class="page-block flex flex-column">
       <div class="nav-bar flex flex-space-between flex-align-center">
-        <h1 class="nav-bar__title main-white">
-          {{ $route.query.title || 'Explore Games' }}
-        </h1>
+        <h1 class="nav-bar__title main-white">{{ route.query.title || 'Explore Games' }}</h1>
 
         <c-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
           Select orders
@@ -144,25 +146,27 @@ function loadMoreGames() {
           <div class="filters__block">
             <h4 class="filters__title main-white">Platforms</h4>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="1"> PC </c-checkbox>
+            <c-checkbox class="filters__item" v-model="query.platforms" :value="'1'">
+              PC
+            </c-checkbox>
 
-            <c-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="2">
+            <c-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
               PlayStation
             </c-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="3">
+            <c-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
               XBOX
             </c-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="4">
+            <c-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
               iOS
             </c-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="7">
+            <c-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
               Nintendo
             </c-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="8">
+            <c-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
               Android
             </c-checkbox>
           </div>

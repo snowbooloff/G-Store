@@ -1,10 +1,33 @@
 <script setup>
+import { onMounted, inject } from 'vue'
+
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+const route = useRoute()
+const router = useRouter()
+
 const props = defineProps({
   platforms: {
     type: Array,
     required: true
   }
 })
+let { query } = route.name == 'explore' ? inject('platforms') : ''
+
+function goToExplore(platformId, platformName) {
+  if (route.name != 'explore') {
+    router.push({
+      path: '/explore',
+      query: {
+        platforms: [platformId],
+        title: platformName + ' Games'
+      }
+    })
+  } else {
+    query.platforms.push(String(platformId))
+  }
+}
 
 const validPlatforms = ['PC', 'PlayStation', 'Xbox', 'Android', 'iOS', 'Nintendo']
 const filteredPlatforms = props.platforms.filter((platform) =>
@@ -18,7 +41,8 @@ const filteredPlatforms = props.platforms.filter((platform) =>
       v-for="platform of filteredPlatforms"
       :key="platform['platform']['name']"
       :is="`icon-${platform['platform']['name'].toLowerCase()}`"
-      class="game-platforms__icon main-white"
+      class="game-platforms__icon cursor-pointer"
+      @click="goToExplore(platform['platform']['id'], platform['platform']['name'])"
     />
   </div>
 </template>
@@ -29,5 +53,9 @@ const filteredPlatforms = props.platforms.filter((platform) =>
 }
 .game-platforms__icon {
   height: 100%;
+  color: var(--main-white);
+}
+.game-platforms__icon:hover {
+  color: var(--main-blue);
 }
 </style>
