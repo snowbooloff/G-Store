@@ -47,7 +47,7 @@ function removeGame(gameItem) {
   const index = shoppingList.value.indexOf(gameItem)
 
   shoppingList.value.splice(index, 1)
-  localStorageUtil.placeItem(storageUtil.shopping, gameItem.id)
+  localStorageUtil.placeItem(localStorageUtil.shopping, gameItem.id)
 }
 
 const promoCode = ref('')

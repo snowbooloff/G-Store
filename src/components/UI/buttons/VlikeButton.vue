@@ -28,7 +28,6 @@ const isShow = ref(false)
 function setFavGame() {
   const itemStatus = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)
   if (itemStatus) {
-    console.log(1)
     activeIcon.value = 'icon-like-active'
     activeClass.value = 'bttn_like-active'
     notificationText.value = 'added to favorite games'
