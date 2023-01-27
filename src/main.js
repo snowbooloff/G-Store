@@ -15,7 +15,7 @@ import Intersection from './directives/Vintersection'
 const app = createApp(App)
 
 ComponentsUI.forEach((element) => {
-  app.component(element.name, element)
+  app.component(element.name, element.component)
 })
 
 ComponentsIcons.forEach((element) => {

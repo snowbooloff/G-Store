@@ -1,47 +1,41 @@
-<script>
-export default {
-  name: 'range-slider',
-};
-</script>
-
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue'
 
 const props = defineProps({
   modelValue: {
     type: Array,
-    required: true,
+    required: true
   },
   minValue: {
     type: Number,
-    required: true,
+    required: true
   },
   maxValue: {
     type: Number,
-    required: true,
+    required: true
   },
   stepValue: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const rangeInput1 = ref(null);
-const rangeInput2 = ref(null);
+const rangeInput1 = ref(null)
+const rangeInput2 = ref(null)
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue'])
 
 function updateRange() {
-  let newModelValue = [rangeInput1.value.value, rangeInput2.value.value];
+  let newModelValue = [rangeInput1.value.value, rangeInput2.value.value]
 
-  newModelValue.sort((a, b) => a - b);
+  newModelValue.sort((a, b) => a - b)
 
   if (newModelValue[0] == newModelValue[1]) {
-    newModelValue[0] = props.minValue;
-    newModelValue[1] = props.maxValue;
+    newModelValue[0] = props.minValue
+    newModelValue[1] = props.maxValue
   }
 
-  emit('update:modelValue', newModelValue);
+  emit('update:modelValue', newModelValue)
 }
 </script>
 

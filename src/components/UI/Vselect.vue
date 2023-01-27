@@ -1,20 +1,14 @@
-<script>
-export default {
-  name: 'c-select',
-};
-</script>
-
 <script setup>
 const props = defineProps({
   modelValue: {
     type: String,
-    required: true,
+    required: true
   },
   options: {
     type: Array,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>
 
 <template>
@@ -23,7 +17,7 @@ const props = defineProps({
     :value="modelValue"
     @change="$emit('update:modelValue', $event.target.value)"
   >
-    <option class="second-white" disabled value="">
+    <option class="second-white" value="">
       <slot></slot>
     </option>
     <option v-for="option in options" :key="option.value" :value="option.value">

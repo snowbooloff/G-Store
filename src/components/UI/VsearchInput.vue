@@ -1,10 +1,3 @@
-<script>
-import { ref } from 'vue'
-export default {
-  name: 'search-input'
-}
-</script>
-
 <script setup>
 const prop = defineProps(['modelValue'])
 const emit = defineEmits(['update:modelValue'])

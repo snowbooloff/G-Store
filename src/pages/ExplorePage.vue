@@ -4,6 +4,7 @@ import { ref, onMounted, reactive, watch, computed, provide } from 'vue'
 //Components
 import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
+import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGames from '../composables/fetchGames.js'
@@ -99,13 +100,13 @@ function loadMoreGames() {
       <div class="nav-bar flex flex-space-between flex-align-center">
         <h1 class="nav-bar__title main-white">{{ route.query.title || 'Explore Games' }}</h1>
 
-        <c-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
-          Select orders
-        </c-select>
+        <v-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
+          Default order
+        </v-select>
       </div>
 
       <div class="search-block flex">
-        <search-input
+        <v-search-input
           class="search-block__input"
           v-model.trim="query.search"
           :placeholder="`Search ${totalGamesCount} games`"
@@ -145,64 +146,64 @@ function loadMoreGames() {
           <div class="filters__block">
             <h4 class="filters__title main-white">Platforms</h4>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="'1'">
+            <v-checkbox class="filters__item" v-model="query.platforms" :value="'1'">
               PC
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
+            <v-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
               PlayStation
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
+            <v-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
               XBOX
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
+            <v-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
               iOS
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
+            <v-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
               Nintendo
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
+            <v-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
               Android
-            </c-checkbox>
+            </v-checkbox>
           </div>
 
           <div class="filters__block">
             <h4 class="filters__title main-white">Features</h4>
 
-            <c-checkbox class="filters__item" v-model="query.tags" :value="31">
+            <v-checkbox class="filters__item" v-model="query.tags" :value="31">
               Singleplayer
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.tags" :value="7">
+            <v-checkbox class="filters__item" v-model="query.tags" :value="7">
               Multiplayer
-            </c-checkbox>
+            </v-checkbox>
 
-            <c-checkbox class="filters__item" v-model="query.tags" :value="18">
+            <v-checkbox class="filters__item" v-model="query.tags" :value="18">
               Cooperative
-            </c-checkbox>
+            </v-checkbox>
           </div>
 
           <div class="filters__block">
             <h4 class="filters__title main-white">Genres</h4>
 
-            <c-checkbox
+            <v-checkbox
               class="filters__item"
               v-for="genre in $store.state.genresList"
               v-model="query.genres"
               :value="genre.id.toString()"
             >
               {{ genre.name }}
-            </c-checkbox>
+            </v-checkbox>
           </div>
 
           <div class="filters__block">
             <h4 class="filters__title main-white">Rating</h4>
 
-            <range-slider
+            <v-range-slider
               class="filters__item"
               v-model="query.rating"
               :minValue="10"
@@ -219,7 +220,7 @@ function loadMoreGames() {
     <div v-if="!$store.state.isLoading" class="observer" v-intersection="loadMoreGames"></div>
   </div>
 
-  <c-loading v-if="$store.state.isLoading" />
+  <page-loader v-if="$store.state.isLoading" />
 </template>
 
 <style>

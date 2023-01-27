@@ -1,33 +1,27 @@
-<script>
-export default {
-  name: 'c-checkbox',
-};
-</script>
-
 <script setup>
 const props = defineProps({
   modelValue: {
     type: Array,
-    required: true,
+    required: true
   },
   value: {
     type: [String, Number],
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue'])
 
 function updateCheckBox() {
-  let newModelValue = [...props.modelValue];
+  let newModelValue = [...props.modelValue]
 
   if (!newModelValue.includes(props.value)) {
-    newModelValue.push(props.value);
+    newModelValue.push(props.value)
   } else {
-    newModelValue.splice(newModelValue.indexOf(props.value), 1);
+    newModelValue.splice(newModelValue.indexOf(props.value), 1)
   }
 
-  emit('update:modelValue', newModelValue);
+  emit('update:modelValue', newModelValue)
 }
 </script>
 

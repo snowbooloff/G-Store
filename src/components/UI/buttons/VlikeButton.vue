@@ -1,17 +1,11 @@
-<script>
-export default {
-  name: 'like-bttn'
-}
-</script>
-
 <script setup>
 import { ref } from 'vue'
 
 //Components
-import Notification from '../Notification.vue'
+import Notification from '../../Notification.vue'
 
 //Utils
-import { localStorageUtil } from '../../localStorage'
+import { localStorageUtil } from '../../../localStorage'
 
 const props = defineProps({
   gameId: {

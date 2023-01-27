@@ -1,17 +1,11 @@
-<script>
-export default {
-  name: 'price-bttn'
-}
-</script>
-
 <script setup>
 import { ref } from 'vue'
 
 //Components
-import Notification from '../Notification.vue'
+import Notification from '../../Notification.vue'
 
 //Utils
-import { localStorageUtil } from '../../localStorage'
+import { localStorageUtil } from '../../../localStorage'
 import { useRoute, useRouter } from 'vue-router'
 
 const route = useRoute()

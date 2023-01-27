@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <article class="game-item">
-    <lazy-image
+    <v-lazy-image
       class="game-item__pic cursor-pointer"
       @click="$router.push(`/game/${game.id}`)"
       :alt="game.name"
@@ -36,14 +36,14 @@ const props = defineProps({
       </h3>
 
       <nav class="game-nav-bar__buttons buttons-block flex">
-        <price-bttn
+        <v-price-button
           class="buttons-block__price-bttn"
           :price="game.suggestions_count / 10"
           :gameName="game.name"
           :gameId="game.id"
         />
 
-        <like-bttn class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
+        <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
       </nav>
     </div>
   </article>

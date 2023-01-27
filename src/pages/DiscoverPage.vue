@@ -6,6 +6,7 @@ import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
 import GenreItem from '../components/GenreItem.vue'
 import GameBoard from '../components/GameBoard.vue'
+import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGames from '../composables/fetchGames.js'
@@ -195,7 +196,7 @@ onMounted(() => {
     </section>
   </div>
 
-  <c-loading v-else />
+  <page-loader v-else />
 </template>
 
 <style>

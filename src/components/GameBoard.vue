@@ -1,19 +1,17 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue'
 
 const props = defineProps({
   game: {
     type: Object,
-    required: true,
-  },
-});
-
-//console.log(props.game.short_screenshots[0]['image']);
+    required: true
+  }
+})
 </script>
 
 <template>
   <article class="game-board cursor-pointer">
-    <lazy-image class="game-board__img" :imgSrc="game.background_image" :alt="game.name" />
+    <v-lazy-image class="game-board__img" :imgSrc="game.background_image" :alt="game.name" />
 
     <div class="game-board__info">
       <h1 class="game-board__name main-white">{{ game.name }}</h1>

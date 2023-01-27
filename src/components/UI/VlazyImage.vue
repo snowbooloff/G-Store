@@ -1,20 +1,14 @@
-<script>
-export default {
-  name: 'lazy-image',
-};
-</script>
-
 <script setup>
 const props = defineProps({
   imgSrc: {
-    type: [String, null],
+    type: [String, null]
   },
   alt: {
-    type: String,
-  },
-});
+    type: String
+  }
+})
 
-const notFoundPicUrl = 'https://i.ibb.co/VB2G77Q/s.jpg';
+const notFoundPicUrl = 'https://i.ibb.co/VB2G77Q/s.jpg'
 </script>
 
 <template>

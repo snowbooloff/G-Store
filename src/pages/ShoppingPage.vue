@@ -3,6 +3,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 
 //Components
 import GamePlatforms from '../components/GamePlatforms.vue'
+import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGameDetails from '../composables/fetchGameDetails.js'
@@ -79,7 +80,7 @@ const grandTotal = computed(() => {
       <div class="shopping-block flex">
         <div class="shopping-block__content">
           <article class="cart-block flex" v-for="game in shoppingList" :key="game.id">
-            <lazy-image class="cart-block_img" :imgSrc="game.background_image" :alt="game.name" />
+            <v-lazy-image class="cart-block_img" :imgSrc="game.background_image" :alt="game.name" />
 
             <div class="cart_block__bar flex">
               <div class="cart-block__info flex flex-column">
@@ -133,7 +134,7 @@ const grandTotal = computed(() => {
     </section>
   </div>
 
-  <c-loading v-else />
+  <page-loader v-else />
 </template>
 
 <style>

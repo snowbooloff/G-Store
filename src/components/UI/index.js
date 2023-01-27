@@ -1,19 +1,39 @@
-import CheckBox from './CustomCheckbox.vue'
-import CustomSelect from './CustomSelect.vue'
-import CustomSpinner from './CustomSpinner.vue'
-import LazyImage from './LazyImage.vue'
-import LikeButton from './LikeButton.vue'
-import PriceButton from './PriceButton.vue'
-import RangeSlider from './RangeSlider.vue'
-import SearchInput from './SearchInput.vue'
+import Vcheckbox from './Vcheckbox.vue'
+import Vselect from './Vselect.vue'
+import VsearchInput from './VsearchInput.vue'
+import VlazyImage from './VlazyImage.vue'
+import VrangeSlider from './VrangeSlider.vue'
+
+import VlikeButton from './buttons/VlikeButton.vue'
+import VpriceButton from './buttons/VpriceButton.vue'
 
 export default [
-  CheckBox,
-  CustomSelect,
-  CustomSpinner,
-  LazyImage,
-  LikeButton,
-  PriceButton,
-  RangeSlider,
-  SearchInput
+  {
+    name: 'v-checkbox',
+    component: Vcheckbox
+  },
+  {
+    name: 'v-select',
+    component: Vselect
+  },
+  {
+    name: 'v-search-input',
+    component: VsearchInput
+  },
+  {
+    name: 'v-lazy-image',
+    component: VlazyImage
+  },
+  {
+    name: 'v-range-slider',
+    component: VrangeSlider
+  },
+  {
+    name: 'v-like-button',
+    component: VlikeButton
+  },
+  {
+    name: 'v-price-button',
+    component: VpriceButton
+  }
 ]

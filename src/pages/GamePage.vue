@@ -4,6 +4,7 @@ import { ref, watch, onMounted } from 'vue'
 //Components
 import MetacriticScore from '../components/MetacriticScore.vue'
 import GamePlatforms from '../components/GamePlatforms.vue'
+import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGameDetails from '../composables/fetchGameDetails.js'
@@ -38,7 +39,7 @@ watch(route, () => {
   <div class="page pt-48px flex flex-column" v-if="!$store.state.isLoading">
     <lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
 
-    <div class="game-block large-container flex">
+    <section class="game-block large-container flex">
       <div class="title-block flex flex-column">
         <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
@@ -124,10 +125,10 @@ watch(route, () => {
           {{ game.achievements_count || 'None' }}
         </li>
       </ul>
-    </div>
+    </section>
   </div>
 
-  <c-loading v-else />
+  <page-loader v-else />
 </template>
 
 <style>

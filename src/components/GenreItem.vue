@@ -2,14 +2,14 @@
 const props = defineProps({
   genre: {
     type: Object,
-    required: true,
-  },
+    required: true
+  }
 })
 </script>
 
 <template>
   <article class="genre-item flex flex-justify-center flex-align-center cursor-pointer">
-    <lazy-image class="genre-item__pic" :imgSrc="genre.image_background" :alt="genre.name" />
+    <v-lazy-image class="genre-item__pic" :imgSrc="genre.image_background" :alt="genre.name" />
 
     <h2 class="genre-item__title main-white cursor-pointer">
       {{ genre.name }}

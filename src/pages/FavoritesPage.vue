@@ -4,6 +4,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 //Components
 import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
+import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGameDetails from '../composables/fetchGameDetails.js'
@@ -66,7 +67,7 @@ onMounted(() => {
     </section>
   </div>
 
-  <c-loading v-if="$store.state.isLoading" />
+  <page-loader v-if="$store.state.isLoading" />
 </template>
 
 <style>
