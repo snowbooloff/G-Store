@@ -20,8 +20,8 @@ const props = defineProps({
       :imgSrc="game.background_image"
     />
 
-    <div class="game-nav-bar flex flex-column">
-      <div class="game-info flex flex-align-center">
+    <div class="game-nav-bar flex flex_column">
+      <div class="game-info flex flex_align-center">
         <game-platforms class="game-info__platform" :platforms="game.parent_platforms" />
 
         <metacritic-score class="game-info__score" :score="game.metacritic" />

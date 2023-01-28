@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <article class="genre-item flex flex-justify-center flex-align-center cursor-pointer">
+  <article class="genre-item flex flex_justify-center flex_align-center cursor-pointer">
     <v-lazy-image class="genre-item__pic" :imgSrc="genre.image_background" :alt="genre.name" />
 
     <h2 class="genre-item__title main-white cursor-pointer">

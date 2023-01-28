@@ -36,11 +36,11 @@ watch(route, () => {
 </script>
 
 <template>
-  <div class="page pt-48px flex flex-column" v-if="!$store.state.isLoading">
+  <div class="page pt-48px flex flex_column" v-if="!$store.state.isLoading">
     <v-lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
 
     <section class="game-block large-container flex">
-      <div class="title-block flex flex-column">
+      <div class="title-block flex flex_column">
         <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
         <h3 class="title-block__release second-white">
@@ -52,7 +52,7 @@ watch(route, () => {
         </metacritic-score>
       </div>
 
-      <nav class="game-block__buttons buttons-block flex flex-column">
+      <nav class="game-block__buttons buttons-block flex flex_column">
         <v-price-button
           class="buttons-block__price-bttn"
           :price="game.suggestions_count / 10"
@@ -63,7 +63,7 @@ watch(route, () => {
         <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
       </nav>
 
-      <div class="game-details flex flex-column">
+      <div class="game-details flex flex_column">
         <div class="game-description">
           <h2 class="game-description__title main-white">About</h2>
           <p class="game-description__info second-white">

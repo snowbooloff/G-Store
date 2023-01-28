@@ -36,7 +36,7 @@ const filteredPlatforms = props.platforms.filter((platform) =>
 </script>
 
 <template>
-  <div class="game-platforms flex flex-align-center">
+  <div class="game-platforms flex flex_align-center">
     <component
       v-for="platform of filteredPlatforms"
       :key="platform['platform']['name']"

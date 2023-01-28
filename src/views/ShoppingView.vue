@@ -75,8 +75,8 @@ const grandTotal = computed(() => {
 </script>
 
 <template>
-  <div class="page large-container pt-64px flex flex-column">
-    <section class="page-block flex flex-column">
+  <div class="page large-container pt-64px flex flex_column">
+    <section class="page-block flex flex_column">
       <h1 class="page-block__title main-white">
         Shopping Cart
         <span v-show="shoppingList.length" class="page-block__count main-blue"
@@ -102,22 +102,22 @@ const grandTotal = computed(() => {
         </h3>
 
         <div class="order-info">
-          <div class="order-info__block flex flex-align-center flex-space-between">
+          <div class="order-info__block flex flex_align-center flex_space-between">
             <h3 class="order-info_title main-white">Subtotal:</h3>
             <p class="order-info_price main-blue">${{ totalPrice }}</p>
           </div>
 
-          <div class="order-info__block flex flex-align-center flex-space-between">
+          <div class="order-info__block flex flex_align-center flex_space-between">
             <h3 class="order-info_title main-white">Sales Tax:</h3>
             <p class="order-info_price main-blue">${{ salesTax }}</p>
           </div>
 
-          <div class="order-info__block flex flex-align-center flex-space-between">
+          <div class="order-info__block flex flex_align-center flex_space-between">
             <h3 class="order-info_title main-white">Grand Total:</h3>
             <p class="order-info_total-price main-blue">${{ grandTotal }}</p>
           </div>
 
-          <div class="order-info__promo flex flex-column">
+          <div class="order-info__promo flex flex_column">
             <h3 class="order-info_title main-white">Redeem Promo Code:</h3>
             <input
               class="order-info__input"
@@ -138,7 +138,7 @@ const grandTotal = computed(() => {
 
 <style>
 .shopping-block {
-  align-items: flex-start;
+  align-items: flex_start;
   gap: var(--medium-spacing);
 }
 

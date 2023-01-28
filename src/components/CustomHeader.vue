@@ -1,13 +1,13 @@
 <script setup></script>
 
 <template>
-  <div class="header container flex flex-space-between">
-    <div class="logo main-black flex flex-align-center cursor-pointer" @click="$router.push('/')">
+  <div class="header container flex flex_space-between">
+    <div class="logo main-black flex flex_align-center cursor-pointer" @click="$router.push('/')">
       <icon-logo class="logo__icon icon" />
       <p class="logo__title no-copy">GStore</p>
     </div>
 
-    <nav class="nav-bar flex flex-align-center no-copy">
+    <nav class="nav-bar flex flex_align-center no-copy">
       <router-link class="nav-bar__link main-black" to="/"> Discover </router-link>
 
       <router-link class="nav-bar__link main-black" to="/explore"> Explore </router-link>
@@ -24,7 +24,7 @@
         @click="$router.push('/shopping')"
       />
 
-      <div class="user flex flex-align-center cursor-pointer main-black">
+      <div class="user flex flex_align-center cursor-pointer main-black">
         <icon-user class="user__avatar icon main-white" />
         <p class="user__text">Log In</p>
         <icon-arrow class="user__arrow icon" />

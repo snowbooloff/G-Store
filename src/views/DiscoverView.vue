@@ -76,15 +76,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex-column" v-if="!$store.state.isLoading">
+  <div class="page container pt-64px flex flex_column" v-if="!$store.state.isLoading">
     <game-board
       v-if="gamesForBoard.length"
       :game="gamesForBoard[0]"
       @click="$router.push(`/game/${gamesForBoard[0].id}`)"
     />
 
-    <section class="page-block flex flex-column">
-      <div class="nav-bar flex flex-space-between flex-align-center">
+    <section class="page-block flex flex_column">
+      <div class="nav-bar flex flex_space-between flex_align-center">
         <h1 class="nav-bar__title main-white">New Releases</h1>
         <button
           class="nav-bar__bttn bttn bttn_transparent"
@@ -115,8 +115,8 @@ onMounted(() => {
       @click="$router.push(`/game/${gamesForBoard[1].id}`)"
     />
 
-    <section class="page-block flex flex-column">
-      <div class="nav-bar flex flex-space-between flex-align-center">
+    <section class="page-block flex flex_column">
+      <div class="nav-bar flex flex_space-between flex_align-center">
         <h1 class="nav-bar__title main-white">Coming Soon</h1>
         <button
           class="nav-bar__bttn bttn bttn_transparent"
@@ -148,8 +148,8 @@ onMounted(() => {
       @click="$router.push(`/game/${gamesForBoard[2].id}`)"
     />
 
-    <section class="page-block flex flex-column">
-      <div class="nav-bar flex flex-space-between flex-align-center">
+    <section class="page-block flex flex_column">
+      <div class="nav-bar flex flex_space-between flex_align-center">
         <h1 class="nav-bar__title main-white">Highest rating</h1>
         <button
           class="nav-bar__bttn bttn bttn_transparent"
@@ -174,7 +174,7 @@ onMounted(() => {
       </items-list>
     </section>
 
-    <section class="page-block flex flex-column">
+    <section class="page-block flex flex_column">
       <h1 class="page-block__title main-white">Genres</h1>
 
       <items-list class="genre-list" :itemsList="$store.state.genresList">

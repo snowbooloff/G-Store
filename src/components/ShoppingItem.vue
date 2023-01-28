@@ -19,7 +19,7 @@ const { removeGame } = inject('shoppingRemove')
     <v-lazy-image class="shopping-item_img" :imgSrc="game.background_image" :alt="game.name" />
 
     <div class="shopping-pannel flex">
-      <div class="shopping-details flex flex-column">
+      <div class="shopping-details flex flex_column">
         <h3
           @click="$router.push(`/game/${game.id}`)"
           class="shopping-details__title main-white cursor-pointer"

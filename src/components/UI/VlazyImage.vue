@@ -20,6 +20,6 @@ const notFoundPicUrl = 'https://i.ibb.co/VB2G77Q/s.jpg'
   width: 100%;
   object-fit: cover;
   object-position: center center;
-  background-color: var(--image-black);
+  background-color: #181b1f;
 }
 </style>

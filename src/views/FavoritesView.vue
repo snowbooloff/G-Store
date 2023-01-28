@@ -45,8 +45,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex-column">
-    <section class="page-block flex flex-column">
+  <div class="page container pt-64px flex flex_column">
+    <section class="page-block flex flex_column">
       <h1 class="page-block__title main-white">Favorite Games</h1>
 
       <items-list

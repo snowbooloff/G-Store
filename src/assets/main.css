@@ -1,0 +1,95 @@
+@import url('./normalize.css');
+
+/* Color palette */
+:root {
+  --main-black: #343a40;
+  --second-black: #212529;
+  --translucent-black: #212529ef;
+
+  --main-white: #e9ecef;
+  --second-white: #adb5bd;
+
+  --main-blue: #3a86ff;
+  --second-blue: #00b4d8;
+
+  --main-green: #52b788;
+  --second-green: #2dc653;
+}
+
+/* Spacing and border-radius sizes */
+:root {
+  --small-spacing: 5px;
+  --medium-spacing: 10px;
+  --large-spacing: 20px;
+  --extra-large-spacing: 30px;
+
+  --small-radius: 6px;
+  --medium-radius: 16px;
+}
+
+body {
+  background-color: var(--main-black);
+}
+
+.main-white {
+  color: var(--main-white);
+}
+
+.second-white {
+  color: var(--second-white);
+}
+
+.main-black {
+  color: var(--main-black);
+}
+
+.main-blue {
+  color: var(--main-blue);
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.no-copy {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pt-48px {
+  padding-top: 48px !important;
+}
+
+.pt-64px {
+  padding-top: 64px !important;
+}
+
+.container {
+  padding: 0 2vw 0 2vw;
+}
+
+.large-container {
+  padding: 0 10vw 0 10vw;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex_column {
+  flex-flow: column;
+}
+
+.flex_space-between {
+  justify-content: space-between;
+}
+
+.flex_justify-center {
+  justify-content: center;
+}
+
+.flex_align-center {
+  align-items: center;
+}
