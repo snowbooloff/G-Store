@@ -62,7 +62,7 @@ onMounted(() => {
         v-if="!$store.state.isLoading && !favGamesList.length"
         class="page-block__not-found main-white"
       >
-        Games not found...
+        List is empty
       </h3>
     </section>
   </div>

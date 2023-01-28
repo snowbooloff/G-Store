@@ -25,7 +25,9 @@ function goToExplore(platformId, platformName) {
       }
     })
   } else {
-    query.platforms.push(String(platformId))
+    if (!query.platforms.includes(String(platformId))) {
+      query.platforms.push(String(platformId))
+    }
   }
 }
 

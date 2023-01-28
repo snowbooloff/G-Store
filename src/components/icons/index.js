@@ -1,6 +1,7 @@
 import IconLogo from './IconLogo.vue'
 import IconArrow from './IconArrow.vue'
 import IconUser from './IconUser.vue'
+import IconCross from './IconCross.vue'
 import IconLike from './IconLike.vue'
 import IconLikeActive from './IconLikeActive.vue'
 import IconCart from './IconCart.vue'
@@ -25,6 +26,10 @@ export default [
   {
     name: 'icon-user',
     component: IconUser
+  },
+  {
+    name: 'icon-cross',
+    component: IconCross
   },
   {
     name: 'icon-like',

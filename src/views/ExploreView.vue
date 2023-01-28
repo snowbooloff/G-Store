@@ -139,7 +139,7 @@ function loadMoreGames() {
           v-show="!exploreGamesList.length && !$store.state.isLoading"
           class="explore-block__not-found main-white"
         >
-          Games not found...
+          Games not found
         </h3>
 
         <aside class="filters" v-show="filterIsActive">

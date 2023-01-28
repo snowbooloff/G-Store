@@ -2,7 +2,8 @@
 import { ref, onMounted, watch, computed } from 'vue'
 
 //Components
-import GamePlatforms from '../components/GamePlatforms.vue'
+import ItemsList from '../components/ItemsList.vue'
+import ShoppingItem from '../components/ShoppingItem.vue'
 import PageLoader from '../components/PageLoader.vue'
 
 //Composables
@@ -24,7 +25,7 @@ const shoppingList = ref([])
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.shopping)
 
-  if (storageList) {
+  if (storageList.length) {
     store.commit('setLoading', true)
 
     storageList.forEach((gameId) => {
@@ -70,37 +71,33 @@ const grandTotal = computed(() => {
 </script>
 
 <template>
-  <div class="page large-container pt-64px flex flex-column" v-if="!$store.state.isLoading">
+  <div class="page large-container pt-64px flex flex-column">
     <section class="page-block flex flex-column">
       <h1 class="page-block__title main-white">
         Shopping Cart
-        <span class="page-block__count main-blue">({{ shoppingList.length }} items)</span>
+        <span v-show="shoppingList.length" class="page-block__count main-blue"
+          >({{ shoppingList.length }} items)</span
+        >
       </h1>
 
       <div class="shopping-block flex">
-        <div class="shopping-block__content">
-          <article class="cart-block flex" v-for="game in shoppingList" :key="game.id">
-            <v-lazy-image class="cart-block_img" :imgSrc="game.background_image" :alt="game.name" />
-
-            <div class="cart_block__bar flex">
-              <div class="cart-block__info flex flex-column">
-                <h3
-                  @click="$router.push(`/game/${game.id}`)"
-                  class="cart-block__name main-white cursor-pointer"
-                  :title="game.name"
-                >
-                  {{ game.name }}
-                </h3>
-
-                <game-platforms class="cart-block__icons" :platforms="game.parent_platforms" />
-
-                <p class="cart-block__price main-blue">${{ game.suggestions_count / 10 }}</p>
-              </div>
-
-              <div class="cart-block__remove cursor-pointer" @click="removeGame(game)"></div>
-            </div>
-          </article>
+        <div class="shopping-block__content" v-if="!$store.state.isLoading && shoppingList.length">
+          <items-list
+            v-if="!$store.state.isLoading && shoppingList.length"
+            class="game-list"
+            :itemsList="shoppingList"
+          >
+            <template #item="slotProps">
+              <shopping-item :game="slotProps.item" />
+            </template>
+          </items-list>
         </div>
+        <h3
+          v-if="!$store.state.isLoading && !shoppingList.length"
+          class="page-block__not-found main-white"
+        >
+          List is empty
+        </h3>
 
         <div class="shopping-info">
           <div class="shopping-info__block flex flex-align-center flex-space-between">
@@ -134,7 +131,7 @@ const grandTotal = computed(() => {
     </section>
   </div>
 
-  <page-loader v-else />
+  <page-loader v-if="$store.state.isLoading" />
 </template>
 
 <style>
@@ -145,49 +142,6 @@ const grandTotal = computed(() => {
 
 .shopping-block__content {
   width: 100%;
-}
-
-.cart-block {
-  margin-bottom: var(--medium-spacing);
-  background: var(--second-black);
-  border-radius: var(--medium-radius);
-}
-
-.cart-block_img {
-  min-height: 120px;
-  max-width: 200px;
-  border-radius: var(--medium-radius) 0 0 var(--medium-radius);
-}
-
-.cart_block__bar {
-  width: 100%;
-  padding: var(--medium-spacing);
-}
-
-.cart-block__info {
-  width: 100%;
-  gap: var(--small-spacing);
-  align-items: flex-start;
-}
-
-.cart-block__name:hover {
-  color: var(--main-blue);
-}
-
-.cart-block__price {
-  margin-top: auto;
-}
-
-.cart-block__icons {
-  height: 15px;
-}
-
-.cart-block__remove {
-  /* background-image: url('@/assets/icons/cross.svg'); */
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 15px;
-  min-width: 15px;
 }
 
 .shopping-info {
