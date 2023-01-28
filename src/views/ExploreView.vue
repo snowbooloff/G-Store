@@ -132,7 +132,7 @@ function loadMoreGames() {
 
       <div class="explore-block flex">
         <items-list
-          v-show="!$store.state.isLoading"
+          v-show="!$store.state.isLoading && exploreGamesList.length"
           class="explore-block_content game-list"
           :itemsList="exploreGamesList"
         >
@@ -142,10 +142,10 @@ function loadMoreGames() {
         </items-list>
 
         <h3
-          v-show="!exploreGamesList.length && !$store.state.isLoading"
-          class="explore-block__not-found main-white"
+          v-show="!$store.state.isLoading && !exploreGamesList.length"
+          class="text-for-empty second-white"
         >
-          Games not found
+          List is empty
         </h3>
 
         <aside class="filters" v-show="filterIsActive">
@@ -229,7 +229,12 @@ function loadMoreGames() {
   <page-loader v-if="$store.state.isLoading" />
 </template>
 
-<style>
+<style scoped>
+@import url('./views.css');
+
+.game-list {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
 .search-block {
   gap: var(--medium-spacing);
 }

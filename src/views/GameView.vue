@@ -81,47 +81,47 @@ watch(route, () => {
         </div>
       </div>
 
-      <ul class="game-details-list">
-        <li class="game-details-list__title main-white">
+      <ul class="details-list">
+        <li class="details-list__title main-white">
           <h3>Developers</h3>
         </li>
         <li
-          class="game-details-list__subtitle second-white"
+          class="details-list__subtitle second-white"
           v-for="developer in game.developers"
           :key="developer.name"
         >
           {{ developer.name }}
         </li>
-        <li class="game-details-list__title main-white">
+        <li class="details-list__title main-white">
           <h3>Publisher</h3>
         </li>
         <li
-          class="game-details-list__subtitle second-white"
+          class="details-list__subtitle second-white"
           v-for="publisher in game.publishers"
           :key="publisher.name"
         >
           {{ publisher.name }}
         </li>
-        <li class="game-details-list__title main-white">
+        <li class="details-list__title main-white">
           <h3>Release Date</h3>
         </li>
-        <li class="game-details-list__subtitle second-white">
+        <li class="details-list__subtitle second-white">
           {{ game.released || 'Date is coming soon' }}
         </li>
-        <li class="game-details-list__title main-white">
+        <li class="details-list__title main-white">
           <h3>Genres</h3>
         </li>
         <li
-          class="game-details-list__subtitle second-white"
+          class="details-list__subtitle second-white"
           v-for="genre in game.genres"
           :key="genre.name"
         >
           {{ genre.name }}
         </li>
-        <li class="game-details-list__title main-white">
+        <li class="details-list__title main-white">
           <h3>Achievements</h3>
         </li>
-        <li class="game-details-list__subtitle second-white">
+        <li class="details-list__subtitle second-white">
           {{ game.achievements_count || 'None' }}
         </li>
       </ul>
@@ -131,7 +131,8 @@ watch(route, () => {
   <page-loader v-else />
 </template>
 
-<style>
+<style scoped>
+@import url('./views.css');
 .page__img {
   max-height: 80vh;
   min-height: 30vh;
@@ -180,17 +181,17 @@ watch(route, () => {
   margin-top: var(--small-spacing);
 }
 
-.game-details-list {
+.details-list {
   width: 20%;
   text-align: end;
   list-style: none;
 }
 
-.game-details-list__title {
+.details-list__title {
   margin-top: 8px;
 }
 
-.game-details-list__title:nth-child(1) {
+.details-list__title:nth-child(1) {
   margin: 0;
 }
 </style>

@@ -1,0 +1,22 @@
+.page {
+  min-height: calc(100vh - 40px);
+  gap: var(--extra-large-spacing);
+  margin-bottom: var(--extra-large-spacing);
+}
+
+.page-block {
+  gap: var(--medium-spacing);
+}
+
+.pt-48px {
+  padding-top: 48px !important;
+}
+
+.pt-64px {
+  padding-top: 64px !important;
+}
+.text-for-empty {
+  width: 100%;
+  margin-top: var(--extra-large-spacing);
+  text-align: center;
+}

@@ -60,7 +60,7 @@ onMounted(() => {
       </items-list>
       <h3
         v-if="!$store.state.isLoading && !favGamesList.length"
-        class="page-block__not-found main-white"
+        class="text-for-empty second-white"
       >
         List is empty
       </h3>
@@ -70,7 +70,12 @@ onMounted(() => {
   <page-loader v-if="$store.state.isLoading" />
 </template>
 
-<style>
+<style scoped>
+@import url('./views.css');
+
+.game-list {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
 .page-block__not-found {
   text-align: center;
 }

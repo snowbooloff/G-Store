@@ -23,7 +23,7 @@ const debounceListener = (e) => {
   <input class="search-input main-black" :value="modelValue" @input="debounceListener" />
 </template>
 
-<style>
+<style scoped>
 .search-input {
   width: 100%;
   border-radius: 10px;

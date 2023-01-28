@@ -96,7 +96,7 @@ const grandTotal = computed(() => {
         </items-list>
         <h3
           v-if="!$store.state.isLoading && !shoppingList.length"
-          class="page-block__not-found second-white"
+          class="text-for-empty second-white"
         >
           List is empty
         </h3>
@@ -136,7 +136,11 @@ const grandTotal = computed(() => {
   <page-loader v-if="$store.state.isLoading" />
 </template>
 
-<style>
+<style scoped>
+@import url('./views.css');
+.game-list {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
 .shopping-block {
   align-items: flex_start;
   gap: var(--medium-spacing);

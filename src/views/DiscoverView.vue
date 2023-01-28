@@ -199,16 +199,8 @@ onMounted(() => {
   <page-loader v-else />
 </template>
 
-<style>
-.page {
-  min-height: calc(100vh - 40px);
-  gap: var(--extra-large-spacing);
-  margin-bottom: var(--extra-large-spacing);
-}
-
-.page-block {
-  gap: var(--medium-spacing);
-}
+<style scoped>
+@import url('./views.css');
 
 .game-list {
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
