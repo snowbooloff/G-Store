@@ -8,6 +8,7 @@
 </template>
 
 <style scoped>
+@import url('./views.css');
 .page__item {
   text-align: center;
   font-size: calc(30px + (60 - 30) * ((100vw - 250px) / (1920 - 250)));

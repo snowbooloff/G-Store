@@ -12,17 +12,13 @@
 
       <router-link class="nav-bar__link main-black" to="/explore"> Explore </router-link>
 
-      <component
-        :is="$route.name == 'favorites' ? 'icon-like-active' : 'icon-like'"
-        class="icon main-black cursor-pointer"
-        @click="$router.push('/favorites')"
-      />
+      <router-link to="/favorites" class="nav-bar__link icon main-black">
+        <component :is="$route.name == 'favorites' ? 'icon-like-active' : 'icon-like'" />
+      </router-link>
 
-      <component
-        :is="$route.name == 'shopping' ? 'icon-cart-active' : 'icon-cart'"
-        class="icon main-black cursor-pointer"
-        @click="$router.push('/shopping')"
-      />
+      <router-link to="/shopping" class="nav-bar__link icon main-black">
+        <component :is="$route.name == 'shopping' ? 'icon-cart-active' : 'icon-cart'" />
+      </router-link>
 
       <div class="user flex flex_align-center cursor-pointer main-black">
         <icon-user class="user__avatar icon main-white" />
@@ -46,6 +42,7 @@
 
 .icon {
   height: 20px;
+  width: 20px;
 }
 
 .logo__title {

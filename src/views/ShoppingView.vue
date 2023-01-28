@@ -75,7 +75,7 @@ const grandTotal = computed(() => {
 </script>
 
 <template>
-  <div class="page large-container pt-64px flex flex_column">
+  <div class="page container pt-64px flex flex_column">
     <section class="page-block flex flex_column">
       <h1 class="page-block__title main-white">
         Shopping Cart
@@ -139,10 +139,10 @@ const grandTotal = computed(() => {
 <style scoped>
 @import url('./views.css');
 .game-list {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(2, minmax(450px, 0.5fr));
 }
 .shopping-block {
-  align-items: flex_start;
+  align-items: flex-start;
   gap: var(--medium-spacing);
 }
 
@@ -184,6 +184,11 @@ const grandTotal = computed(() => {
   width: 100%;
 }
 
+@media screen and (max-width: 1440px) {
+  .game-list {
+    grid-template-columns: 1fr;
+  }
+}
 @media screen and (max-width: 1024px) {
   .shopping-block {
     flex-flow: column-reverse;

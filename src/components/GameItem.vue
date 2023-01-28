@@ -2,6 +2,7 @@
 //Components
 import MetacriticScore from './MetacriticScore.vue'
 import GamePlatforms from './GamePlatforms.vue'
+import GameTitle from './GameTitle.vue'
 
 const props = defineProps({
   game: {
@@ -27,12 +28,7 @@ const props = defineProps({
         <metacritic-score class="game-info__score" :score="game.metacritic" />
       </div>
 
-      <h3
-        @click="$router.push(`/game/${game.id}`)"
-        class="game-nav-bar__title main-white cursor-pointer"
-      >
-        {{ game.name }}
-      </h3>
+      <game-title class="game-nav-bar__title" :gameId="game.id" :gameName="game.name" />
 
       <nav class="game-nav-bar__buttons buttons-block flex">
         <v-price-button
@@ -68,10 +64,6 @@ const props = defineProps({
 
 .game-nav-bar__title {
   align-self: flex-start;
-}
-
-.game-nav-bar__title:hover {
-  color: var(--main-blue);
 }
 
 .game-info {

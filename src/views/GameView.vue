@@ -134,9 +134,8 @@ watch(route, () => {
 <style scoped>
 @import url('./views.css');
 .page__img {
-  max-height: 80vh;
-  min-height: 30vh;
-  width: 100%;
+  aspect-ratio: 3 / 1;
+  object-position: top center;
 }
 
 .game-block {

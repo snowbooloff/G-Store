@@ -39,6 +39,8 @@ store.dispatch('fetchGenres')
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   width: 100%;
 }
 </style>

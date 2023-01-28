@@ -2,7 +2,8 @@
 import { inject } from 'vue'
 
 //Components
-import GamePlatforms from '../components/GamePlatforms.vue'
+import GamePlatforms from './GamePlatforms.vue'
+import GameTitle from './GameTitle.vue'
 
 const props = defineProps({
   game: {
@@ -20,12 +21,7 @@ const { removeGame } = inject('shoppingRemove')
 
     <div class="shopping-pannel flex">
       <div class="shopping-details flex flex_column">
-        <h3
-          @click="$router.push(`/game/${game.id}`)"
-          class="shopping-details__title main-white cursor-pointer"
-        >
-          {{ game.name }}
-        </h3>
+        <game-title class="shopping-details__title" :gameId="game.id" :gameName="game.name" />
 
         <game-platforms class="shopping-details__platforms" :platforms="game.parent_platforms" />
 
@@ -34,6 +30,9 @@ const { removeGame } = inject('shoppingRemove')
         </h3>
       </div>
 
+      <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
+        <icon-like class="shopping-pannel__icon" />
+      </button>
       <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
         <icon-cross class="shopping-pannel__icon" />
       </button>
@@ -48,8 +47,8 @@ const { removeGame } = inject('shoppingRemove')
 }
 
 .shopping-item_img {
-  min-height: 120px;
-  max-width: 200px;
+  aspect-ratio: 5 / 3;
+  width: 200px;
   border-radius: var(--medium-radius) 0 0 var(--medium-radius);
 }
 
@@ -62,10 +61,6 @@ const { removeGame } = inject('shoppingRemove')
   width: 100%;
   gap: var(--medium-spacing);
   align-items: flex-start;
-}
-
-.shopping-details__title:hover {
-  color: var(--main-blue);
 }
 
 .shopping-details__price {
@@ -89,14 +84,14 @@ const { removeGame } = inject('shoppingRemove')
   color: var(--main-blue);
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
   .shopping-item {
     flex-flow: column;
   }
 
   .shopping-item_img {
-    height: 250px;
-    max-width: 100%;
+    aspect-ratio: 7 / 3;
+    width: 100%;
     border-radius: var(--medium-radius) var(--medium-radius) 0 0;
   }
 }
