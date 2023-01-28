@@ -48,11 +48,11 @@ provide('shoppingRemove', {
   removeGame
 })
 
-function removeGame(gameItem) {
-  const index = shoppingList.value.indexOf(gameItem)
+function removeGame(game) {
+  const index = shoppingList.value.indexOf(game)
 
   shoppingList.value.splice(index, 1)
-  localStorageUtil.placeItem(localStorageUtil.shopping, gameItem.id)
+  localStorageUtil.placeItem(localStorageUtil.shopping, game.id)
 }
 
 const promoCode = ref('')

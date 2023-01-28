@@ -1,28 +1,16 @@
 <script setup></script>
 
 <template>
-  <header class="header container flex flex-space-between">
+  <div class="header container flex flex-space-between">
     <div class="logo main-black flex flex-align-center cursor-pointer" @click="$router.push('/')">
       <icon-logo class="logo__icon icon" />
       <p class="logo__title no-copy">GStore</p>
     </div>
 
-    <nav class="header-nav-bar flex flex-align-center no-copy">
-      <p
-        class="cursor-pointer"
-        :class="$route.name == 'discover' ? 'main-blue' : 'main-black'"
-        @click="$router.push('/')"
-      >
-        Discover
-      </p>
+    <nav class="nav-bar flex flex-align-center no-copy">
+      <router-link class="nav-bar__link main-black" to="/"> Discover </router-link>
 
-      <p
-        class="cursor-pointer"
-        :class="$route.name == 'explore' ? 'main-blue' : 'main-black'"
-        @click="$router.push('/explore')"
-      >
-        Explore
-      </p>
+      <router-link class="nav-bar__link main-black" to="/explore"> Explore </router-link>
 
       <component
         :is="$route.name == 'favorites' ? 'icon-like-active' : 'icon-like'"
@@ -42,7 +30,7 @@
         <icon-arrow class="user__arrow icon" />
       </div>
     </nav>
-  </header>
+  </div>
 </template>
 
 <style scoped>
@@ -64,8 +52,15 @@
   font-weight: 700;
 }
 
-.header-nav-bar {
+.nav-bar {
   gap: var(--medium-spacing);
+}
+
+.nav-bar__link {
+  text-decoration: none;
+}
+.router-link-active {
+  color: var(--main-blue);
 }
 
 .user__text {

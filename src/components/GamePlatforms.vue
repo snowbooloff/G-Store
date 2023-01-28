@@ -13,7 +13,7 @@ const props = defineProps({
     required: true
   }
 })
-let { query } = route.name == 'explore' ? inject('platforms') : ''
+let { setPlatform } = route.name == 'explore' ? inject('setPlatforms') : ''
 
 function goToExplore(platformId, platformName) {
   if (route.name != 'explore') {
@@ -25,9 +25,7 @@ function goToExplore(platformId, platformName) {
       }
     })
   } else {
-    if (!query.platforms.includes(String(platformId))) {
-      query.platforms.push(String(platformId))
-    }
+    setPlatform(platformId)
   }
 }
 

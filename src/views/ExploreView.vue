@@ -44,9 +44,15 @@ function clearFilters() {
   query.search = ''
 }
 
-provide('platforms', {
-  query
+provide('setPlatforms', {
+  setPlatform
 })
+
+function setPlatform(platformId) {
+  if (!query.platforms.includes(String(platformId))) {
+    query.platforms.push(String(platformId))
+  }
+}
 
 const filterIsActive = ref(true)
 

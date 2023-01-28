@@ -1,6 +1,8 @@
 <template>
   <div id="modals"></div>
-  <custom-header />
+  <header>
+    <custom-header />
+  </header>
   <main>
     <router-view />
   </main>

@@ -37,7 +37,7 @@ watch(route, () => {
 
 <template>
   <div class="page pt-48px flex flex-column" v-if="!$store.state.isLoading">
-    <lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
+    <v-lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
 
     <section class="game-block large-container flex">
       <div class="title-block flex flex-column">
@@ -53,14 +53,14 @@ watch(route, () => {
       </div>
 
       <nav class="game-block__buttons buttons-block flex flex-column">
-        <price-bttn
+        <v-price-button
           class="buttons-block__price-bttn"
           :price="game.suggestions_count / 10"
           :gameName="game.name"
           :gameId="game.id"
         />
 
-        <like-bttn class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
+        <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
       </nav>
 
       <div class="game-details flex flex-column">
