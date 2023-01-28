@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, computed, provide } from 'vue'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -44,6 +44,10 @@ onMounted(() => {
   }
 })
 
+provide('shoppingRemove', {
+  removeGame
+})
+
 function removeGame(gameItem) {
   const index = shoppingList.value.indexOf(gameItem)
 
@@ -81,51 +85,49 @@ const grandTotal = computed(() => {
       </h1>
 
       <div class="shopping-block flex">
-        <div class="shopping-block__content" v-if="!$store.state.isLoading && shoppingList.length">
-          <items-list
-            v-if="!$store.state.isLoading && shoppingList.length"
-            class="game-list"
-            :itemsList="shoppingList"
-          >
-            <template #item="slotProps">
-              <shopping-item :game="slotProps.item" />
-            </template>
-          </items-list>
-        </div>
+        <items-list
+          v-if="!$store.state.isLoading && shoppingList.length"
+          class="shopping-block__content game-list"
+          :itemsList="shoppingList"
+        >
+          <template #item="slotProps">
+            <shopping-item :game="slotProps.item" />
+          </template>
+        </items-list>
         <h3
           v-if="!$store.state.isLoading && !shoppingList.length"
-          class="page-block__not-found main-white"
+          class="page-block__not-found second-white"
         >
           List is empty
         </h3>
 
-        <div class="shopping-info">
-          <div class="shopping-info__block flex flex-align-center flex-space-between">
-            <h3 class="shopping-info_title main-white">Subtotal:</h3>
-            <p class="shopping-info_price main-blue">${{ totalPrice }}</p>
+        <div class="order-info">
+          <div class="order-info__block flex flex-align-center flex-space-between">
+            <h3 class="order-info_title main-white">Subtotal:</h3>
+            <p class="order-info_price main-blue">${{ totalPrice }}</p>
           </div>
 
-          <div class="shopping-info__block flex flex-align-center flex-space-between">
-            <h3 class="shopping-info_title main-white">Sales Tax:</h3>
-            <p class="shopping-info_price main-blue">${{ salesTax }}</p>
+          <div class="order-info__block flex flex-align-center flex-space-between">
+            <h3 class="order-info_title main-white">Sales Tax:</h3>
+            <p class="order-info_price main-blue">${{ salesTax }}</p>
           </div>
 
-          <div class="shopping-info__block flex flex-align-center flex-space-between">
-            <h3 class="shopping-info_title main-white">Grand Total:</h3>
-            <p class="shopping-info_total-price main-blue">${{ grandTotal }}</p>
+          <div class="order-info__block flex flex-align-center flex-space-between">
+            <h3 class="order-info_title main-white">Grand Total:</h3>
+            <p class="order-info_total-price main-blue">${{ grandTotal }}</p>
           </div>
 
-          <div class="shopping-info__promo flex flex-column">
-            <h3 class="shopping-info_title main-white">Redeem Promo Code:</h3>
+          <div class="order-info__promo flex flex-column">
+            <h3 class="order-info_title main-white">Redeem Promo Code:</h3>
             <input
-              class="shopping-info__input"
+              class="order-info__input"
               v-model="promoCode"
               placeholder="PROMO1"
               @change="checkPromoCode"
             />
           </div>
 
-          <button class="shopping-info__bttn bttn bttn_buy">Checkout</button>
+          <button class="order-info__bttn bttn bttn_buy">Checkout</button>
         </div>
       </div>
     </section>
@@ -144,7 +146,7 @@ const grandTotal = computed(() => {
   width: 100%;
 }
 
-.shopping-info {
+.order-info {
   min-width: 380px;
   margin-left: auto;
   padding: var(--large-spacing);
@@ -152,18 +154,18 @@ const grandTotal = computed(() => {
   border-radius: var(--medium-radius);
 }
 
-.shopping-info__block {
+.order-info__block {
   margin-bottom: var(--large-spacing);
   padding-bottom: 2px;
   border-bottom: 2px solid var(--main-black);
 }
 
-.shopping-info__promo {
+.order-info__promo {
   gap: var(--small-spacing);
   margin-bottom: var(--large-spacing);
 }
 
-.shopping-info__input {
+.order-info__input {
   width: 100%;
   border-radius: var(--small-radius);
   font-size: 14px;
@@ -174,7 +176,7 @@ const grandTotal = computed(() => {
   border: none;
 }
 
-.shopping-info__bttn {
+.order-info__bttn {
   width: 100%;
 }
 
@@ -183,20 +185,8 @@ const grandTotal = computed(() => {
     flex-flow: column-reverse;
   }
 
-  .shopping-info {
+  .order-info {
     min-width: 100%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .cart-block {
-    flex-flow: column;
-  }
-
-  .cart-block_img {
-    height: 250px;
-    max-width: 100%;
-    border-radius: var(--medium-radius) var(--medium-radius) 0 0;
   }
 }
 </style>

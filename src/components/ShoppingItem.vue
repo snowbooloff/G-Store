@@ -1,81 +1,103 @@
 <script setup>
+import { inject } from 'vue'
+
 //Components
 import GamePlatforms from '../components/GamePlatforms.vue'
 
 const props = defineProps({
   game: {
-    type: Object
-    // required: true
+    type: Object,
+    required: true
   }
 })
+
+const { removeGame } = inject('shoppingRemove')
 </script>
 
 <template>
-  <article class="cart-block flex">
-    <v-lazy-image class="cart-block_img" :imgSrc="game.background_image" :alt="game.name" />
+  <article class="shopping-item flex">
+    <v-lazy-image class="shopping-item_img" :imgSrc="game.background_image" :alt="game.name" />
 
-    <div class="cart_block__bar flex">
-      <div class="cart-block__info flex flex-column">
+    <div class="shopping-pannel flex">
+      <div class="shopping-details flex flex-column">
         <h3
           @click="$router.push(`/game/${game.id}`)"
-          class="cart-block__name main-white cursor-pointer"
-          :title="game.name"
+          class="shopping-details__title main-white cursor-pointer"
         >
           {{ game.name }}
         </h3>
 
-        <game-platforms class="cart-block__icons" :platforms="game.parent_platforms" />
+        <game-platforms class="shopping-details__platforms" :platforms="game.parent_platforms" />
 
-        <p class="cart-block__price main-blue">${{ game.suggestions_count / 10 }}</p>
+        <h3 class="shopping-details__price main-blue">
+          {{ game.suggestions_count == 0 ? 'Free' : '$' + game.suggestions_count / 10 }}
+        </h3>
       </div>
 
-      <icon-cross class="cart-block__icon cursor-pointer main-white" @click="" />
-      <!-- removeGame(game) -->
+      <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
+        <icon-cross class="shopping-pannel__icon" />
+      </button>
     </div>
   </article>
 </template>
 
 <style scoped>
-.cart-block {
+.shopping-item {
   background: var(--second-black);
   border-radius: var(--medium-radius);
 }
 
-.cart-block_img {
+.shopping-item_img {
   min-height: 120px;
   max-width: 200px;
   border-radius: var(--medium-radius) 0 0 var(--medium-radius);
 }
 
-.cart_block__bar {
+.shopping-pannel {
   width: 100%;
   padding: var(--medium-spacing);
 }
 
-.cart-block__info {
+.shopping-details {
   width: 100%;
-  gap: var(--small-spacing);
+  gap: var(--medium-spacing);
   align-items: flex-start;
 }
 
-.cart-block__name:hover {
+.shopping-details__title:hover {
   color: var(--main-blue);
 }
 
-.cart-block__price {
+.shopping-details__price {
   margin-top: auto;
 }
 
-.cart-block__icons {
+.shopping-details__platforms {
   height: 15px;
 }
-
-.cart-block__icon {
+.shopping-pannel__bttn {
+  background: transparent;
+  border: 0;
   height: 15px;
   min-width: 15px;
+}
+
+.shopping-pannel__icon {
   color: var(--main-white);
 }
-.cart-block__icon:hover {
+.shopping-pannel__icon:hover {
   color: var(--main-blue);
+}
+
+@media screen and (max-width: 768px) {
+  .shopping-item {
+    flex-flow: column;
+  }
+
+  .shopping-item_img {
+    height: 250px;
+    max-width: 100%;
+    border-radius: var(--medium-radius) var(--medium-radius) 0 0;
+  }
 }
 </style>

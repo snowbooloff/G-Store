@@ -30,7 +30,6 @@ const props = defineProps({
       <h3
         @click="$router.push(`/game/${game.id}`)"
         class="game-nav-bar__title main-white cursor-pointer"
-        :title="game.name"
       >
         {{ game.name }}
       </h3>
