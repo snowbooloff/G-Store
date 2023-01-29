@@ -71,7 +71,12 @@ watch(promoCode, () => {
 })
 
 const totalPrice = computed(() => {
-  const price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
+  let price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
+  if (promoCode.discountType == '%' && promoCode.isActive) {
+    price = price - (price / 100) * promoCode.discount
+  } else if (promoCode.discountType == '$' && promoCode.isActive) {
+    price = price - promoCode.discount
+  }
   return price.toFixed(2)
 })
 const salesTax = computed(() => {
@@ -102,35 +107,43 @@ const grandTotal = computed(() => {
             <shopping-item :game="slotProps.item" />
           </template>
         </items-list>
-        <h3
-          v-if="!$store.state.isLoading && !shoppingList.length"
-          class="text-for-empty second-white"
-        >
-          List is empty
-        </h3>
+        <div v-if="!$store.state.isLoading && !shoppingList.length" class="text-for-empty">
+          <h3 class="second-white">List is empty</h3>
+          <h3>
+            <router-link class="main-blue" to="/explore">Go to Store</router-link>
+          </h3>
+        </div>
 
-        <div class="order-info">
-          <div class="order-info__block flex flex_align-center flex_space-between">
-            <h3 class="order-info_title main-white">Subtotal:</h3>
-            <p class="order-info_price main-blue">${{ totalPrice }}</p>
+        <div class="order-info" v-if="shoppingList.length">
+          <div class="order-info__block flex flex_align-center">
+            <h3 class="order-info__title main-white">Subtotal:</h3>
+            <p class="order-info__price main-blue">${{ totalPrice }}</p>
+            <p v-show="promoCode.isActive" class="order-info__discount main-white">
+              {{ '-' + promoCode.discountType + promoCode.discount }}
+            </p>
           </div>
 
-          <div class="order-info__block flex flex_align-center flex_space-between">
-            <h3 class="order-info_title main-white">Sales Tax:</h3>
-            <p class="order-info_price main-blue">${{ salesTax }}</p>
+          <div class="order-info__block flex flex_align-center">
+            <h3 class="order-info__title main-white">Sales Tax:</h3>
+            <p class="order-info__price main-blue">${{ salesTax }}</p>
           </div>
 
-          <div class="order-info__block flex flex_align-center flex_space-between">
-            <h3 class="order-info_title main-white">Grand Total:</h3>
-            <p class="order-info_total-price main-blue">${{ grandTotal }}</p>
+          <div class="order-info__block flex flex_align-center">
+            <h3 class="order-info__title main-white">Grand Total:</h3>
+            <p class="order-info__price main-blue">${{ grandTotal }}</p>
           </div>
 
           <div class="promo flex flex_column">
             <h3 class="promo__title main-white">Redeem Promo Code:</h3>
             <div class="promo__block">
-              <input class="promo__input" v-model="promoCode.value" placeholder="PROMO1" />
               <input
-                class="promo__submit"
+                class="promo__input promo__input_text"
+                v-model="promoCode.value"
+                placeholder="PROMO1"
+                maxlength="15"
+              />
+              <input
+                class="promo__input promo__input_submit cursos-pointer"
                 type="submit"
                 value="SUBMIT"
                 @click.stop="checkPromo(promoCode)"
@@ -139,12 +152,12 @@ const grandTotal = computed(() => {
             </div>
             <span
               class="promo__status promo__status_red"
-              v-show="promoCode.isChecked && !promoCode.isActive && promoCode.value.length"
+              v-show="promoCode.isChecked && !promoCode.isActive"
               >Invalid promo</span
             >
             <span
               class="promo__status promo__status_green"
-              v-show="promoCode.isChecked && promoCode.isActive && promoCode.value.length"
+              v-show="promoCode.isChecked && promoCode.isActive"
               >Promo activated</span
             >
           </div>
@@ -185,6 +198,12 @@ const grandTotal = computed(() => {
   padding-bottom: 2px;
   border-bottom: 2px solid var(--main-black);
 }
+.order-info__price {
+  margin-left: auto;
+}
+.order-info__discount {
+  margin-left: var(--medium-spacing);
+}
 
 .promo {
   gap: var(--small-spacing);
@@ -194,28 +213,26 @@ const grandTotal = computed(() => {
   position: relative;
   width: 100%;
 }
-
 .promo__input {
-  width: 100%;
-  border-radius: var(--small-radius);
-  padding: 8px;
   line-height: 1;
-  background-color: var(--main-white);
-  color: var(--second-black);
   outline: none;
   border: none;
+  padding: 8px;
 }
-.promo__submit {
+
+.promo__input_text {
+  width: 100%;
+  border-radius: var(--small-radius);
+  background-color: var(--main-white);
+  color: var(--second-black);
+}
+.promo__input_submit {
   position: absolute;
   right: 0;
   height: 100%;
   border-radius: 0 var(--small-radius) var(--small-radius) 0;
-  padding: 8px;
-  line-height: 1;
   background-color: var(--second-white);
   color: var(--second-black);
-  outline: none;
-  border: none;
 }
 .promo__status_green {
   color: #008000;

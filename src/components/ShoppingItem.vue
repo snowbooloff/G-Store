@@ -31,9 +31,6 @@ const { removeGame } = inject('shoppingRemove')
       </div>
 
       <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
-        <icon-like class="shopping-pannel__icon" />
-      </button>
-      <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
         <icon-cross class="shopping-pannel__icon" />
       </button>
     </div>
