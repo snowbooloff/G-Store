@@ -119,7 +119,7 @@ function loadMoreGames() {
         />
 
         <button
-          class="bttn bttn_transparent search-block__bttn flex"
+          class="bttn bttn_transparent search-block__bttn flex flex_align-center"
           @click="filterIsActive = !filterIsActive"
         >
           Filter
