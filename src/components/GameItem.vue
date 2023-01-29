@@ -16,9 +16,9 @@ const props = defineProps({
   <article class="game-item">
     <v-lazy-image
       class="game-item__pic cursor-pointer"
-      @click="$router.push(`/game/${game.id}`)"
       :alt="game.name"
       :imgSrc="game.background_image"
+      :gameId="game.id"
     />
 
     <div class="game-nav-bar flex flex_column">

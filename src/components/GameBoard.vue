@@ -11,7 +11,12 @@ const props = defineProps({
 
 <template>
   <article class="game-board cursor-pointer">
-    <v-lazy-image class="game-board__img" :imgSrc="game.background_image" :alt="game.name" />
+    <v-lazy-image
+      class="game-board__img"
+      :imgSrc="game.background_image"
+      :alt="game.name"
+      :gameId="game.id"
+    />
 
     <div class="game-board__info">
       <h1 class="game-board__name main-white">{{ game.name }}</h1>

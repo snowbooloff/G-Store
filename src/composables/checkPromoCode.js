@@ -1,11 +1,24 @@
-import axios from 'axios'
-export default async function checkPromo(arr, id, router) {
-  try {
-    const response = await axios.get(
-      `https://gstore-games-6be8c-default-rtdb.europe-west1.firebasedatabase.app/promo`
-    )
-    console.log(response)
-  } catch (error) {
-    console.warn(error.message)
-  }
+import { getDatabase, ref, child, get } from 'firebase/database'
+export default function checkPromo(currentValue) {
+  const dbRef = ref(getDatabase())
+  get(child(dbRef, `Promo`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const fetchedData = snapshot.val()
+        const validatedPromo = fetchedData.find((promo) => promo.value === currentValue.value)
+        currentValue.isChecked = true
+        if (!!validatedPromo) {
+          currentValue.isActive = true
+          currentValue.discount = validatedPromo.discount
+          currentValue.discountType = validatedPromo.discountType
+        } else {
+          currentValue.isActive = false
+        }
+      } else {
+        console.log('No data available')
+      }
+    })
+    .catch((error) => {
+      console.error(error)
+    })
 }

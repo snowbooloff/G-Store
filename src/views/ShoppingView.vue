@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, provide } from 'vue'
+import { ref, reactive, watch, onMounted, computed, provide } from 'vue'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -55,12 +55,20 @@ function removeGame(game) {
   localStorageUtil.placeItem(localStorageUtil.shopping, game.id)
 }
 
-const promoCode = ref('')
+const promoCode = reactive({
+  isActive: false,
+  isChecked: false,
+  value: '',
+  discount: 0,
+  discountType: ''
+})
 
-function checkPromoCode() {
-  console.log(promoCode.value)
-  checkPromo()
-}
+watch(promoCode, () => {
+  if (!promoCode.value.length) {
+    promoCode.isChecked = false
+    promoCode.isActive = false
+  }
+})
 
 const totalPrice = computed(() => {
   const price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
@@ -117,14 +125,28 @@ const grandTotal = computed(() => {
             <p class="order-info_total-price main-blue">${{ grandTotal }}</p>
           </div>
 
-          <div class="order-info__promo flex flex_column">
-            <h3 class="order-info_title main-white">Redeem Promo Code:</h3>
-            <input
-              class="order-info__input"
-              v-model="promoCode"
-              placeholder="PROMO1"
-              @change="checkPromoCode"
-            />
+          <div class="promo flex flex_column">
+            <h3 class="promo__title main-white">Redeem Promo Code:</h3>
+            <div class="promo__block">
+              <input class="promo__input" v-model="promoCode.value" placeholder="PROMO1" />
+              <input
+                class="promo__submit"
+                type="submit"
+                value="SUBMIT"
+                @click.stop="checkPromo(promoCode)"
+                v-show="promoCode.value.length"
+              />
+            </div>
+            <span
+              class="promo__status promo__status_red"
+              v-show="promoCode.isChecked && !promoCode.isActive && promoCode.value.length"
+              >Invalid promo</span
+            >
+            <span
+              class="promo__status promo__status_green"
+              v-show="promoCode.isChecked && promoCode.isActive && promoCode.value.length"
+              >Promo activated</span
+            >
           </div>
 
           <button class="order-info__bttn bttn bttn_buy">Checkout</button>
@@ -164,20 +186,42 @@ const grandTotal = computed(() => {
   border-bottom: 2px solid var(--main-black);
 }
 
-.order-info__promo {
+.promo {
   gap: var(--small-spacing);
   margin-bottom: var(--large-spacing);
 }
+.promo__block {
+  position: relative;
+  width: 100%;
+}
 
-.order-info__input {
+.promo__input {
   width: 100%;
   border-radius: var(--small-radius);
-  font-size: 14px;
   padding: 8px;
-  line-height: 14px;
+  line-height: 1;
   background-color: var(--main-white);
+  color: var(--second-black);
   outline: none;
   border: none;
+}
+.promo__submit {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  border-radius: 0 var(--small-radius) var(--small-radius) 0;
+  padding: 8px;
+  line-height: 1;
+  background-color: var(--second-white);
+  color: var(--second-black);
+  outline: none;
+  border: none;
+}
+.promo__status_green {
+  color: #008000;
+}
+.promo__status_red {
+  color: #d00000;
 }
 
 .order-info__bttn {
