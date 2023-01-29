@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: 'c-loading'
-}
-</script>
-
 <script setup></script>
 
 <template>

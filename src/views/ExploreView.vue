@@ -133,7 +133,7 @@ function loadMoreGames() {
       <div class="explore-block flex">
         <items-list
           v-show="!$store.state.isLoading && exploreGamesList.length"
-          class="explore-block_content game-list"
+          class="explore-block__content game-list"
           :itemsList="exploreGamesList"
         >
           <template #item="slotProps">
@@ -143,7 +143,7 @@ function loadMoreGames() {
 
         <h3
           v-show="!$store.state.isLoading && !exploreGamesList.length"
-          class="text-for-empty second-white"
+          class="explore-block__not-found second-white"
         >
           List is empty
         </h3>
@@ -252,12 +252,13 @@ function loadMoreGames() {
   gap: var(--medium-spacing);
 }
 
-.explore-block_content {
+.explore-block__content {
   width: 100%;
 }
 
 .explore-block__not-found {
   width: 100%;
+  text-align: center;
 }
 
 .filters {

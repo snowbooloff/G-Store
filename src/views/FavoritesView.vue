@@ -5,6 +5,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
 import PageLoader from '../components/PageLoader.vue'
+import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
 import fetchGameDetails from '../composables/fetchGameDetails.js'
@@ -58,12 +59,9 @@ onMounted(() => {
           <game-item :game="slotProps.item" />
         </template>
       </items-list>
-      <h3
-        v-if="!$store.state.isLoading && !favGamesList.length"
-        class="text-for-empty second-white"
-      >
-        List is empty
-      </h3>
+      <nav-bar-for-empty v-if="!$store.state.isLoading && !favGamesList.length">
+        Favorites list is empty
+      </nav-bar-for-empty>
     </section>
   </div>
 

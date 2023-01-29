@@ -1,9 +1,3 @@
-<script>
-export default {
-  name: 'notification',
-}
-</script>
-
 <script setup></script>
 
 <template>

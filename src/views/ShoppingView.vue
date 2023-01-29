@@ -5,6 +5,7 @@ import { ref, reactive, watch, onMounted, computed, provide } from 'vue'
 import ItemsList from '../components/ItemsList.vue'
 import ShoppingItem from '../components/ShoppingItem.vue'
 import PageLoader from '../components/PageLoader.vue'
+import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
 import fetchGameDetails from '../composables/fetchGameDetails.js'
@@ -107,12 +108,9 @@ const grandTotal = computed(() => {
             <shopping-item :game="slotProps.item" />
           </template>
         </items-list>
-        <div v-if="!$store.state.isLoading && !shoppingList.length" class="text-for-empty">
-          <h3 class="second-white">List is empty</h3>
-          <h3>
-            <router-link class="main-blue" to="/explore">Go to Store</router-link>
-          </h3>
-        </div>
+        <nav-bar-for-empty v-if="!$store.state.isLoading && !shoppingList.length">
+          Shopping list is empty
+        </nav-bar-for-empty>
 
         <div class="order-info" v-if="shoppingList.length">
           <div class="order-info__block flex flex_align-center">
@@ -233,6 +231,7 @@ const grandTotal = computed(() => {
   border-radius: 0 var(--small-radius) var(--small-radius) 0;
   background-color: var(--second-white);
   color: var(--second-black);
+  cursor: pointer;
 }
 .promo__status_green {
   color: #008000;
