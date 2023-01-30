@@ -2,19 +2,19 @@
 import { ref, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
-  modelValue: {
+  isVisible: {
     type: Boolean,
     default: false
   }
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:isVisible'])
 
 const modalWindow = ref(null)
 
 function OutSideClickHandler(event) {
   if (event.target != modalWindow.value) {
-    emit('update:modelValue', false)
+    emit('update:isVisible', false)
   }
 }
 document.addEventListener('click', OutSideClickHandler)

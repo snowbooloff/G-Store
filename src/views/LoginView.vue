@@ -1,10 +1,4 @@
-<script setup>
-import { ref } from 'vue'
-
-const userEmail = ref('')
-const userPassword = ref('')
-const showPassowrd = ref(false)
-</script>
+<script setup></script>
 
 <template>
   <div class="page container pt-64px flex flex_column">
@@ -13,7 +7,7 @@ const showPassowrd = ref(false)
       <h2 class="page-block__title main-white">JOIN THE WORLD OF GAMES</h2>
     </section>
     <section class="page-block flex flex_column flex_align-center">
-      <h3 class="page-block__title second-white">CREATE YOUR ACCOUNT</h3>
+      <h3 class="page-block__title second-white">SIGN IN TO YOUR GSTORE ACCOUNT</h3>
 
       <div class="register">
         <p class="register__text second-white">Nickname:</p>
@@ -50,8 +44,7 @@ const showPassowrd = ref(false)
       </div>
       <button class="page-block__bttn bttn bttn_buy">SIGN UP</button>
       <span class="second-white">
-        Already have a GStore account?
-        <router-link to="login" class="main-white">Sign In</router-link>
+        New to GSTORE? <router-link to="/login" class="main-white">Sign In</router-link>
       </span>
     </section>
   </div>

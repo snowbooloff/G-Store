@@ -32,7 +32,7 @@ const debounceListener = (e) => {
       @input="debounceListener"
       v-bind="$attrs"
     />
-    <icon-search class="search-icon main-black"></icon-search>
+    <icon-search class="search__icon main-black"></icon-search>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ const debounceListener = (e) => {
 .search__input:focus {
   box-shadow: 0px 0px 6px var(--main-white);
 }
-.search-icon {
+.search__icon {
   position: absolute;
   padding: 8px;
   height: 100%;

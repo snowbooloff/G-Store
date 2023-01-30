@@ -3,6 +3,7 @@ import IconArrow from './IconArrow.vue'
 import IconUser from './IconUser.vue'
 import IconCross from './IconCross.vue'
 import IconSearch from './IconSearch.vue'
+import IconEye from './IconEye.vue'
 import IconLike from './IconLike.vue'
 import IconLikeActive from './IconLikeActive.vue'
 import IconCart from './IconCart.vue'
@@ -35,6 +36,10 @@ export default [
   {
     name: 'icon-search',
     component: IconSearch
+  },
+  {
+    name: 'icon-eye',
+    component: IconEye
   },
   {
     name: 'icon-like',
