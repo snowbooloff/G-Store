@@ -12,11 +12,11 @@ const props = defineProps({
 </script>
 
 <template>
-  <RouterLink :to="`/game/${gameId}`" class="game-title" :title="gameName">
+  <router-link :to="`/game/${gameId}`" class="game-title" :title="gameName">
     <h3 class="game-title__header">
       {{ gameName }}
     </h3>
-  </RouterLink>
+  </router-link>
 </template>
 
 <style scoped>
@@ -28,7 +28,5 @@ const props = defineProps({
 }
 .game-title:hover {
   color: var(--main-blue);
-}
-.game-title__header {
 }
 </style>

@@ -1,15 +1,14 @@
 <script setup>
 import { ref } from 'vue'
+//Components
+import StoreLogo from './StoreLogo.vue'
 
 const menuIsActive = ref(false)
 </script>
 
 <template>
   <div class="header container flex flex_space-between">
-    <div class="logo main-black flex flex_align-center cursor-pointer" @click="$router.push('/')">
-      <icon-logo class="logo__icon icon" />
-      <p class="logo__title no-copy">GStore</p>
-    </div>
+    <store-logo />
 
     <nav class="nav-bar flex flex_align-center no-copy">
       <router-link class="nav-bar__link main-black" to="/"> Discover </router-link>
@@ -32,7 +31,8 @@ const menuIsActive = ref(false)
         <p class="user__text">Sign In</p>
         <icon-arrow class="user__arrow icon" />
         <v-modal-window class="user__menu" v-model="menuIsActive" v-if="menuIsActive">
-          sas
+          <router-link class="user__bttn main-black" to="/signup">Sign Up</router-link>
+          <router-link class="user__bttn main-black" to="/signup">Sign In</router-link>
         </v-modal-window>
       </div>
     </nav>
@@ -53,10 +53,6 @@ const menuIsActive = ref(false)
 .icon {
   height: 20px;
   width: 20px;
-}
-
-.logo__title {
-  font-weight: 700;
 }
 
 .nav-bar {
@@ -83,10 +79,18 @@ const menuIsActive = ref(false)
 }
 .user__menu {
   position: absolute;
-  z-index: 150;
   top: 100%;
-  background-color: var(--second-white);
-  width: 100%;
-  height: 100px;
+  border-top: 2px solid var(--second-white);
+  background-color: var(--main-white);
+  padding: var(--medium-spacing) var(--large-spacing);
+  text-align: center;
+}
+.user__bttn {
+  display: block;
+  margin-bottom: var(--medium-spacing);
+  text-decoration: none;
+}
+.user__bttn:last-child {
+  margin-bottom: 0;
 }
 </style>
