@@ -1,5 +1,6 @@
 import Vcheckbox from './Vcheckbox.vue'
 import Vselect from './Vselect.vue'
+import Vinput from './Vinput.vue'
 import VsearchInput from './VsearchInput.vue'
 import VlazyImage from './VlazyImage.vue'
 import VrangeSlider from './VrangeSlider.vue'
@@ -16,6 +17,10 @@ export default [
   {
     name: 'v-select',
     component: Vselect
+  },
+  {
+    name: 'v-input',
+    component: Vinput
   },
   {
     name: 'v-search-input',

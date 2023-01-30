@@ -8,8 +8,6 @@ const prop = defineProps({
 })
 const emit = defineEmits(['update:modelValue'])
 
-const icon = '../icons/IconSearch.vue'
-
 let delayTime
 
 const debouncedValue = ref('')
@@ -47,9 +45,13 @@ const debounceListener = (e) => {
   width: 100%;
   border-radius: 10px;
   padding: 8px 8px 8px 32px;
-  line-height: 14px;
   outline: none;
   border: none;
+  font-size: 0.875em;
+  line-height: 1;
+}
+.search__input:focus {
+  box-shadow: 0px 0px 6px var(--main-white);
 }
 .search-icon {
   position: absolute;

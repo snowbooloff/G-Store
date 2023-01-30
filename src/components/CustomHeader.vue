@@ -1,14 +1,15 @@
 <script setup>
 import { ref } from 'vue'
-//Components
-import StoreLogo from './StoreLogo.vue'
 
 const menuIsActive = ref(false)
 </script>
 
 <template>
   <div class="header container flex flex_space-between">
-    <store-logo />
+    <div class="logo flex flex_align-center main-black cursor-pointer" @click="$router.push('/')">
+      <icon-logo class="logo__icon icon" />
+      <p class="logo__title no-copy">GStore</p>
+    </div>
 
     <nav class="nav-bar flex flex_align-center no-copy">
       <router-link class="nav-bar__link main-black" to="/"> Discover </router-link>
@@ -48,6 +49,11 @@ const menuIsActive = ref(false)
   top: 0;
   left: 0;
   z-index: 150;
+}
+
+.logo__title {
+  font-weight: 700;
+  line-height: 1;
 }
 
 .icon {
