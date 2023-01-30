@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from 'vue'
-const prop = defineProps(['modelValue'])
+const prop = defineProps({
+  modelValue: {
+    type: [String, Number],
+    required: true
+  }
+})
 const emit = defineEmits(['update:modelValue'])
 
 const icon = '../icons/IconSearch.vue'

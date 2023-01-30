@@ -1,4 +1,8 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const menuIsActive = ref(false)
+</script>
 
 <template>
   <div class="header container flex flex_space-between">
@@ -20,10 +24,16 @@
         <component :is="$route.name == 'shopping' ? 'icon-cart-active' : 'icon-cart'" />
       </router-link>
 
-      <div class="user flex flex_align-center cursor-pointer main-black">
+      <div
+        class="user flex flex_align-center cursor-pointer main-black"
+        @click.stop="menuIsActive = !menuIsActive"
+      >
         <icon-user class="user__avatar icon main-white" />
-        <p class="user__text">Log In</p>
+        <p class="user__text">Sign In</p>
         <icon-arrow class="user__arrow icon" />
+        <v-modal-window class="user__menu" v-model="menuIsActive" v-if="menuIsActive">
+          sas
+        </v-modal-window>
       </div>
     </nav>
   </div>
@@ -59,7 +69,6 @@
 .router-link-active {
   color: var(--main-blue);
 }
-
 .user__text {
   margin-left: var(--small-spacing);
 }
@@ -71,5 +80,13 @@
   border-radius: 50%;
   background-color: var(--second-white);
   border: 2px solid var(--main-blue);
+}
+.user__menu {
+  position: absolute;
+  z-index: 150;
+  top: 100%;
+  background-color: var(--second-white);
+  width: 100%;
+  height: 100px;
 }
 </style>
