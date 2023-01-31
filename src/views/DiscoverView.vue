@@ -35,6 +35,8 @@ const comingSoonGamesList = ref([])
 const highestRatingGamesList = ref([])
 const gamesForBoard = ref([])
 onMounted(() => {
+  window.scrollTo(0, 0)
+
   store.commit('setLoading', true)
 
   const f1 = fetchGames(newReleasesGamesList, 1, {
@@ -44,7 +46,6 @@ onMounted(() => {
     sort: '-released',
     rating: [10, 100]
   })
-
   const f2 = fetchGames(comingSoonGamesList, 1, {
     date: nextDatePeriod,
     size: 8,
@@ -52,7 +53,6 @@ onMounted(() => {
     sort: '-added',
     rating: ['-']
   })
-
   const f3 = fetchGames(highestRatingGamesList, 1, {
     date: '',
     size: 8,
@@ -60,14 +60,12 @@ onMounted(() => {
     sort: '-metacritic',
     rating: [10, 96]
   })
-
   const f4 = fetchGames(gamesForBoard, randomPage, {
     date: '',
     size: 3,
     platforms: [''],
     rating: [10, 100]
   })
-
   Promise.all([f1, f2, f3, f4]).then(() => {
     store.commit('setLoading', false)
   })

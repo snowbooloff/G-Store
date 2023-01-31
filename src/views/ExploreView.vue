@@ -70,6 +70,7 @@ function fetching() {
 }
 
 onMounted(() => {
+  window.scrollTo(0, 0)
   fetching()
 })
 

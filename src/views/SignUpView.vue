@@ -8,82 +8,67 @@ const showPassowrd = ref(false)
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex_column">
-    <section class="page-block flex flex_column flex_align-center">
-      <h1 class="page-block__title page-block__title_store main-blue">GSTORE</h1>
-      <h2 class="page-block__title main-white">JOIN THE WORLD OF GAMES</h2>
-    </section>
-    <section class="page-block flex flex_column flex_align-center">
-      <h3 class="page-block__title second-white">CREATE YOUR ACCOUNT</h3>
+  <section class="page-block flex flex_column flex_align-center">
+    <p class="page-block__title second-white"><ins>CREATE YOUR ACCOUNT</ins></p>
 
-      <div class="register">
-        <p class="register__text second-white">Nickname:</p>
-        <v-input class="register__input" v-model="userEmail" type="text" />
-      </div>
+    <div class="register">
+      <p class="register__text second-white">Nickname:</p>
+      <v-input class="register__input" v-model="userEmail" type="text" />
+    </div>
 
-      <div class="register">
-        <p class="register__text second-white">Email Address:</p>
-        <v-input class="register__input" v-model="userEmail" type="email" />
-      </div>
+    <div class="register">
+      <p class="register__text second-white">Email Address:</p>
+      <v-input class="register__input" v-model="userEmail" type="email" />
+    </div>
 
-      <div class="register">
-        <p class="register__text second-white">Password:</p>
-        <div class="password">
-          <v-input
-            class="password__input"
-            v-model="userPassword"
-            :type="showPassowrd ? 'text' : 'password'"
-          />
-          <icon-eye
-            class="password__icon"
-            :class="showPassowrd ? 'main-blue' : 'main-black'"
-            @click="showPassowrd = !showPassowrd"
-          />
-        </div>
+    <div class="register">
+      <p class="register__text second-white">Password:</p>
+      <div class="password">
+        <v-input
+          class="password__input"
+          v-model="userPassword"
+          :type="showPassowrd ? 'text' : 'password'"
+        />
+        <icon-eye
+          class="password__icon"
+          :class="showPassowrd ? 'main-blue' : 'main-black'"
+          @click="showPassowrd = !showPassowrd"
+        />
       </div>
+    </div>
 
-      <div class="register">
-        <p class="register__text second-white">Repeat password:</p>
-        <div class="password">
-          <v-input
-            class="password__input"
-            v-model="userPassword"
-            :type="showPassowrd ? 'text' : 'password'"
-          />
-          <icon-eye
-            class="password__icon"
-            :class="showPassowrd ? 'main-blue' : 'main-black'"
-            @click="showPassowrd = !showPassowrd"
-          />
-        </div>
+    <div class="register">
+      <p class="register__text second-white">Repeat password:</p>
+      <div class="password">
+        <v-input
+          class="password__input"
+          v-model="userPassword"
+          :type="showPassowrd ? 'text' : 'password'"
+        />
+        <icon-eye
+          class="password__icon"
+          :class="showPassowrd ? 'main-blue' : 'main-black'"
+          @click="showPassowrd = !showPassowrd"
+        />
       </div>
-      <button
-        class="page-block__bttn bttn bttn_buy"
-        :class="{ shake: noActivated }"
-        @click="noActivated = !noActivated"
-      >
-        SIGN UP
-      </button>
-      <span class="second-white">
-        Already have a GStore account?
-        <router-link to="login" class="main-white">Sign In</router-link>
-      </span>
-    </section>
-  </div>
+    </div>
+    <button
+      class="page-block__bttn bttn bttn_buy"
+      :class="{ shake: noActivated }"
+      @click="noActivated = !noActivated"
+    >
+      SIGN UP
+    </button>
+    <span class="second-white">
+      Already have a GStore account?
+      <router-link to="login" class="main-white">Sign In</router-link>
+    </span>
+  </section>
 </template>
 
 <style scoped>
 @import url('./views.css');
-.page-block__title_store {
-  font-size: 2.5em;
-  background: rgb(2, 0, 36);
-  background: -moz-linear-gradient(90deg, var(--main-blue) 0%, var(--second-blue) 100%);
-  background: -webkit-linear-gradient(90deg, var(--main-blue) 0%, var(--second-blue) 100%);
-  background: linear-gradient(90deg, var(--main-blue) 0%, var(--second-blue) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3a86ff",endColorstr="#00b4d8",GradientType=1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 .register__text {
   margin-bottom: var(--small-spacing);
 }

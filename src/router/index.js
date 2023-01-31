@@ -40,12 +40,18 @@ const router = createRouter({
     {
       path: '/signUp',
       name: 'signup',
-      component: () => import('../views/SignUpView.vue')
+      component: () => import('../views/SignUpView.vue'),
+      meta: {
+        layout: 'AuthLayout'
+      }
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue')
+      component: () => import('../views/LoginView.vue'),
+      meta: {
+        layout: 'AuthLayout'
+      }
     },
     {
       path: '/game/:id',
@@ -58,7 +64,10 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'pageNotFound',
-      component: () => import('../views/ErrorView.vue')
+      component: () => import('../views/ErrorView.vue'),
+      meta: {
+        layout: 'DefaultLayout'
+      }
     }
   ]
 })

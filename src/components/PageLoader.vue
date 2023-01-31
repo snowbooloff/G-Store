@@ -14,7 +14,7 @@
   top: 0;
   left: 0;
   z-index: 140;
-  background-color: var(--translucent-black);
+  background-color: var(--main-black);
 }
 
 .loading__spiner {

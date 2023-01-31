@@ -16,8 +16,29 @@ watch(
   },
   { immediate: true }
 )
+
+const activeClasses = ref(true)
+
+watch(
+  () => route.meta?.layout as string | undefined,
+  (metaLayout) => {
+    if (metaLayout == 'AuthLayout') {
+    }
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
-  <component :is="layout"> <router-view /> </component>
+  <component :is="layout" class="page container">
+    <router-view />
+  </component>
 </template>
+
+<style>
+.page {
+  gap: var(--extra-large-spacing);
+  margin-bottom: var(--extra-large-spacing);
+  padding-top: 16px;
+}
+</style>
