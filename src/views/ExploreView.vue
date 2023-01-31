@@ -224,8 +224,6 @@ function loadMoreGames() {
 </template>
 
 <style scoped>
-@import url('./views.css');
-
 .game-list {
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }

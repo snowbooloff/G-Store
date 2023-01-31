@@ -165,7 +165,6 @@ const grandTotal = computed(() => {
 </template>
 
 <style scoped>
-@import url('./views.css');
 .game-list {
   grid-template-columns: repeat(2, minmax(450px, 0.5fr));
 }

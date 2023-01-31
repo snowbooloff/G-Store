@@ -3,12 +3,13 @@ import { ref } from 'vue'
 
 const userEmail = ref('')
 const userPassword = ref('')
+const repeatedPassword = ref('')
 const showPassowrd = ref(false)
 </script>
 
 <template>
   <section class="page-block flex flex_column flex_align-center">
-    <h3 class="page-block__title second-white"><ins>SIGN IN TO YOUR GSTORE ACCOUNT</ins></h3>
+    <p class="page-block__title second-white"><ins>SIGN IN TO YOUR GSTORE ACCOUNT</ins></p>
 
     <div class="register">
       <p class="register__text second-white">Email Address:</p>
@@ -33,14 +34,12 @@ const showPassowrd = ref(false)
 
     <button class="page-block__bttn bttn bttn_buy">SIGN IN</button>
     <span class="second-white">
-      New to GSTORE? <router-link to="/signUp" class="main-white">Sign Up</router-link>
+      New to GSTORE? <router-link to="/register" class="main-white">Sign Up</router-link>
     </span>
   </section>
 </template>
 
 <style scoped>
-@import url('./views.css');
-
 .register__text {
   margin-bottom: var(--small-spacing);
 }

@@ -1,10 +1,42 @@
 <script setup>
 import { ref } from 'vue'
+
+//Utils
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+
+const route = useRoute()
+const router = useRouter()
+
+const store = useStore()
+
 const noActivated = ref(false)
 
 const userEmail = ref('')
+const userNickname = ref('')
 const userPassword = ref('')
+const repeatedPassword = ref('')
 const showPassowrd = ref(false)
+
+function registeringUser() {
+  createUserWithEmailAndPassword(getAuth(), userEmail.value, userPassword.value).then(function (
+    user
+  ) {
+    user
+      .updateProfile({
+        displayName: username
+      })
+      .then(
+        function () {
+          // Update successful.
+        },
+        function (error) {
+          // An error happened.
+        }
+      )
+  })
+}
 </script>
 
 <template>
@@ -13,7 +45,7 @@ const showPassowrd = ref(false)
 
     <div class="register">
       <p class="register__text second-white">Nickname:</p>
-      <v-input class="register__input" v-model="userEmail" type="text" />
+      <v-input class="register__input" v-model="userNickname" type="text" />
     </div>
 
     <div class="register">
@@ -42,7 +74,7 @@ const showPassowrd = ref(false)
       <div class="password">
         <v-input
           class="password__input"
-          v-model="userPassword"
+          v-model="repeatedPassword"
           :type="showPassowrd ? 'text' : 'password'"
         />
         <icon-eye
@@ -55,7 +87,7 @@ const showPassowrd = ref(false)
     <button
       class="page-block__bttn bttn bttn_buy"
       :class="{ shake: noActivated }"
-      @click="noActivated = !noActivated"
+      @click="registeringUser"
     >
       SIGN UP
     </button>
@@ -67,8 +99,6 @@ const showPassowrd = ref(false)
 </template>
 
 <style scoped>
-@import url('./views.css');
-
 .register__text {
   margin-bottom: var(--small-spacing);
 }

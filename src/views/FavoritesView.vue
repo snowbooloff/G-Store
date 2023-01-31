@@ -64,8 +64,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-@import url('./views.css');
-
 .game-list {
   grid-template-columns: repeat(auto-fill, minmax(400px, 0.25fr));
 }

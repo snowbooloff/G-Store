@@ -128,7 +128,6 @@ watch(route, () => {
 </template>
 
 <style scoped>
-@import url('./views.css');
 .page__img {
   aspect-ratio: 3 / 1;
   object-position: top center;

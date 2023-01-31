@@ -32,7 +32,7 @@ const menuIsActive = ref(false)
         <p class="user__text">Sign In</p>
         <icon-arrow class="user__arrow icon" :class="{ icon_active: menuIsActive }" />
         <v-modal-window class="user__menu" v-model:isVisible="menuIsActive" v-if="menuIsActive">
-          <router-link class="user__bttn main-black" to="/signup">Sign Up</router-link>
+          <router-link class="user__bttn main-black" to="/register">Sign Up</router-link>
           <router-link class="user__bttn main-black" to="/login">Sign In</router-link>
         </v-modal-window>
       </div>

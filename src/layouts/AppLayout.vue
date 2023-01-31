@@ -16,17 +16,6 @@ watch(
   },
   { immediate: true }
 )
-
-const activeClasses = ref(true)
-
-watch(
-  () => route.meta?.layout as string | undefined,
-  (metaLayout) => {
-    if (metaLayout == 'AuthLayout') {
-    }
-  },
-  { immediate: true }
-)
 </script>
 
 <template>
@@ -39,6 +28,9 @@ watch(
 .page {
   gap: var(--extra-large-spacing);
   margin-bottom: var(--extra-large-spacing);
-  padding-top: 16px;
+  padding-top: 16px !important;
+}
+.page-block {
+  gap: var(--medium-spacing);
 }
 </style>
