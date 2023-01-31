@@ -6,7 +6,6 @@ import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
 import GenreItem from '../components/GenreItem.vue'
 import GameBoard from '../components/GameBoard.vue'
-import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGames from '../composables/fetchGames.js'
@@ -76,127 +75,123 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex_column" v-if="!$store.state.isLoading">
-    <game-board
-      v-if="gamesForBoard.length"
-      :game="gamesForBoard[0]"
-      @click="$router.push(`/game/${gamesForBoard[0].id}`)"
-    />
+  <game-board
+    v-if="gamesForBoard.length"
+    :game="gamesForBoard[0]"
+    @click="$router.push(`/game/${gamesForBoard[0].id}`)"
+  />
 
-    <section class="page-block flex flex_column">
-      <div class="nav-bar flex flex_space-between flex_align-center">
-        <h1 class="nav-bar__title main-white">New Releases</h1>
-        <button
-          class="nav-bar__bttn bttn bttn_transparent"
+  <section class="page-block flex flex_column">
+    <div class="nav-bar flex flex_space-between flex_align-center">
+      <h1 class="nav-bar__title main-white">New Releases</h1>
+      <button
+        class="nav-bar__bttn bttn bttn_transparent"
+        @click="
+          $router.push({
+            path: '/explore',
+            query: {
+              sort: '-released',
+              title: 'New Releases'
+            }
+          })
+        "
+      >
+        VIEW ALL +
+      </button>
+    </div>
+
+    <items-list class="game-list" :itemsList="newReleasesGamesList">
+      <template #item="slotProps">
+        <game-item :game="slotProps.item" />
+      </template>
+    </items-list>
+  </section>
+
+  <game-board
+    v-if="gamesForBoard.length"
+    :game="gamesForBoard[1]"
+    @click="$router.push(`/game/${gamesForBoard[1].id}`)"
+  />
+
+  <section class="page-block flex flex_column">
+    <div class="nav-bar flex flex_space-between flex_align-center">
+      <h1 class="nav-bar__title main-white">Coming Soon</h1>
+      <button
+        class="nav-bar__bttn bttn bttn_transparent"
+        @click="
+          $router.push({
+            path: '/explore',
+            query: {
+              date: nextDatePeriod,
+              rating: [0, 100],
+              title: 'Coming Soon'
+            }
+          })
+        "
+      >
+        VIEW ALL +
+      </button>
+    </div>
+
+    <items-list class="game-list" :itemsList="comingSoonGamesList">
+      <template #item="slotProps">
+        <game-item :game="slotProps.item" />
+      </template>
+    </items-list>
+  </section>
+
+  <game-board
+    v-if="gamesForBoard.length"
+    :game="gamesForBoard[2]"
+    @click="$router.push(`/game/${gamesForBoard[2].id}`)"
+  />
+
+  <section class="page-block flex flex_column">
+    <div class="nav-bar flex flex_space-between flex_align-center">
+      <h1 class="nav-bar__title main-white">Highest rating</h1>
+      <button
+        class="nav-bar__bttn bttn bttn_transparent"
+        @click="
+          $router.push({
+            path: '/explore',
+            query: {
+              sort: '-metacritic',
+              title: 'Highest Rating Games'
+            }
+          })
+        "
+      >
+        VIEW ALL +
+      </button>
+    </div>
+
+    <items-list class="game-list" :itemsList="highestRatingGamesList">
+      <template #item="slotProps">
+        <game-item :game="slotProps.item" />
+      </template>
+    </items-list>
+  </section>
+
+  <section class="page-block flex flex_column">
+    <h1 class="page-block__title main-white">Genres</h1>
+
+    <items-list class="genre-list" :itemsList="$store.state.genresList">
+      <template #item="slotProps">
+        <genre-item
+          :genre="slotProps.item"
           @click="
             $router.push({
               path: '/explore',
               query: {
-                sort: '-released',
-                title: 'New Releases'
+                genres: [slotProps.item.id],
+                title: `${slotProps.item.name} Games`
               }
             })
           "
-        >
-          VIEW ALL +
-        </button>
-      </div>
-
-      <items-list class="game-list" :itemsList="newReleasesGamesList">
-        <template #item="slotProps">
-          <game-item :game="slotProps.item" />
-        </template>
-      </items-list>
-    </section>
-
-    <game-board
-      v-if="gamesForBoard.length"
-      :game="gamesForBoard[1]"
-      @click="$router.push(`/game/${gamesForBoard[1].id}`)"
-    />
-
-    <section class="page-block flex flex_column">
-      <div class="nav-bar flex flex_space-between flex_align-center">
-        <h1 class="nav-bar__title main-white">Coming Soon</h1>
-        <button
-          class="nav-bar__bttn bttn bttn_transparent"
-          @click="
-            $router.push({
-              path: '/explore',
-              query: {
-                date: nextDatePeriod,
-                rating: [0, 100],
-                title: 'Coming Soon'
-              }
-            })
-          "
-        >
-          VIEW ALL +
-        </button>
-      </div>
-
-      <items-list class="game-list" :itemsList="comingSoonGamesList">
-        <template #item="slotProps">
-          <game-item :game="slotProps.item" />
-        </template>
-      </items-list>
-    </section>
-
-    <game-board
-      v-if="gamesForBoard.length"
-      :game="gamesForBoard[2]"
-      @click="$router.push(`/game/${gamesForBoard[2].id}`)"
-    />
-
-    <section class="page-block flex flex_column">
-      <div class="nav-bar flex flex_space-between flex_align-center">
-        <h1 class="nav-bar__title main-white">Highest rating</h1>
-        <button
-          class="nav-bar__bttn bttn bttn_transparent"
-          @click="
-            $router.push({
-              path: '/explore',
-              query: {
-                sort: '-metacritic',
-                title: 'Highest Rating Games'
-              }
-            })
-          "
-        >
-          VIEW ALL +
-        </button>
-      </div>
-
-      <items-list class="game-list" :itemsList="highestRatingGamesList">
-        <template #item="slotProps">
-          <game-item :game="slotProps.item" />
-        </template>
-      </items-list>
-    </section>
-
-    <section class="page-block flex flex_column">
-      <h1 class="page-block__title main-white">Genres</h1>
-
-      <items-list class="genre-list" :itemsList="$store.state.genresList">
-        <template #item="slotProps">
-          <genre-item
-            :genre="slotProps.item"
-            @click="
-              $router.push({
-                path: '/explore',
-                query: {
-                  genres: [slotProps.item.id],
-                  title: `${slotProps.item.name} Games`
-                }
-              })
-            "
-          />
-        </template>
-      </items-list>
-    </section>
-  </div>
-
-  <page-loader v-else />
+        />
+      </template>
+    </items-list>
+  </section>
 </template>
 
 <style scoped>

@@ -30,10 +30,10 @@ const menuIsActive = ref(false)
       >
         <icon-user class="user__avatar icon main-white" />
         <p class="user__text">Sign In</p>
-        <icon-arrow class="user__arrow icon" />
+        <icon-arrow class="user__arrow icon" :class="{ icon_active: menuIsActive }" />
         <v-modal-window class="user__menu" v-model:isVisible="menuIsActive" v-if="menuIsActive">
           <router-link class="user__bttn main-black" to="/signup">Sign Up</router-link>
-          <router-link class="user__bttn main-black" to="/signup">Sign In</router-link>
+          <router-link class="user__bttn main-black" to="/login">Sign In</router-link>
         </v-modal-window>
       </div>
     </nav>
@@ -60,6 +60,9 @@ const menuIsActive = ref(false)
   height: 20px;
   width: 20px;
 }
+.icon_active {
+  transform: rotate(180deg);
+}
 
 .nav-bar {
   gap: var(--medium-spacing);
@@ -84,12 +87,7 @@ const menuIsActive = ref(false)
   border: 2px solid var(--main-blue);
 }
 .user__menu {
-  position: absolute;
-  top: 100%;
-  border-top: 2px solid var(--second-white);
-  background-color: var(--main-white);
-  padding: var(--medium-spacing) var(--large-spacing);
-  text-align: center;
+  top: 110%;
 }
 .user__bttn {
   display: block;

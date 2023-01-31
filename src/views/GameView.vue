@@ -36,99 +36,95 @@ watch(route, () => {
 </script>
 
 <template>
-  <div class="page pt-48px flex flex_column" v-if="!$store.state.isLoading">
-    <v-lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
+  <v-lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
 
-    <section class="game-block large-container flex">
-      <div class="title-block flex flex_column">
-        <h1 class="title-block__name main-blue">{{ game.name }}</h1>
+  <section class="game-block large-container flex" v-if="!$store.state.isLoading">
+    <div class="title-block flex flex_column">
+      <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
-        <h3 class="title-block__release second-white">
-          🎯{{ game.released || 'Date is coming soon' }}
-        </h3>
+      <h3 class="title-block__release second-white">
+        🎯{{ game.released || 'Date is coming soon' }}
+      </h3>
 
-        <metacritic-score class="title-block__score" :score="game.metacritic">
-          Metacritic:
-        </metacritic-score>
+      <metacritic-score class="title-block__score" :score="game.metacritic">
+        Metacritic:
+      </metacritic-score>
+    </div>
+
+    <nav class="game-block__buttons buttons-block flex flex_column">
+      <v-price-button
+        class="buttons-block__price-bttn"
+        :price="game.suggestions_count / 10"
+        :gameName="game.name"
+        :gameId="game.id"
+      />
+
+      <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
+    </nav>
+
+    <div class="game-details flex flex_column">
+      <div class="game-description">
+        <h2 class="game-description__title main-white">About</h2>
+        <p class="game-description__info second-white">
+          {{ game.description_raw }}
+        </p>
       </div>
 
-      <nav class="game-block__buttons buttons-block flex flex_column">
-        <v-price-button
-          class="buttons-block__price-bttn"
-          :price="game.suggestions_count / 10"
-          :gameName="game.name"
-          :gameId="game.id"
+      <div class="game-platforms">
+        <h2 class="game-platforms main-white">Platforms</h2>
+        <game-platforms
+          v-if="!!game.parent_platforms"
+          class="game-platforms__icons main-white"
+          :platforms="game.parent_platforms"
         />
-
-        <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
-      </nav>
-
-      <div class="game-details flex flex_column">
-        <div class="game-description">
-          <h2 class="game-description__title main-white">About</h2>
-          <p class="game-description__info second-white">
-            {{ game.description_raw }}
-          </p>
-        </div>
-
-        <div class="game-platforms">
-          <h2 class="game-platforms main-white">Platforms</h2>
-          <game-platforms
-            v-if="!!game.parent_platforms"
-            class="game-platforms__icons main-white"
-            :platforms="game.parent_platforms"
-          />
-        </div>
       </div>
+    </div>
 
-      <ul class="details-list">
-        <li class="details-list__title main-white">
-          <h3>Developers</h3>
-        </li>
-        <li
-          class="details-list__subtitle second-white"
-          v-for="developer in game.developers"
-          :key="developer.name"
-        >
-          {{ developer.name }}
-        </li>
-        <li class="details-list__title main-white">
-          <h3>Publisher</h3>
-        </li>
-        <li
-          class="details-list__subtitle second-white"
-          v-for="publisher in game.publishers"
-          :key="publisher.name"
-        >
-          {{ publisher.name }}
-        </li>
-        <li class="details-list__title main-white">
-          <h3>Release Date</h3>
-        </li>
-        <li class="details-list__subtitle second-white">
-          {{ game.released || 'Date is coming soon' }}
-        </li>
-        <li class="details-list__title main-white">
-          <h3>Genres</h3>
-        </li>
-        <li
-          class="details-list__subtitle second-white"
-          v-for="genre in game.genres"
-          :key="genre.name"
-        >
-          {{ genre.name }}
-        </li>
-        <li class="details-list__title main-white">
-          <h3>Achievements</h3>
-        </li>
-        <li class="details-list__subtitle second-white">
-          {{ game.achievements_count || 'None' }}
-        </li>
-      </ul>
-    </section>
-  </div>
-
-  <page-loader v-else />
+    <ul class="details-list">
+      <li class="details-list__title main-white">
+        <h3>Developers</h3>
+      </li>
+      <li
+        class="details-list__subtitle second-white"
+        v-for="developer in game.developers"
+        :key="developer.name"
+      >
+        {{ developer.name }}
+      </li>
+      <li class="details-list__title main-white">
+        <h3>Publisher</h3>
+      </li>
+      <li
+        class="details-list__subtitle second-white"
+        v-for="publisher in game.publishers"
+        :key="publisher.name"
+      >
+        {{ publisher.name }}
+      </li>
+      <li class="details-list__title main-white">
+        <h3>Release Date</h3>
+      </li>
+      <li class="details-list__subtitle second-white">
+        {{ game.released || 'Date is coming soon' }}
+      </li>
+      <li class="details-list__title main-white">
+        <h3>Genres</h3>
+      </li>
+      <li
+        class="details-list__subtitle second-white"
+        v-for="genre in game.genres"
+        :key="genre.name"
+      >
+        {{ genre.name }}
+      </li>
+      <li class="details-list__title main-white">
+        <h3>Achievements</h3>
+      </li>
+      <li class="details-list__subtitle second-white">
+        {{ game.achievements_count || 'None' }}
+      </li>
+    </ul>
+  </section>
 </template>
 
 <style scoped>
@@ -136,6 +132,7 @@ watch(route, () => {
 .page__img {
   aspect-ratio: 3 / 1;
   object-position: top center;
+  border-radius: var(--medium-radius);
 }
 
 .game-block {

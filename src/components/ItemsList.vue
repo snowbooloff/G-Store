@@ -2,8 +2,8 @@
 const props = defineProps({
   itemsList: {
     type: Array,
-    required: true,
-  },
+    required: true
+  }
 })
 </script>
 
@@ -17,9 +17,5 @@ const props = defineProps({
 .items-list {
   display: grid;
   gap: var(--medium-spacing);
-}
-
-.items-list__not-found {
-  text-align: center;
 }
 </style>

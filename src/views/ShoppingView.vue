@@ -4,7 +4,6 @@ import { ref, reactive, watch, onMounted, computed, provide } from 'vue'
 //Components
 import ItemsList from '../components/ItemsList.vue'
 import ShoppingItem from '../components/ShoppingItem.vue'
-import PageLoader from '../components/PageLoader.vue'
 import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
@@ -89,84 +88,80 @@ const grandTotal = computed(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex_column">
-    <section class="page-block flex flex_column">
-      <h1 class="page-block__title main-white">
-        Shopping Cart
-        <span v-show="shoppingList.length" class="page-block__count main-blue"
-          >({{ shoppingList.length }} items)</span
-        >
-      </h1>
+  <section class="page-block flex flex_column">
+    <h1 class="page-block__title main-white">
+      Shopping Cart
+      <span v-show="shoppingList.length" class="page-block__count main-blue"
+        >({{ shoppingList.length }} items)</span
+      >
+    </h1>
 
-      <div class="shopping-block flex">
-        <items-list
-          v-if="!$store.state.isLoading && shoppingList.length"
-          class="shopping-block__content game-list"
-          :itemsList="shoppingList"
-        >
-          <template #item="slotProps">
-            <shopping-item :game="slotProps.item" />
-          </template>
-        </items-list>
-        <nav-bar-for-empty v-if="!$store.state.isLoading && !shoppingList.length">
-          Shopping list is empty
-        </nav-bar-for-empty>
+    <div class="shopping-block flex">
+      <items-list
+        v-if="!$store.state.isLoading && shoppingList.length"
+        class="shopping-block__content game-list"
+        :itemsList="shoppingList"
+      >
+        <template #item="slotProps">
+          <shopping-item :game="slotProps.item" />
+        </template>
+      </items-list>
+      <nav-bar-for-empty v-if="!$store.state.isLoading && !shoppingList.length">
+        Shopping list is empty
+      </nav-bar-for-empty>
 
-        <div class="order-info" v-if="shoppingList.length">
-          <div class="order-info__block flex flex_align-center">
-            <h3 class="order-info__title main-white">Subtotal:</h3>
-            <p class="order-info__price main-blue">${{ totalPrice }}</p>
-            <p v-show="promoCode.isActive" class="order-info__discount main-white">
-              {{ '-' + promoCode.discountType + promoCode.discount }}
-            </p>
-          </div>
-
-          <div class="order-info__block flex flex_align-center">
-            <h3 class="order-info__title main-white">Sales Tax:</h3>
-            <p class="order-info__price main-blue">${{ salesTax }}</p>
-          </div>
-
-          <div class="order-info__block flex flex_align-center">
-            <h3 class="order-info__title main-white">Grand Total:</h3>
-            <p class="order-info__price main-blue">${{ grandTotal }}</p>
-          </div>
-
-          <div class="promo flex flex_column">
-            <h3 class="promo__title main-white">Redeem Promo Code:</h3>
-            <div class="promo__block">
-              <v-input
-                class="promo__input"
-                v-model="promoCode.value"
-                placeholder="PROMO1"
-                maxlength="15"
-              />
-              <input
-                class="promo__submit cursos-pointer"
-                type="submit"
-                value="SUBMIT"
-                @click.stop="checkPromo(promoCode)"
-                v-show="promoCode.value.length"
-              />
-            </div>
-            <span
-              class="promo__status promo__status_red"
-              v-show="promoCode.isChecked && !promoCode.isActive"
-              >Invalid promo</span
-            >
-            <span
-              class="promo__status promo__status_green"
-              v-show="promoCode.isChecked && promoCode.isActive"
-              >Promo activated</span
-            >
-          </div>
-
-          <button class="order-info__bttn bttn bttn_buy">Checkout</button>
+      <div class="order-info" v-if="shoppingList.length">
+        <div class="order-info__block flex flex_align-center">
+          <h3 class="order-info__title main-white">Subtotal:</h3>
+          <p class="order-info__price main-blue">${{ totalPrice }}</p>
+          <p v-show="promoCode.isActive" class="order-info__discount main-white">
+            {{ '-' + promoCode.discountType + promoCode.discount }}
+          </p>
         </div>
-      </div>
-    </section>
-  </div>
 
-  <page-loader v-if="$store.state.isLoading" />
+        <div class="order-info__block flex flex_align-center">
+          <h3 class="order-info__title main-white">Sales Tax:</h3>
+          <p class="order-info__price main-blue">${{ salesTax }}</p>
+        </div>
+
+        <div class="order-info__block flex flex_align-center">
+          <h3 class="order-info__title main-white">Grand Total:</h3>
+          <p class="order-info__price main-blue">${{ grandTotal }}</p>
+        </div>
+
+        <div class="promo flex flex_column">
+          <h3 class="promo__title main-white">Redeem Promo Code:</h3>
+          <div class="promo__block">
+            <v-input
+              class="promo__input"
+              v-model="promoCode.value"
+              placeholder="PROMO1"
+              maxlength="15"
+            />
+            <input
+              class="promo__submit cursos-pointer"
+              type="submit"
+              value="SUBMIT"
+              @click.stop="checkPromo(promoCode)"
+              v-show="promoCode.value.length"
+            />
+          </div>
+          <span
+            class="promo__status promo__status_red"
+            v-show="promoCode.isChecked && !promoCode.isActive"
+            >Invalid promo</span
+          >
+          <span
+            class="promo__status promo__status_green"
+            v-show="promoCode.isChecked && promoCode.isActive"
+            >Promo activated</span
+          >
+        </div>
+
+        <button class="order-info__bttn bttn bttn_buy">Checkout</button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped>

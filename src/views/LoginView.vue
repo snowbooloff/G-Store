@@ -1,4 +1,10 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+
+const userEmail = ref('')
+const userPassword = ref('')
+const showPassowrd = ref(false)
+</script>
 
 <template>
   <div class="page container pt-64px flex flex_column">
@@ -8,11 +14,6 @@
     </section>
     <section class="page-block flex flex_column flex_align-center">
       <h3 class="page-block__title second-white">SIGN IN TO YOUR GSTORE ACCOUNT</h3>
-
-      <div class="register">
-        <p class="register__text second-white">Nickname:</p>
-        <v-input class="register__input" v-model="userEmail" type="text" />
-      </div>
 
       <div class="register">
         <p class="register__text second-white">Email Address:</p>
@@ -27,24 +28,17 @@
             v-model="userPassword"
             :type="showPassowrd ? 'text' : 'password'"
           />
-          <icon-eye class="password__icon main-black" @click="showPassowrd = !showPassowrd" />
+          <icon-eye
+            class="password__icon"
+            :class="showPassowrd ? 'main-blue' : 'main-black'"
+            @click="showPassowrd = !showPassowrd"
+          />
         </div>
       </div>
 
-      <div class="register">
-        <p class="register__text second-white">Repeat password:</p>
-        <div class="password">
-          <v-input
-            class="password__input"
-            v-model="userPassword"
-            :type="showPassowrd ? 'text' : 'password'"
-          />
-          <icon-eye class="password__icon main-black" @click="showPassowrd = !showPassowrd" />
-        </div>
-      </div>
-      <button class="page-block__bttn bttn bttn_buy">SIGN UP</button>
+      <button class="page-block__bttn bttn bttn_buy">SIGN IN</button>
       <span class="second-white">
-        New to GSTORE? <router-link to="/login" class="main-white">Sign In</router-link>
+        New to GSTORE? <router-link to="/signUp" class="main-white">Sign Up</router-link>
       </span>
     </section>
   </div>

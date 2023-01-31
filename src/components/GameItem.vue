@@ -52,8 +52,8 @@ const props = defineProps({
 }
 
 .game-item__pic {
+  aspect-ratio: 9 / 5;
   width: 100%;
-  height: 25vh;
   border-radius: var(--medium-radius) var(--medium-radius) 0 0;
 }
 

@@ -4,25 +4,29 @@
     <custom-header />
   </header>
   <main>
-    <router-view />
+    <AppLayout />
   </main>
 </template>
 
 <script setup>
 //Components
 import CustomHeader from './components/CustomHeader.vue'
+import AppLayout from './layouts/AppLayout.vue'
 
 //Utils
 import { useStore } from 'vuex'
 
 const store = useStore()
-
 store.dispatch('fetchGenres')
 </script>
 
 <style>
 @import url('./assets/main.css');
 @import url('./assets/buttons.css');
+
+header {
+  margin-bottom: 48px;
+}
 
 #modals {
   position: fixed;

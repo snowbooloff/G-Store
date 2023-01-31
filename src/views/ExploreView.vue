@@ -4,7 +4,6 @@ import { ref, onMounted, reactive, watch, computed, provide } from 'vue'
 //Components
 import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
-import PageLoader from '../components/PageLoader.vue'
 
 //Composables
 import fetchGames from '../composables/fetchGames.js'
@@ -101,132 +100,126 @@ function loadMoreGames() {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex_column">
-    <section class="page-block flex flex_column">
-      <div class="nav-bar flex flex_space-between flex_align-center">
-        <h1 class="nav-bar__title main-white">{{ route.query.title || 'Explore Games' }}</h1>
+  <section class="page-block flex flex_column">
+    <div class="nav-bar flex flex_space-between flex_align-center">
+      <h1 class="nav-bar__title main-white">{{ route.query.title || 'Explore Games' }}</h1>
 
-        <v-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
-          Default order
-        </v-select>
-      </div>
+      <v-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
+        Default order
+      </v-select>
+    </div>
 
-      <div class="search-block flex">
-        <v-search-input
-          class="search-block__input"
-          v-model.trim="query.search"
-          :placeholder="`Search ${totalGamesCount} games`"
+    <div class="search-block flex">
+      <v-search-input
+        class="search-block__input"
+        v-model.trim="query.search"
+        :placeholder="`Search ${totalGamesCount} games`"
+      />
+
+      <button
+        class="bttn bttn_transparent search-block__bttn flex flex_align-center"
+        @click="filterIsActive = !filterIsActive"
+      >
+        Filter
+        <icon-arrow
+          class="search-block__icon"
+          :class="{ 'search-block__icon_active': filterIsActive }"
         />
+      </button>
+    </div>
 
-        <button
-          class="bttn bttn_transparent search-block__bttn flex flex_align-center"
-          @click="filterIsActive = !filterIsActive"
-        >
-          Filter
-          <icon-arrow
-            class="search-block__icon"
-            :class="{ 'search-block__icon_active': filterIsActive }"
+    <div class="explore-block flex">
+      <items-list
+        v-show="!$store.state.isLoading && exploreGamesList.length"
+        class="explore-block__content game-list"
+        :itemsList="exploreGamesList"
+      >
+        <template #item="slotProps">
+          <game-item :game="slotProps.item" />
+        </template>
+      </items-list>
+
+      <h3
+        v-show="!$store.state.isLoading && !exploreGamesList.length"
+        class="explore-block__not-found second-white"
+      >
+        List is empty
+      </h3>
+
+      <aside class="filters" v-show="filterIsActive">
+        <div class="filters__block">
+          <h4 class="filters__title main-white">Platforms</h4>
+
+          <v-checkbox class="filters__item" v-model="query.platforms" :value="'1'"> PC </v-checkbox>
+
+          <v-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
+            PlayStation
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
+            XBOX
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
+            iOS
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
+            Nintendo
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
+            Android
+          </v-checkbox>
+        </div>
+
+        <div class="filters__block">
+          <h4 class="filters__title main-white">Features</h4>
+
+          <v-checkbox class="filters__item" v-model="query.tags" :value="31">
+            Singleplayer
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.tags" :value="7">
+            Multiplayer
+          </v-checkbox>
+
+          <v-checkbox class="filters__item" v-model="query.tags" :value="18">
+            Cooperative
+          </v-checkbox>
+        </div>
+
+        <div class="filters__block">
+          <h4 class="filters__title main-white">Genres</h4>
+
+          <v-checkbox
+            class="filters__item"
+            v-for="genre in $store.state.genresList"
+            v-model="query.genres"
+            :value="genre.id.toString()"
+          >
+            {{ genre.name }}
+          </v-checkbox>
+        </div>
+
+        <div class="filters__block">
+          <h4 class="filters__title main-white">Rating</h4>
+
+          <v-range-slider
+            class="filters__item"
+            v-model="query.rating"
+            :minValue="10"
+            :maxValue="100"
+            :stepValue="1"
           />
-        </button>
-      </div>
+        </div>
 
-      <div class="explore-block flex">
-        <items-list
-          v-show="!$store.state.isLoading && exploreGamesList.length"
-          class="explore-block__content game-list"
-          :itemsList="exploreGamesList"
-        >
-          <template #item="slotProps">
-            <game-item :game="slotProps.item" />
-          </template>
-        </items-list>
+        <button class="filters__block bttn bttn_transparent" @click="clearFilters">Clear</button>
+      </aside>
+    </div>
+  </section>
 
-        <h3
-          v-show="!$store.state.isLoading && !exploreGamesList.length"
-          class="explore-block__not-found second-white"
-        >
-          List is empty
-        </h3>
-
-        <aside class="filters" v-show="filterIsActive">
-          <div class="filters__block">
-            <h4 class="filters__title main-white">Platforms</h4>
-
-            <v-checkbox class="filters__item" v-model="query.platforms" :value="'1'">
-              PC
-            </v-checkbox>
-
-            <v-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
-              PlayStation
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
-              XBOX
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
-              iOS
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
-              Nintendo
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
-              Android
-            </v-checkbox>
-          </div>
-
-          <div class="filters__block">
-            <h4 class="filters__title main-white">Features</h4>
-
-            <v-checkbox class="filters__item" v-model="query.tags" :value="31">
-              Singleplayer
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.tags" :value="7">
-              Multiplayer
-            </v-checkbox>
-
-            <v-checkbox class="filters__item" v-model="query.tags" :value="18">
-              Cooperative
-            </v-checkbox>
-          </div>
-
-          <div class="filters__block">
-            <h4 class="filters__title main-white">Genres</h4>
-
-            <v-checkbox
-              class="filters__item"
-              v-for="genre in $store.state.genresList"
-              v-model="query.genres"
-              :value="genre.id.toString()"
-            >
-              {{ genre.name }}
-            </v-checkbox>
-          </div>
-
-          <div class="filters__block">
-            <h4 class="filters__title main-white">Rating</h4>
-
-            <v-range-slider
-              class="filters__item"
-              v-model="query.rating"
-              :minValue="10"
-              :maxValue="100"
-              :stepValue="1"
-            />
-          </div>
-
-          <button class="filters__block bttn bttn_transparent" @click="clearFilters">Clear</button>
-        </aside>
-      </div>
-    </section>
-
-    <div v-if="!$store.state.isLoading" class="observer" v-intersection="loadMoreGames"></div>
-  </div>
-
-  <page-loader v-if="$store.state.isLoading" />
+  <div v-if="!$store.state.isLoading" class="observer" v-intersection="loadMoreGames"></div>
 </template>
 
 <style scoped>

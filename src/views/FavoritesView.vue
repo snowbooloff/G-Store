@@ -4,7 +4,6 @@ import { ref, onMounted, watch, computed } from 'vue'
 //Components
 import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
-import PageLoader from '../components/PageLoader.vue'
 import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
@@ -46,35 +45,28 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page container pt-64px flex flex_column">
-    <section class="page-block flex flex_column">
-      <h1 class="page-block__title main-white">Favorite Games</h1>
+  <section class="page-block flex flex_column">
+    <h1 class="page-block__title main-white">Favorite Games</h1>
 
-      <items-list
-        v-if="!$store.state.isLoading && favGamesList.length"
-        class="game-list"
-        :itemsList="favGamesList"
-      >
-        <template #item="slotProps">
-          <game-item :game="slotProps.item" />
-        </template>
-      </items-list>
-      <nav-bar-for-empty v-if="!$store.state.isLoading && !favGamesList.length">
-        Favorites list is empty
-      </nav-bar-for-empty>
-    </section>
-  </div>
-
-  <page-loader v-if="$store.state.isLoading" />
+    <items-list
+      v-if="!$store.state.isLoading && favGamesList.length"
+      class="game-list"
+      :itemsList="favGamesList"
+    >
+      <template #item="slotProps">
+        <game-item :game="slotProps.item" />
+      </template>
+    </items-list>
+    <nav-bar-for-empty v-if="!$store.state.isLoading && !favGamesList.length">
+      Favorites list is empty
+    </nav-bar-for-empty>
+  </section>
 </template>
 
 <style scoped>
 @import url('./views.css');
 
 .game-list {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
-.page-block__not-found {
-  text-align: center;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 0.25fr));
 }
 </style>

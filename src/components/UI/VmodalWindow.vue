@@ -12,22 +12,31 @@ const emit = defineEmits(['update:isVisible'])
 
 const modalWindow = ref(null)
 
-function OutSideClickHandler(event) {
+function outSideClickHandler(event) {
   if (event.target != modalWindow.value) {
     emit('update:isVisible', false)
   }
 }
-document.addEventListener('click', OutSideClickHandler)
+document.addEventListener('click', outSideClickHandler)
 
 onBeforeUnmount(() => {
-  document.removeEventListener('click', OutSideClickHandler)
+  document.removeEventListener('click', outSideClickHandler)
 })
 </script>
 
 <template>
-  <div ref="modalWindow" class="modal-window" @click.stop="OutSideClickHandler">
+  <div ref="modalWindow" class="modal-window" @click.stop="outSideClickHandler">
     <slot></slot>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal-window {
+  position: absolute;
+  border-radius: var(--small-radius);
+  box-shadow: 0px 0px 6px var(--second-white);
+  background-color: var(--main-white);
+  padding: var(--medium-spacing) var(--large-spacing);
+  text-align: center;
+}
+</style>
