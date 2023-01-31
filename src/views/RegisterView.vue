@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
 //Utils
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
@@ -11,55 +11,95 @@ const router = useRouter()
 
 const store = useStore()
 
-const noActivated = ref(false)
+const userData = reactive({
+  email: '',
+  nickname: '',
+  password: '',
+  repeatedPassword: ''
+})
+const nickDetails = ref(false)
+const passwordDetails = ref(false)
 
-const userEmail = ref('')
-const userNickname = ref('')
-const userPassword = ref('')
-const repeatedPassword = ref('')
 const showPassowrd = ref(false)
 
 function registeringUser() {
-  createUserWithEmailAndPassword(getAuth(), userEmail.value, userPassword.value).then(function (
-    user
-  ) {
-    user
-      .updateProfile({
-        displayName: username
+  const auth = getAuth()
+  createUserWithEmailAndPassword(auth, userData.email, userData.password)
+    .then((data) => {
+      console.log(data)
+      updateProfile(auth.currentUser, {
+        displayName: userData.nickname
       })
-      .then(
-        function () {
-          // Update successful.
-        },
-        function (error) {
-          // An error happened.
-        }
-      )
-  })
+      console.log(data)
+    })
+    .catch((error) => {
+      const regexp = new RegExp(/[^\x2F][a-z,-]+(?=\x29)/g)
+      let errorMessage = error.message.match(regexp)[0]
+      errorMessage = errorMessage.replace(/-/g, ' ')
+      errorMessage = errorMessage.replace(errorMessage[0], errorMessage[0].toUpperCase())
+      userDataErrors.value.push(errorMessage)
+    })
+}
+
+const userDataErrors = ref([])
+
+function validateData() {
+  if (userData.password != userData.repeatedPassword) {
+    userDataErrors.value.push('Passwords don`t match')
+  } else if (userData.nickname.length < 4) {
+    userDataErrors.value.push('Nickname length is less than minimum')
+  } else if (!userData.password.length) {
+    userDataErrors.value.push('Missing password')
+  } else {
+    userDataErrors.value = []
+    registeringUser()
+  }
 }
 </script>
 
 <template>
   <section class="page-block flex flex_column flex_align-center">
-    <p class="page-block__title second-white"><ins>CREATE YOUR ACCOUNT</ins></p>
+    <p class="page-block__title second-white">CREATE YOUR ACCOUNT</p>
 
     <div class="register">
-      <p class="register__text second-white">Nickname:</p>
-      <v-input class="register__input" v-model="userNickname" type="text" />
+      <p
+        class="register__text second-white"
+        @mouseover="nickDetails = true"
+        @mouseleave="nickDetails = false"
+      >
+        <ins>Nickname:</ins>
+        <v-modal-window v-show="nickDetails" class="register__window">
+          <p class="main-black">Min length: 4</p>
+          <p class="main-black">Max length: 12</p>
+        </v-modal-window>
+      </p>
+      <v-input class="register__input" v-model="userData.nickname" type="text" maxlength="12" />
     </div>
 
     <div class="register">
       <p class="register__text second-white">Email Address:</p>
-      <v-input class="register__input" v-model="userEmail" type="email" />
+
+      <v-input class="register__input" v-model="userData.email" type="email" />
     </div>
 
     <div class="register">
-      <p class="register__text second-white">Password:</p>
+      <p
+        class="register__text second-white"
+        @mouseover="passwordDetails = true"
+        @mouseleave="passwordDetails = false"
+      >
+        <ins>Password:</ins>
+        <v-modal-window v-show="passwordDetails" class="register__window">
+          <p class="main-black">Min length: 6</p>
+          <p class="main-black">Max length: 12</p>
+        </v-modal-window>
+      </p>
       <div class="password">
         <v-input
           class="password__input"
-          v-model="userPassword"
+          v-model="userData.password"
           :type="showPassowrd ? 'text' : 'password'"
+          maxlength="12"
         />
         <icon-eye
           class="password__icon"
@@ -74,8 +114,9 @@ function registeringUser() {
       <div class="password">
         <v-input
           class="password__input"
-          v-model="repeatedPassword"
+          v-model="userData.repeatedPassword"
           :type="showPassowrd ? 'text' : 'password'"
+          maxlength="12"
         />
         <icon-eye
           class="password__icon"
@@ -84,10 +125,11 @@ function registeringUser() {
         />
       </div>
     </div>
+    <p class="page-block__error" v-for="error in userDataErrors">{{ error }}</p>
     <button
       class="page-block__bttn bttn bttn_buy"
-      :class="{ shake: noActivated }"
-      @click="registeringUser"
+      :class="{ shake: userDataErrors.length }"
+      @click="validateData"
     >
       SIGN UP
     </button>
@@ -99,8 +141,15 @@ function registeringUser() {
 </template>
 
 <style scoped>
+.page-block__error {
+  color: #d00000;
+}
 .register__text {
   margin-bottom: var(--small-spacing);
+  position: relative;
+}
+.register__window {
+  bottom: 110%;
 }
 .register__input {
   width: 300px;

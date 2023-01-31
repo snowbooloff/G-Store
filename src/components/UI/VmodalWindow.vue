@@ -36,7 +36,6 @@ onBeforeUnmount(() => {
   border-radius: var(--small-radius);
   box-shadow: 0px 0px 6px var(--second-white);
   background-color: var(--main-white);
-  padding: var(--medium-spacing) var(--large-spacing);
-  text-align: center;
+  padding: var(--medium-spacing);
 }
 </style>
