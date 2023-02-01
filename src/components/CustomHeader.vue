@@ -29,7 +29,7 @@ const menuIsActive = ref(false)
         @click.stop="menuIsActive = !menuIsActive"
       >
         <icon-user class="user__avatar icon main-white" />
-        <p class="user__text">Sign In</p>
+        <p class="user__text">Profile</p>
         <icon-arrow class="user__arrow icon" :class="{ icon_active: menuIsActive }" />
         <v-modal-window class="user__menu" v-model:isVisible="menuIsActive" v-if="menuIsActive">
           <router-link class="user__bttn main-black" to="/register">Sign Up</router-link>
@@ -85,6 +85,9 @@ const menuIsActive = ref(false)
   border-radius: 50%;
   background-color: var(--second-white);
   border: 2px solid var(--main-blue);
+}
+.user__arrow {
+  margin-top: 2px;
 }
 .user__menu {
   top: 110%;

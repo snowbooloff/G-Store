@@ -17,42 +17,40 @@ const userData = reactive({
   password: '',
   repeatedPassword: ''
 })
-const nickDetails = ref(false)
-const passwordDetails = ref(false)
 
 const showPassowrd = ref(false)
 
 function registeringUser() {
   const auth = getAuth()
+  console.log(auth)
   createUserWithEmailAndPassword(auth, userData.email, userData.password)
     .then((data) => {
-      console.log(data)
+      console.log(auth)
       updateProfile(auth.currentUser, {
         displayName: userData.nickname
       })
-      console.log(data)
     })
     .catch((error) => {
       const regexp = new RegExp(/[^\x2F][a-z,-]+(?=\x29)/g)
       let errorMessage = error.message.match(regexp)[0]
       errorMessage = errorMessage.replace(/-/g, ' ')
       errorMessage = errorMessage.replace(errorMessage[0], errorMessage[0].toUpperCase())
-      userDataErrors.value.push(errorMessage)
+      registrationError.value = errorMessage
     })
 }
 
-const userDataErrors = ref([])
+const registrationError = ref('')
 
 function validateData() {
   if (userData.password != userData.repeatedPassword) {
-    userDataErrors.value.push('Passwords don`t match')
+    registrationError.value = 'Passwords don`t match'
   } else if (userData.nickname.length < 4) {
-    userDataErrors.value.push('Nickname length is less than minimum')
+    registrationError.value = 'Nickname to be a minimum of 4 characters'
   } else if (!userData.password.length) {
-    userDataErrors.value.push('Missing password')
+    registrationError.value = 'Missing password'
   } else {
-    userDataErrors.value = []
     registeringUser()
+    setTimeout(() => (registrationError.value = ''), 820)
   }
 }
 </script>
@@ -62,17 +60,7 @@ function validateData() {
     <p class="page-block__title second-white">CREATE YOUR ACCOUNT</p>
 
     <div class="register">
-      <p
-        class="register__text second-white"
-        @mouseover="nickDetails = true"
-        @mouseleave="nickDetails = false"
-      >
-        <ins>Nickname:</ins>
-        <v-modal-window v-show="nickDetails" class="register__window">
-          <p class="main-black">Min length: 4</p>
-          <p class="main-black">Max length: 12</p>
-        </v-modal-window>
-      </p>
+      <p class="register__text second-white">Nickname:</p>
       <v-input class="register__input" v-model="userData.nickname" type="text" maxlength="12" />
     </div>
 
@@ -83,17 +71,7 @@ function validateData() {
     </div>
 
     <div class="register">
-      <p
-        class="register__text second-white"
-        @mouseover="passwordDetails = true"
-        @mouseleave="passwordDetails = false"
-      >
-        <ins>Password:</ins>
-        <v-modal-window v-show="passwordDetails" class="register__window">
-          <p class="main-black">Min length: 6</p>
-          <p class="main-black">Max length: 12</p>
-        </v-modal-window>
-      </p>
+      <p class="register__text second-white">Password:</p>
       <div class="password">
         <v-input
           class="password__input"
@@ -125,10 +103,10 @@ function validateData() {
         />
       </div>
     </div>
-    <p class="page-block__error" v-for="error in userDataErrors">{{ error }}</p>
+    <p class="page-block__error" v-show="registrationError.length">{{ registrationError }}</p>
     <button
       class="page-block__bttn bttn bttn_buy"
-      :class="{ shake: userDataErrors.length }"
+      :class="{ shake: registrationError.length }"
       @click="validateData"
     >
       SIGN UP
@@ -146,10 +124,6 @@ function validateData() {
 }
 .register__text {
   margin-bottom: var(--small-spacing);
-  position: relative;
-}
-.register__window {
-  bottom: 110%;
 }
 .register__input {
   width: 300px;

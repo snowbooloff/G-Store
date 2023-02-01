@@ -9,15 +9,22 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+
 //Components
 import CustomHeader from './components/CustomHeader.vue'
 import AppLayout from './layouts/AppLayout.vue'
 
 //Utils
 import { useStore } from 'vuex'
-
 const store = useStore()
-store.dispatch('fetchGenres')
+
+onMounted(() => {
+  store.dispatch('fetchGenres')
+  store.dispatch('user/checkAuth').then(() => {
+    console.log(store.state.user.isAuth)
+  })
+})
 </script>
 
 <style>
