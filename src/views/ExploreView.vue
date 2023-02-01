@@ -84,10 +84,10 @@ watch(query, () => {
 
   router.push(route.path)
 
-  let firstCondition1 = query.rating[0] >= 10 && query.rating[0] <= 100
-  let firstCondition2 = query.rating[1] >= 10 && query.rating[1] <= 100
+  let firstCondition = query.rating[0] >= 10 && query.rating[0] <= 100
+  let secondCondition = query.rating[1] >= 10 && query.rating[1] <= 100
 
-  if (firstCondition1 && firstCondition2) {
+  if (firstCondition && secondCondition) {
     fetching()
   }
 })

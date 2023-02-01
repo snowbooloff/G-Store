@@ -1,5 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+
+//Utils
+import { useStore } from 'vuex'
+const store = useStore()
+
+const userNickname = computed(() => store.state.user.userInfo.nickname)
+
+const isAuth = computed(() => store.state.user.isAuth)
+
+const headerUserName = computed(() => {
+  return isAuth.value ? userNickname.value : 'Profile'
+})
 
 const menuIsActive = ref(false)
 </script>
@@ -29,17 +41,19 @@ const menuIsActive = ref(false)
         @click.stop="menuIsActive = !menuIsActive"
       >
         <icon-user class="user__avatar icon main-white" />
-        <p class="user__text">Profile</p>
+        <p class="user__text">
+          {{ headerUserName }}
+        </p>
         <icon-arrow class="user__arrow icon" :class="{ icon_active: menuIsActive }" />
         <v-modal-window class="user__menu" v-model:isVisible="menuIsActive" v-if="menuIsActive">
-          <router-link v-if="!$store.state.user.isAuth" class="user__bttn main-black" to="/register"
+          <router-link v-if="!isAuth" class="user__bttn main-black" to="/register"
             >Sign Up</router-link
           >
-          <router-link v-if="!$store.state.user.isAuth" class="user__bttn main-black" to="/login"
+          <router-link v-if="!isAuth" class="user__bttn main-black" to="/login"
             >Sign In</router-link
           >
           <router-link
-            v-if="$store.state.user.isAuth"
+            v-if="isAuth"
             class="user__bttn main-black"
             to="/"
             @click="$store.dispatch('user/signOut')"

@@ -1,6 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+//Views
 import Discover from '../views/DiscoverView.vue'
+
+//Utils
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,7 +46,8 @@ const router = createRouter({
       name: 'register',
       component: () => import('../views/RegisterView.vue'),
       meta: {
-        layout: 'AuthLayout'
+        layout: 'AuthLayout',
+        access: 'no auth'
       }
     },
     {
@@ -50,7 +55,17 @@ const router = createRouter({
       name: 'login',
       component: () => import('../views/LoginView.vue'),
       meta: {
-        layout: 'AuthLayout'
+        layout: 'AuthLayout',
+        access: 'no auth'
+      }
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: () => import('../views/UserView.vue'),
+      meta: {
+        layout: 'UserLayout',
+        access: 'auth only'
       }
     },
     {
@@ -70,6 +85,22 @@ const router = createRouter({
       }
     }
   ]
+})
+
+function getCurrentUser() {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(getAuth(), (user) => resolve(user), reject)
+  })
+}
+
+router.beforeEach(async (to, from, next) => {
+  const firstCondition = to.meta.access == 'auth only' && !(await getCurrentUser())
+  const secondCondition = to.meta.access == 'no auth' && (await getCurrentUser())
+  if (firstCondition || secondCondition) {
+    next({ name: 'discover' })
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -12,18 +12,14 @@ const showPassowrd = ref(false)
 
 function loginingUser() {
   const auth = getAuth()
-  signInWithEmailAndPassword(auth, userData.email, userData.password)
-    .then((data) => {
-      console.log(data)
-    })
-    .catch((error) => {
-      const regexp = new RegExp(/[^\x2F][a-z,-]+(?=\x29)/g)
-      let errorMessage = error.message.match(regexp)[0]
-      errorMessage = errorMessage.replace(/-/g, ' ')
-      errorMessage = errorMessage.replace(errorMessage[0], errorMessage[0].toUpperCase())
-      registrationError.value = errorMessage
-      setTimeout(() => (registrationError.value = ''), 1000)
-    })
+  signInWithEmailAndPassword(auth, userData.email, userData.password).catch((error) => {
+    const regexp = new RegExp(/[^\x2F][a-z,-]+(?=\x29)/g)
+    let errorMessage = error.message.match(regexp)[0]
+    errorMessage = errorMessage.replace(/-/g, ' ')
+    errorMessage = errorMessage.replace(errorMessage[0], errorMessage[0].toUpperCase())
+    registrationError.value = errorMessage
+    setTimeout(() => (registrationError.value = ''), 1000)
+  })
 }
 
 const registrationError = ref('')
@@ -35,7 +31,7 @@ const registrationError = ref('')
 
     <div class="auth">
       <p class="auth__text second-white">Email Address:</p>
-      <v-input class="auth__input" v-model="userData.email" type="text" maxlength="12" />
+      <v-input class="auth__input" v-model="userData.email" type="email" />
     </div>
 
     <div class="auth">
