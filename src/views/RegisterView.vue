@@ -50,7 +50,7 @@ function validateData() {
     registrationError.value = 'Missing password'
   } else {
     registeringUser()
-    setTimeout(() => (registrationError.value = ''), 820)
+    setTimeout(() => (registrationError.value = ''), 1000)
   }
 }
 </script>
@@ -59,19 +59,18 @@ function validateData() {
   <section class="page-block flex flex_column flex_align-center">
     <p class="page-block__title second-white">CREATE YOUR ACCOUNT</p>
 
-    <div class="register">
-      <p class="register__text second-white">Nickname:</p>
-      <v-input class="register__input" v-model="userData.nickname" type="text" maxlength="12" />
+    <div class="auth">
+      <p class="auth__text second-white">Nickname:</p>
+      <v-input class="auth__input" v-model="userData.nickname" type="text" maxlength="12" />
     </div>
 
-    <div class="register">
-      <p class="register__text second-white">Email Address:</p>
-
-      <v-input class="register__input" v-model="userData.email" type="email" />
+    <div class="auth">
+      <p class="auth__text second-white">Email Address:</p>
+      <v-input class="auth__input" v-model="userData.email" type="email" />
     </div>
 
-    <div class="register">
-      <p class="register__text second-white">Password:</p>
+    <div class="auth">
+      <p class="auth__text second-white">Password:</p>
       <div class="password">
         <v-input
           class="password__input"
@@ -87,8 +86,8 @@ function validateData() {
       </div>
     </div>
 
-    <div class="register">
-      <p class="register__text second-white">Repeat password:</p>
+    <div class="auth">
+      <p class="auth__text second-white">Repeat password:</p>
       <div class="password">
         <v-input
           class="password__input"
@@ -122,10 +121,10 @@ function validateData() {
 .page-block__error {
   color: #d00000;
 }
-.register__text {
+.auth__text {
   margin-bottom: var(--small-spacing);
 }
-.register__input {
+.auth__input {
   width: 300px;
 }
 

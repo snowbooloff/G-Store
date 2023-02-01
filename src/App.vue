@@ -21,9 +21,7 @@ const store = useStore()
 
 onMounted(() => {
   store.dispatch('fetchGenres')
-  store.dispatch('user/checkAuth').then(() => {
-    console.log(store.state.user.isAuth)
-  })
+  store.dispatch('user/checkAuth')
 })
 </script>
 

@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 
 export const userModule = {
   namespaced: true,
@@ -12,11 +12,15 @@ export const userModule = {
     }
   },
   actions: {
-    async checkAuth({ state, commit }) {
+    checkAuth({ state, commit }) {
       const auth = getAuth()
-      await onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, (user) => {
         user ? commit('setAuth', true) : commit('setAuth', false)
       })
+    },
+    signOut({ state, commit }) {
+      const auth = getAuth()
+      signOut(auth)
     }
   }
 }

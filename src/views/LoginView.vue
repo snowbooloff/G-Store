@@ -1,28 +1,51 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 
-const userEmail = ref('')
-const userPassword = ref('')
-const repeatedPassword = ref('')
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+
+const userData = reactive({
+  email: '',
+  password: ''
+})
+
 const showPassowrd = ref(false)
+
+function loginingUser() {
+  const auth = getAuth()
+  signInWithEmailAndPassword(auth, userData.email, userData.password)
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      const regexp = new RegExp(/[^\x2F][a-z,-]+(?=\x29)/g)
+      let errorMessage = error.message.match(regexp)[0]
+      errorMessage = errorMessage.replace(/-/g, ' ')
+      errorMessage = errorMessage.replace(errorMessage[0], errorMessage[0].toUpperCase())
+      registrationError.value = errorMessage
+      setTimeout(() => (registrationError.value = ''), 1000)
+    })
+}
+
+const registrationError = ref('')
 </script>
 
 <template>
   <section class="page-block flex flex_column flex_align-center">
-    <p class="page-block__title second-white"><ins>SIGN IN TO YOUR GSTORE ACCOUNT</ins></p>
+    <p class="page-block__title second-white">SIGN IN TO YOUR GSTORE ACCOUNT</p>
 
-    <div class="register">
-      <p class="register__text second-white">Email Address:</p>
-      <v-input class="register__input" v-model="userEmail" type="email" />
+    <div class="auth">
+      <p class="auth__text second-white">Email Address:</p>
+      <v-input class="auth__input" v-model="userData.email" type="text" maxlength="12" />
     </div>
 
-    <div class="register">
-      <p class="register__text second-white">Password:</p>
+    <div class="auth">
+      <p class="auth__text second-white">Password:</p>
       <div class="password">
         <v-input
           class="password__input"
-          v-model="userPassword"
+          v-model="userData.password"
           :type="showPassowrd ? 'text' : 'password'"
+          maxlength="12"
         />
         <icon-eye
           class="password__icon"
@@ -31,8 +54,14 @@ const showPassowrd = ref(false)
         />
       </div>
     </div>
-
-    <button class="page-block__bttn bttn bttn_buy">SIGN IN</button>
+    <p class="page-block__error" v-show="registrationError.length">{{ registrationError }}</p>
+    <button
+      class="page-block__bttn bttn bttn_buy"
+      :class="{ shake: registrationError.length }"
+      @click="loginingUser"
+    >
+      SIGN IN
+    </button>
     <span class="second-white">
       New to GSTORE? <router-link to="/register" class="main-white">Sign Up</router-link>
     </span>
@@ -40,10 +69,13 @@ const showPassowrd = ref(false)
 </template>
 
 <style scoped>
-.register__text {
+.page-block__error {
+  color: #d00000;
+}
+.auth__text {
   margin-bottom: var(--small-spacing);
 }
-.register__input {
+.auth__input {
   width: 300px;
 }
 
@@ -61,5 +93,34 @@ const showPassowrd = ref(false)
 }
 .page-block__bttn {
   width: 300px;
+}
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 </style>
