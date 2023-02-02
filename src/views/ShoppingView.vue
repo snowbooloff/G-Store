@@ -131,21 +131,14 @@ const grandTotal = computed(() => {
 
         <div class="promo flex flex_column">
           <h3 class="promo__title main-white">Redeem Promo Code:</h3>
-          <div class="promo__block">
-            <v-input
-              class="promo__input"
-              v-model="promoCode.value"
-              placeholder="PROMO1"
-              maxlength="15"
-            />
-            <input
-              class="promo__submit cursos-pointer"
-              type="submit"
-              value="SUBMIT"
-              @click.stop="checkPromo(promoCode)"
-              v-show="promoCode.value.length"
-            />
-          </div>
+          <v-input-submit
+            class="promo__input"
+            v-model="promoCode.value"
+            maxlength="15"
+            placeholder="PROMO1"
+            :submitFunc="checkPromo"
+            :funcArguments="promoCode"
+          />
           <span
             class="promo__status promo__status_red"
             v-show="promoCode.isChecked && !promoCode.isActive"
@@ -201,24 +194,7 @@ const grandTotal = computed(() => {
   gap: var(--small-spacing);
   margin-bottom: var(--large-spacing);
 }
-.promo__block {
-  position: relative;
-  width: 100%;
-}
 
-.promo__submit {
-  position: absolute;
-  right: 0;
-  height: 100%;
-  border-radius: 0 var(--small-radius) var(--small-radius) 0;
-  background-color: var(--second-white);
-  color: var(--second-black);
-  cursor: pointer;
-  line-height: 1;
-  outline: none;
-  border: none;
-  padding: 8px;
-}
 .promo__status_green {
   color: #008000;
 }

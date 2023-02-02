@@ -2,6 +2,7 @@ import Vcheckbox from './Vcheckbox.vue'
 import Vselect from './Vselect.vue'
 import Vinput from './Vinput.vue'
 import VsearchInput from './VsearchInput.vue'
+import VinputSubmit from './VinputSubmit.vue'
 import VlazyImage from './VlazyImage.vue'
 import VrangeSlider from './VrangeSlider.vue'
 import VmodalWindow from './VmodalWindow.vue'
@@ -25,6 +26,10 @@ export default [
   {
     name: 'v-search-input',
     component: VsearchInput
+  },
+  {
+    name: 'v-input-submit',
+    component: VinputSubmit
   },
   {
     name: 'v-lazy-image',

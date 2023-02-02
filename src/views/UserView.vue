@@ -14,6 +14,10 @@ const correctedRegDate = computed(() =>
 const s = ref('')
 
 const showNicknameInput = ref(false)
+
+function sas(sas) {
+  console.log(sas)
+}
 </script>
 
 <template>
@@ -39,7 +43,14 @@ const showNicknameInput = ref(false)
 
         <h3 class="datails__item main-blue">{{ userData.nickname }}</h3>
       </div>
-      <v-input v-if="showNicknameInput" v-model="s" class="input" />
+      <v-input-submit
+        v-if="showNicknameInput"
+        class="input"
+        placeholder="New Nickname"
+        v-model="s"
+        :submitFunc="sas"
+        :funcArguments="'sas'"
+      />
 
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Email Address:</h3>
@@ -94,9 +105,6 @@ const showNicknameInput = ref(false)
   padding: var(--large-spacing);
   background: var(--second-black);
   border-radius: var(--medium-radius);
-}
-.input {
-  width: 100%;
 }
 .details {
 }
