@@ -13,13 +13,7 @@ import ComponentsIcons from './components/icons'
 import Intersection from './directives/Vintersection'
 
 //Firebase
-import { initializeApp } from 'firebase/app'
-import { getDatabase } from 'firebase/database'
-
-import { firebaseConfig } from './firebaseConfig'
-
-const FireBaseApp = initializeApp(firebaseConfig)
-const database = getDatabase(FireBaseApp)
+import { FireBaseApp } from './firebase'
 
 const app = createApp(App)
 

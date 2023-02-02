@@ -1,11 +1,7 @@
 <script setup></script>
 
 <template>
-  <div>
+  <div v-bind="$attrs">
     <slot></slot>
   </div>
 </template>
-
-<stylescoped>
-
-</stylescoped>

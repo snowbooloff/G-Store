@@ -52,6 +52,9 @@ const menuIsActive = ref(false)
           <router-link v-if="!isAuth" class="user__bttn main-black" to="/login"
             >Sign In</router-link
           >
+          <router-link v-if="isAuth" class="user__bttn main-black" to="/user"
+            >My Profile</router-link
+          >
           <router-link
             v-if="isAuth"
             class="user__bttn main-black"
