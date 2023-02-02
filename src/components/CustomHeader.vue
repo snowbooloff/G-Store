@@ -1,6 +1,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+//Components
+import UserAvatar from '../components/UserAvatar.vue'
+
 //Utils
 import { useStore } from 'vuex'
 const store = useStore()
@@ -40,7 +43,7 @@ const menuIsActive = ref(false)
         class="user flex flex_align-center cursor-pointer main-black"
         @click.stop="menuIsActive = !menuIsActive"
       >
-        <icon-user class="user__avatar icon main-white" />
+        <user-avatar :size="'30px'" class="user_pic" />
         <p class="user__text">
           {{ headerUserName }}
         </p>
@@ -105,15 +108,10 @@ const menuIsActive = ref(false)
 .user__text {
   margin-left: var(--small-spacing);
 }
-
-.user__avatar {
-  width: 30px;
-  height: 30px;
-  padding: var(--small-spacing);
-  border-radius: 50%;
-  background-color: var(--second-white);
+.user_pic {
   border: 2px solid var(--main-blue);
 }
+
 .user__arrow {
   margin-top: 2px;
 }

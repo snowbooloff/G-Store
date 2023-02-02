@@ -8,7 +8,7 @@ export const userModule = {
     userInfo: {
       nickname: '',
       email: '',
-      profilePic: ''
+      image: ''
     }
   }),
   getters: {},
@@ -16,13 +16,14 @@ export const userModule = {
     setAuth(state, authValue) {
       state.isAuth = authValue
     },
-    setUserInfo(state, value) {
-      state.userInfo.nickname = value.displayName
-      state.userInfo.email = value.email
-      state.userInfo.profilePic = value.photoURL
+    setUserNickname(state, nickname) {
+      state.userInfo.nickname = nickname
+    },
+    setUserEmail(state, email) {
+      state.userInfo.email = email
     },
     setUserPic(state, picUrl) {
-      state.userInfo.profilePic = picUrl
+      state.userInfo.image = picUrl
     }
   },
   actions: {
@@ -31,35 +32,35 @@ export const userModule = {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           commit('setAuth', true)
-          commit('setUserInfo', user)
-          console.log(auth)
+          commit('setUserNickname', user.displayName)
+          commit('setUserPic', user.photoURL)
+          commit('setUserEmail', user.email)
         }
       })
     },
     signOut({ state, commit }) {
       const auth = getAuth()
-      signOut(auth)
-      commit('setAuth', false)
-    },
-    signOut({ state, commit }) {
-      const auth = getAuth()
-      signOut(auth)
-      commit('setAuth', false)
+      signOut(auth).then(() => {
+        commit('setAuth', false)
+        commit('setUserNickname', '')
+        commit('setUserPic', '')
+        commit('setUserEmail', '')
+      })
     },
     uploadUserPic({ state, commit }, userPic) {
       if (userPic) {
         const auth = getAuth()
         const storage = getStorage()
-        const pictureRef = ref(storage, `userAvatars/${auth.currentUser.uid}/${userPic.name}`)
+        console.log(auth)
+        const pictureRef = ref(storage, `userAvatars/${auth.currentUser.uid}/avatar`)
 
         uploadBytes(pictureRef, userPic).then(() => {
-          console.log('img uploaded')
-        })
-        getDownloadURL(pictureRef).then((url) => {
-          updateProfile(auth.currentUser, {
-            photoURL: url
+          getDownloadURL(pictureRef).then((url) => {
+            updateProfile(auth.currentUser, {
+              photoURL: url
+            })
+            commit('setUserPic', url)
           })
-          commit('setUserPic', url)
         })
       }
     }
