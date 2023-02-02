@@ -22,7 +22,7 @@ const userImage = computed(() => store.state.user.userInfo.image)
   </div>
 </template>
 
-<style>
+<style scoped>
 .user-avatar,
 .user-avatar__icon,
 .user-avatar__img {

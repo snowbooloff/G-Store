@@ -8,7 +8,8 @@ export const userModule = {
     userInfo: {
       nickname: '',
       email: '',
-      image: ''
+      image: '',
+      registrationDate: ''
     }
   }),
   getters: {},
@@ -22,8 +23,11 @@ export const userModule = {
     setUserEmail(state, email) {
       state.userInfo.email = email
     },
-    setUserPic(state, picUrl) {
+    setUserImage(state, picUrl) {
       state.userInfo.image = picUrl
+    },
+    setUserRegDate(state, date) {
+      state.userInfo.registrationDate = date
     }
   },
   actions: {
@@ -33,8 +37,10 @@ export const userModule = {
         if (user) {
           commit('setAuth', true)
           commit('setUserNickname', user.displayName)
-          commit('setUserPic', user.photoURL)
+          commit('setUserImage', user.photoURL)
           commit('setUserEmail', user.email)
+          commit('setUserRegDate', user.metadata.creationTime)
+          console.log(user)
         }
       })
     },
@@ -43,15 +49,16 @@ export const userModule = {
       signOut(auth).then(() => {
         commit('setAuth', false)
         commit('setUserNickname', '')
-        commit('setUserPic', '')
+        commit('setUserImage', '')
         commit('setUserEmail', '')
+        commit('setUserRegDate', '')
       })
     },
     uploadUserPic({ state, commit }, userPic) {
       if (userPic) {
         const auth = getAuth()
         const storage = getStorage()
-        console.log(auth)
+
         const pictureRef = ref(storage, `userAvatars/${auth.currentUser.uid}/avatar`)
 
         uploadBytes(pictureRef, userPic).then(() => {
@@ -59,7 +66,7 @@ export const userModule = {
             updateProfile(auth.currentUser, {
               photoURL: url
             })
-            commit('setUserPic', url)
+            commit('setUserImage', url)
           })
         })
       }
