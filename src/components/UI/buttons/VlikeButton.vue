@@ -39,8 +39,15 @@ function setFavGame() {
 </script>
 
 <template>
-  <button class="bttn" :class="activeClass" @click="setFavGame">
-    <component :is="activeIcon" class="bttn__icon" />
+  <button
+    class="bttn"
+    :class="activeClass"
+    @click="setFavGame"
+  >
+    <component
+      :is="activeIcon"
+      class="bttn__icon"
+    />
   </button>
 </template>
 

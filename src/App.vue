@@ -12,8 +12,8 @@
 import { onMounted } from 'vue'
 
 //Components
-import Notification from './components/Notification.vue'
 import CustomHeader from './components/CustomHeader.vue'
+import Notification from './components/Notification.vue'
 import AppLayout from './layouts/AppLayout.vue'
 
 //Utils
@@ -32,6 +32,17 @@ onMounted(() => {
 
 header {
   margin-bottom: 48px;
+}
+
+#modals {
+  position: fixed;
+  z-index: 999;
+  top: 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: flex;
+  flex-flow: column;
+  gap: var(--medium-spacing);
 }
 
 #app {
