@@ -50,9 +50,9 @@ provide('shoppingRemove', {
 
 function removeGame(game) {
   const index = shoppingList.value.indexOf(game)
-
   shoppingList.value.splice(index, 1)
   localStorageUtil.placeItem(localStorageUtil.shopping, game.id)
+  store.commit('notification/pushNotification', `${game.name}: removed from shopping cart`)
 }
 
 const promoCode = reactive({

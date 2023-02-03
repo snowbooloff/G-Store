@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 
 //Components
 import UserAvatar from '../components/UserAvatar.vue'
@@ -13,8 +13,23 @@ const correctedRegDate = computed(() =>
 )
 const s = ref('')
 
-const showNicknameInput = ref(false)
+const inputAttrs = reactive({
+  value: '',
+  isVisible: false,
+  placeholder: '',
+  previousX: 0
+})
 
+function showInput(element, placeholder) {
+  console.log(element.target)
+  if (inputAttrs.previousX == element.pageX) {
+    inputAttrs.isVisible = false
+  } else {
+    inputAttrs.isVisible = true
+  }
+  inputAttrs.placeholder = placeholder
+  inputAttrs.previousX = element.pageX
+}
 function sas(sas) {
   console.log(sas)
 }
@@ -31,47 +46,44 @@ function sas(sas) {
         @input="$store.dispatch('user/uploadUserPic', $event.target.files[0])"
       />
     </div>
+
     <div class="user-info flex flex_column">
+      <v-input-submit
+        v-if="inputAttrs.isVisible"
+        class="input"
+        v-model="inputAttrs.value"
+        :placeholder="inputAttrs.placeholder"
+        :submitFunc="sas"
+        :funcArguments="'sas'"
+      />
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Nickname:</h3>
-        <button
-          class="datails__bttn cursor-pointer"
-          @click="showNicknameInput = !showNicknameInput"
-        >
-          <icon-edit class="datails__icon main-blue" />
+        <button class="datails__bttn cursor-pointer" @click="showInput($event, 'New Nickname')">
+          <icon-edit class="datails__icon datails__icon_1 main-blue" />
         </button>
 
         <h3 class="datails__item main-blue">{{ userData.nickname }}</h3>
       </div>
-      <v-input-submit
-        v-if="showNicknameInput"
-        class="input"
-        placeholder="New Nickname"
-        v-model="s"
-        :submitFunc="sas"
-        :funcArguments="'sas'"
-      />
 
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Email Address:</h3>
         <button
-          class="datails__bttn cursor-pointer"
-          @click="showNicknameInput = !showNicknameInput"
+          class="datails__bttn datails__bttn_2 cursor-pointer"
+          @click="showInput($event, 'New Email Address')"
         >
-          <icon-edit class="datails__icon main-blue" />
+          <icon-edit class="datails__icon datails__icon_2 main-blue" />
         </button>
         <h3 class="datails__item main-blue">{{ userData.email }}</h3>
       </div>
+
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Password:</h3>
-        <button
-          class="datails__bttn cursor-pointer"
-          @click="showNicknameInput = !showNicknameInput"
-        >
+        <button class="datails__bttn cursor-pointer" @click="showInput">
           <icon-edit class="datails__icon main-blue" />
         </button>
         <h3 class="datails__item main-blue">Change Password</h3>
       </div>
+
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Registration Date:</h3>
         <h3 class="datails__date main-blue">{{ correctedRegDate }}</h3>

@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import { userModule } from './userModule'
+import { notificationModule } from './notificationModule'
 
 import axios from 'axios'
 
@@ -33,6 +34,7 @@ export default createStore({
     }
   },
   modules: {
-    user: userModule
+    user: userModule,
+    notification: notificationModule
   }
 })

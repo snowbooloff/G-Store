@@ -1,12 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 
-//Components
-import Notification from '../../Notification.vue'
-
 //Utils
 import { localStorageUtil } from '../../../localStorage'
 import { useRoute, useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -24,31 +23,26 @@ const props = defineProps({
 })
 
 const checkGame = localStorageUtil.getList(localStorageUtil.shopping).includes(props.gameId)
-const text = ref(checkGame ? 'Added to kart' : props.price == 0 ? 'Free' : '$' + props.price)
+
+const text = ref(checkGame ? 'Added to cart' : props.price == 0 ? 'Free' : '$' + props.price)
 
 const activeClass = ref(checkGame ? 'bttn_buy-active' : 'bttn_buy')
 
-const isShow = ref(false)
-
 function setGameToShopping() {
-  if (text.value != 'Added to kart') {
-    text.value = 'Added to kart'
+  if (text.value != 'Added to cart') {
+    text.value = 'Added to cart'
     activeClass.value = 'bttn_buy-active'
     localStorageUtil.placeItem(localStorageUtil.shopping, props.gameId)
+    store.commit('notification/pushNotification', `${props.gameName}: added to shopping cart`)
   } else {
     router.push('/shopping')
   }
-  isShow.value = true
-  setTimeout(() => {
-    isShow.value = false
-  }, 2500)
 }
 </script>
 
 <template>
   <button class="bttn" :class="activeClass" @click="setGameToShopping">
     {{ text }}
-    <notification v-if="isShow">{{ gameName }}: added to shopping kart</notification>
   </button>
 </template>
 
