@@ -67,6 +67,9 @@ export const userModule = {
               photoURL: url
             })
             commit('setUserImage', url)
+            commit('notification/pushNotification', 'Profile image successfully uploaded', {
+              root: true
+            })
           })
         })
       }
