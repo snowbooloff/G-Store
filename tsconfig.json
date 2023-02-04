@@ -14,7 +14,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env"
+      "node",
+      "vite/client"
     ],
     "paths": {
       "@/*": [

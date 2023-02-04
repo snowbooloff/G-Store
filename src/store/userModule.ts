@@ -40,7 +40,6 @@ export const userModule = {
           commit('setUserImage', user.photoURL)
           commit('setUserEmail', user.email)
           commit('setUserRegDate', user.metadata.creationTime)
-          console.log(user)
         }
       })
     },

@@ -87,15 +87,18 @@ const router = createRouter({
   ]
 })
 
-function getCurrentUser() {
+type user = object | null
+
+function getCurrentUser(): Promise<user> {
   return new Promise((resolve, reject) => {
     onAuthStateChanged(getAuth(), (user) => resolve(user), reject)
   })
 }
 
 router.beforeEach(async (to, from, next) => {
-  const firstCondition = to.meta.access == 'auth only' && !(await getCurrentUser())
-  const secondCondition = to.meta.access == 'no auth' && (await getCurrentUser())
+  const isAuth: user = await getCurrentUser()
+  const firstCondition = to.meta.access == 'auth only' && !isAuth
+  const secondCondition = to.meta.access == 'no auth' && isAuth
   if (firstCondition || secondCondition) {
     next({ name: 'discover' })
   } else {

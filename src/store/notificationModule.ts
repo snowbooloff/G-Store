@@ -1,17 +1,15 @@
-interface notificationState {
-  notificationList: [string]
-}
+type notificationState = { notificationList: string[] }
 
 export const notificationModule = {
   namespaced: true,
-  state: (): notificationState => ({
+  state: () => ({
     notificationList: []
   }),
   mutations: {
-    pushNotification(state: object, newNotification: string): void {
+    pushNotification(state: notificationState, newNotification: string): void {
       state.notificationList.push(newNotification)
     },
-    removeNotification(state: object) {
+    removeNotification(state: notificationState) {
       state.notificationList.splice(0, 1)
     }
   }
