@@ -1,19 +1,16 @@
 import { createStore } from 'vuex'
 import { userModule } from './userModule'
 import { notificationModule } from './notificationModule'
+import { loadingModule } from './loadingModule'
 
 import axios from 'axios'
 
 export default createStore({
   state: {
-    isLoading: false,
     genresList: []
   },
   getters: {},
   mutations: {
-    setLoading(state, loadingStatus) {
-      state.isLoading = loadingStatus
-    },
     setGenresList(state, value) {
       state.genresList = value
     }
@@ -35,6 +32,7 @@ export default createStore({
   },
   modules: {
     user: userModule,
-    notification: notificationModule
+    notification: notificationModule,
+    loading: loadingModule
   }
 })

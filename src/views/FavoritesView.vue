@@ -25,7 +25,7 @@ onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.favorites)
 
   if (storageList.length) {
-    store.commit('setLoading', true)
+    store.commit('loading/setLoading', true)
 
     storageList.forEach((gameId) => {
       const game = ref([])
@@ -36,7 +36,7 @@ onMounted(() => {
         })
         .then(() => {
           if (gameId == storageList[storageList.length - 1]) {
-            store.commit('setLoading', false)
+            store.commit('loading/setLoading', false)
           }
         })
     })

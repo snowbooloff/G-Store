@@ -1,16 +1,13 @@
-type notificationState = { notificationList: string[] }
+type loadingState = { isLoading: boolean }
 
-export const notificationModule = {
+export const loadingModule = {
   namespaced: true,
   state: () => ({
-    notificationList: []
+    isLoading: false
   }),
   mutations: {
-    pushNotification(state: notificationState, newNotification: string): void {
-      state.notificationList.push(newNotification)
-    },
-    removeNotification(state: notificationState) {
-      state.notificationList.splice(0, 1)
+    setLoading(state: loadingState, loadingStatus: boolean) {
+      state.isLoading = loadingStatus
     }
   }
 }

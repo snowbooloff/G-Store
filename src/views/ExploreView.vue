@@ -63,9 +63,9 @@ const sortOptions = reactive([
 ])
 
 function fetching() {
-  store.commit('setLoading', true)
+  store.commit('loading/setLoading', true)
   fetchGames(exploreGamesList, currentPage, query, totalGamesCount).then(() => {
-    store.commit('setLoading', false)
+    store.commit('loading/setLoading', false)
   })
 }
 
@@ -105,7 +105,11 @@ function loadMoreGames() {
     <div class="nav-bar flex flex_space-between flex_align-center">
       <h1 class="nav-bar__title main-white">{{ route.query.title || 'Explore Games' }}</h1>
 
-      <v-select class="nav-bar__select" v-model="query.sort" :options="sortOptions">
+      <v-select
+        class="nav-bar__select"
+        v-model="query.sort"
+        :options="sortOptions"
+      >
         Default order
       </v-select>
     </div>
@@ -147,29 +151,59 @@ function loadMoreGames() {
         List is empty
       </h3>
 
-      <aside class="filters" v-show="filterIsActive">
+      <aside
+        class="filters"
+        v-show="filterIsActive"
+      >
         <div class="filters__block">
           <h4 class="filters__title main-white">Platforms</h4>
 
-          <v-checkbox class="filters__item" v-model="query.platforms" :value="'1'"> PC </v-checkbox>
+          <v-checkbox
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'1'"
+          >
+            PC
+          </v-checkbox>
 
-          <v-checkbox tabindex="2" class="filters__item" v-model="query.platforms" :value="'2'">
+          <v-checkbox
+            tabindex="2"
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'2'"
+          >
             PlayStation
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.platforms" :value="'3'">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'3'"
+          >
             XBOX
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.platforms" :value="'4'">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'4'"
+          >
             iOS
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.platforms" :value="'7'">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'7'"
+          >
             Nintendo
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.platforms" :value="'8'">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.platforms"
+            :value="'8'"
+          >
             Android
           </v-checkbox>
         </div>
@@ -177,15 +211,27 @@ function loadMoreGames() {
         <div class="filters__block">
           <h4 class="filters__title main-white">Features</h4>
 
-          <v-checkbox class="filters__item" v-model="query.tags" :value="31">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.tags"
+            :value="31"
+          >
             Singleplayer
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.tags" :value="7">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.tags"
+            :value="7"
+          >
             Multiplayer
           </v-checkbox>
 
-          <v-checkbox class="filters__item" v-model="query.tags" :value="18">
+          <v-checkbox
+            class="filters__item"
+            v-model="query.tags"
+            :value="18"
+          >
             Cooperative
           </v-checkbox>
         </div>
@@ -215,12 +261,21 @@ function loadMoreGames() {
           />
         </div>
 
-        <button class="filters__block bttn bttn_transparent" @click="clearFilters">Clear</button>
+        <button
+          class="filters__block bttn bttn_transparent"
+          @click="clearFilters"
+        >
+          Clear
+        </button>
       </aside>
     </div>
   </section>
 
-  <div v-if="!$store.state.isLoading" class="observer" v-intersection="loadMoreGames"></div>
+  <div
+    v-if="!$store.state.isLoading"
+    class="observer"
+    v-intersection="loadMoreGames"
+  ></div>
 </template>
 
 <style scoped>

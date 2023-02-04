@@ -20,25 +20,32 @@ const store = useStore()
 
 const game = ref([])
 
-onMounted(() => {
-  store.commit('setLoading', true)
+function fetching() {
+  store.commit('loading/setLoading', true)
   fetchGameDetails(game, route.params.id, router).then(() => {
-    store.commit('setLoading', false)
+    store.commit('loading/setLoading', false)
   })
-})
+}
 
+onMounted(() => {
+  fetching()
+})
 watch(route, () => {
-  store.commit('setLoading', true)
-  fetchGameDetails(game, route.params.id, router).then(() => {
-    store.commit('setLoading', false)
-  })
+  fetching()
 })
 </script>
 
 <template>
-  <v-lazy-image class="page__img" :imgSrc="game.background_image" :alt="game.name" />
+  <v-lazy-image
+    class="page__img"
+    :imgSrc="game.background_image"
+    :alt="game.name"
+  />
 
-  <section class="game-block large-container flex" v-if="!$store.state.isLoading">
+  <section
+    class="game-block large-container flex"
+    v-if="!$store.state.isLoading"
+  >
     <div class="title-block flex flex_column">
       <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
@@ -46,7 +53,10 @@ watch(route, () => {
         🎯{{ game.released || 'Date is coming soon' }}
       </h3>
 
-      <metacritic-score class="title-block__score" :score="game.metacritic">
+      <metacritic-score
+        class="title-block__score"
+        :score="game.metacritic"
+      >
         Metacritic:
       </metacritic-score>
     </div>
@@ -59,7 +69,11 @@ watch(route, () => {
         :gameId="game.id"
       />
 
-      <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
+      <v-like-button
+        class="buttons-block__like-bttn"
+        :gameId="game.id"
+        :gameName="game.name"
+      />
     </nav>
 
     <div class="game-details flex flex_column">

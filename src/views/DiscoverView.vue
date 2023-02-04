@@ -12,7 +12,6 @@ import fetchGames from '../composables/fetchGames.js'
 
 //Utils
 import { useStore } from 'vuex'
-
 const store = useStore()
 
 const newDate = new Date()
@@ -37,7 +36,7 @@ const gamesForBoard = ref([])
 onMounted(() => {
   window.scrollTo(0, 0)
 
-  store.commit('setLoading', true)
+  store.commit('loading/setLoading', true)
 
   const f1 = fetchGames(newReleasesGamesList, 1, {
     date: pastDatePeriod,
@@ -67,7 +66,7 @@ onMounted(() => {
     rating: [10, 100]
   })
   Promise.all([f1, f2, f3, f4]).then(() => {
-    store.commit('setLoading', false)
+    store.commit('loading/setLoading', false)
   })
 })
 </script>
@@ -98,7 +97,10 @@ onMounted(() => {
       </button>
     </div>
 
-    <items-list class="game-list" :itemsList="newReleasesGamesList">
+    <items-list
+      class="game-list"
+      :itemsList="newReleasesGamesList"
+    >
       <template #item="slotProps">
         <game-item :game="slotProps.item" />
       </template>
@@ -131,7 +133,10 @@ onMounted(() => {
       </button>
     </div>
 
-    <items-list class="game-list" :itemsList="comingSoonGamesList">
+    <items-list
+      class="game-list"
+      :itemsList="comingSoonGamesList"
+    >
       <template #item="slotProps">
         <game-item :game="slotProps.item" />
       </template>
@@ -163,7 +168,10 @@ onMounted(() => {
       </button>
     </div>
 
-    <items-list class="game-list" :itemsList="highestRatingGamesList">
+    <items-list
+      class="game-list"
+      :itemsList="highestRatingGamesList"
+    >
       <template #item="slotProps">
         <game-item :game="slotProps.item" />
       </template>
@@ -173,7 +181,10 @@ onMounted(() => {
   <section class="page-block flex flex_column">
     <h1 class="page-block__title main-white">Genres</h1>
 
-    <items-list class="genre-list" :itemsList="$store.state.genresList">
+    <items-list
+      class="genre-list"
+      :itemsList="$store.state.genresList"
+    >
       <template #item="slotProps">
         <genre-item
           :genre="slotProps.item"

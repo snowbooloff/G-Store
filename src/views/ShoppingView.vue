@@ -26,7 +26,7 @@ onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.shopping)
 
   if (storageList.length) {
-    store.commit('setLoading', true)
+    store.commit('loading/setLoading', true)
 
     storageList.forEach((gameId) => {
       const game = ref([])
@@ -37,7 +37,7 @@ onMounted(() => {
         })
         .then(() => {
           if (gameId == storageList[storageList.length - 1]) {
-            store.commit('setLoading', false)
+            store.commit('loading/setLoading', false)
           }
         })
     })
@@ -91,7 +91,9 @@ const grandTotal = computed(() => {
   <section class="page-block flex flex_column">
     <h1 class="page-block__title main-white">
       Shopping Cart
-      <span v-show="shoppingList.length" class="page-block__count main-blue"
+      <span
+        v-show="shoppingList.length"
+        class="page-block__count main-blue"
         >({{ shoppingList.length }} items)</span
       >
     </h1>
@@ -110,11 +112,17 @@ const grandTotal = computed(() => {
         Shopping list is empty
       </nav-bar-for-empty>
 
-      <div class="order-info" v-if="shoppingList.length">
+      <div
+        class="order-info"
+        v-if="shoppingList.length"
+      >
         <div class="order-info__block flex flex_align-center">
           <h3 class="order-info__title main-white">Subtotal:</h3>
           <p class="order-info__price main-blue">${{ totalPrice }}</p>
-          <p v-show="promoCode.isActive" class="order-info__discount main-white">
+          <p
+            v-show="promoCode.isActive"
+            class="order-info__discount main-white"
+          >
             {{ '-' + promoCode.discountType + promoCode.discount }}
           </p>
         </div>
