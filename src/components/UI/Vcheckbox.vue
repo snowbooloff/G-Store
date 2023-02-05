@@ -1,19 +1,13 @@
-<script setup>
-const props = defineProps({
-  modelValue: {
-    type: Array,
-    required: true
-  },
-  value: {
-    type: [String, Number],
-    required: true
-  }
-})
+<script setup lang="ts">
+const props = defineProps<{
+  modelValue: (string | number)[]
+  value: string | number
+}>()
 
 const emit = defineEmits(['update:modelValue'])
 
 function updateCheckBox() {
-  let newModelValue = [...props.modelValue]
+  const newModelValue = [...props.modelValue]
 
   if (!newModelValue.includes(props.value)) {
     newModelValue.push(props.value)
@@ -40,7 +34,12 @@ function updateCheckBox() {
     >
     </span>
 
-    <input class="checkbox__input" type="checkbox" :value="value" @change="updateCheckBox" />
+    <input
+      class="checkbox__input"
+      type="checkbox"
+      :value="value"
+      @change="updateCheckBox"
+    />
   </label>
 </template>
 
