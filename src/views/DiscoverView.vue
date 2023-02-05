@@ -180,7 +180,7 @@ onMounted(() => {
 
     <items-list
       class="genre-list"
-      :itemsList="$store.state.genresList"
+      :itemsList="$store.state.genres.genresList"
     >
       <template #item="slotProps">
         <genre-item

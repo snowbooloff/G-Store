@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 
 //Utils
 import { localStorageUtil } from '../../../localStorage'
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-const store = useStore()
 
-const route = useRoute()
 const router = useRouter()
+const store = useStore()
 
 const props = defineProps<{
   price: number
@@ -24,13 +23,10 @@ const activeClass = ref(checkGame ? 'bttn_buy-active' : 'bttn_buy')
 
 function setGameToShopping() {
   if (text.value != 'Added to cart') {
-    console.log(localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId))
-
     text.value = 'Added to cart'
     activeClass.value = 'bttn_buy-active'
     localStorageUtil.placeItem(localStorageUtil.shopping, props.gameId)
     store.commit('notification/pushNotification', `${props.gameName}: added to shopping cart`)
-    console.log(localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId))
   } else {
     router.push('/shopping')
   }
@@ -43,13 +39,7 @@ function setGameToShopping() {
     :class="activeClass"
     @click="setGameToShopping"
   >
-    {{
-      localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId)
-        ? 'Added to cart'
-        : props.price == 0
-        ? 'Free'
-        : '$' + props.price
-    }}
+    {{ text }}
   </button>
 </template>
 

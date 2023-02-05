@@ -1,37 +1,33 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 
 //Utils
 import { localStorageUtil } from '../../../localStorage'
 import { useStore } from 'vuex'
+
 const store = useStore()
 
-const props = defineProps({
-  gameId: {
-    type: Number
-  },
-  gameName: {
-    type: String
-  }
-})
+const props = defineProps<{
+  gameId: number
+  gameName: string
+}>()
 
-const checkGame = localStorageUtil.getList(localStorageUtil.favorites).includes(props.gameId)
+function checkItem(): boolean {
+  return localStorageUtil.checkItem(localStorageUtil.favorites, props.gameId)
+}
 
-const activeIcon = ref(checkGame ? 'icon-like-active' : 'icon-like')
-const activeClass = ref(checkGame ? 'bttn_like-active' : 'bttn_like')
+const activeIcon = ref(checkItem() ? 'icon-like-active' : 'icon-like')
 
 function setFavGame() {
-  const itemStatus = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)
+  const itemStatus: boolean = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)
 
-  let notificationText = ''
+  let notificationText: string = ''
 
   if (itemStatus) {
     activeIcon.value = 'icon-like-active'
-    activeClass.value = 'bttn_like-active'
     notificationText = 'added to favorite games'
   } else {
     activeIcon.value = 'icon-like'
-    activeClass.value = 'bttn_like'
     notificationText = 'removed from favorite games'
   }
   store.commit('notification/pushNotification', `${props.gameName} ${notificationText}`)
@@ -41,7 +37,7 @@ function setFavGame() {
 <template>
   <button
     class="bttn"
-    :class="activeClass"
+    :class="checkItem() ? 'bttn_like-active' : 'bttn_like'"
     @click="setFavGame"
   >
     <component

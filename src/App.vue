@@ -21,7 +21,7 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 onMounted(() => {
-  store.dispatch('fetchGenres')
+  store.dispatch('genres/fetchGenres')
   store.dispatch('user/checkAuth')
 })
 </script>

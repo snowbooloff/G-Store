@@ -36,7 +36,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx",
     "src/main.js",
-    "src/store/index.js"
+    "src/store/index.ts"
   ],
   "exclude": [
     "node_modules"

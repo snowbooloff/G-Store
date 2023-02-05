@@ -1,22 +1,20 @@
-import { createStore } from 'vuex'
-import { userModule } from './userModule'
-import { notificationModule } from './notificationModule'
-import { loadingModule } from './loadingModule'
-
 import axios from 'axios'
+import { Commit } from 'vuex'
 
-export default createStore({
-  state: {
+type genresState = { genresList: object[] }
+
+export const genresModule = {
+  namespaced: true,
+  state: () => ({
     genresList: []
-  },
-  getters: {},
+  }),
   mutations: {
-    setGenresList(state, value) {
+    setGenresList(state: genresState, value: object[]) {
       state.genresList = value
     }
   },
   actions: {
-    async fetchGenres({ state, commit }) {
+    async fetchGenres({ state, commit }: { state: genresState; commit: Commit }) {
       try {
         const response = await axios.get('https://api.rawg.io/api/genres?', {
           params: {
@@ -29,10 +27,5 @@ export default createStore({
         console.warn(error)
       }
     }
-  },
-  modules: {
-    user: userModule,
-    notification: notificationModule,
-    loading: loadingModule
   }
-})
+}

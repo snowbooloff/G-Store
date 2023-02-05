@@ -241,7 +241,7 @@ function loadMoreGames() {
 
           <v-checkbox
             class="filters__item"
-            v-for="genre in $store.state.genresList"
+            v-for="genre in $store.state.genres.genresList"
             v-model="query.genres"
             :value="genre.id.toString()"
           >
