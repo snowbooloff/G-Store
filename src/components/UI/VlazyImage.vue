@@ -1,21 +1,20 @@
-<script setup>
-const props = defineProps({
-  imgSrc: {
-    type: [String, null]
-  },
-  gameId: {
-    type: Number
-  },
-  alt: {
-    type: String
-  }
-})
+<script setup lang="ts">
+const props = defineProps<{
+  imgSrc?: string | null
+  submitFunc?: number
+  alt?: string
+}>()
 
 const notFoundPicUrl = 'https://i.ibb.co/VB2G77Q/s.jpg'
 </script>
 
 <template>
-  <img class="lazy-image__img" :src="imgSrc || notFoundPicUrl" :alt="alt" loading="lazy" />
+  <img
+    class="lazy-image__img"
+    :src="imgSrc || notFoundPicUrl"
+    :alt="alt"
+    loading="lazy"
+  />
 </template>
 
 <style scoped>
