@@ -1,10 +1,6 @@
-<script setup>
-const prop = defineProps({
-  modelValue: {
-    type: [String, Number],
-    required: true
-  }
-})
+<script setup lang="ts">
+defineProps(['modelValue'])
+defineEmits(['update:modelValue'])
 </script>
 
 <template>
