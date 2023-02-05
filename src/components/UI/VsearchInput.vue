@@ -1,24 +1,22 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-const prop = defineProps({
-  modelValue: {
-    type: [String, Number],
-    required: true
-  }
-})
+
+const prop = defineProps<{
+  modelValue: string | null
+}>()
 const emit = defineEmits(['update:modelValue'])
 
-let delayTime
+let delayTime: number
 
 const debouncedValue = ref('')
 
-const debounceListener = (e) => {
+const debounceListener = (event: Event) => {
   if (!!delayTime) {
     clearTimeout(delayTime)
   }
 
-  delayTime = setTimeout(() => {
-    debouncedValue.value = e.target.value
+  delayTime = window.setTimeout(() => {
+    debouncedValue.value = (event.target as HTMLInputElement).value
     emit('update:modelValue', debouncedValue.value)
   }, 800)
 }
@@ -26,8 +24,9 @@ const debounceListener = (e) => {
 
 <template>
   <div class="search">
-    <input
+    <v-input
       class="search__input main-black"
+      v-bind:modelValue="modelValue"
       :value="modelValue"
       @input="debounceListener"
       v-bind="$attrs"
@@ -42,17 +41,9 @@ const debounceListener = (e) => {
   position: relative;
 }
 .search__input {
-  width: 100%;
-  border-radius: 10px;
   padding: 8px 8px 8px 32px;
-  outline: none;
-  border: none;
-  font-size: 0.875em;
-  line-height: 1;
 }
-.search__input:focus {
-  box-shadow: 0px 0px 6px var(--main-white);
-}
+
 .search__icon {
   position: absolute;
   padding: 8px;

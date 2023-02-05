@@ -1,34 +1,27 @@
-<script setup>
-import { ref, onMounted } from 'vue'
+<script setup lang="ts">
+import { ref } from 'vue'
 
-const props = defineProps({
-  modelValue: {
-    type: Array,
-    required: true
-  },
-  minValue: {
-    type: Number,
-    required: true
-  },
-  maxValue: {
-    type: Number,
-    required: true
-  },
-  stepValue: {
-    type: Number,
-    required: true
-  }
-})
+const props = defineProps<{
+  modelValue: string[]
+  minValue: number
+  maxValue: number
+  stepValue: number
+}>()
 
-const rangeInput1 = ref(null)
-const rangeInput2 = ref(null)
+const rangeInput1 = ref<HTMLElement | null>(null)
+const rangeInput2 = ref<HTMLElement | null>(null)
 
 const emit = defineEmits(['update:modelValue'])
 
 function updateRange() {
-  let newModelValue = [rangeInput1.value.value, rangeInput2.value.value]
+  let newModelValue: (string | number)[]
 
-  newModelValue.sort((a, b) => a - b)
+  newModelValue = [
+    (rangeInput1.value as HTMLInputElement).value,
+    (rangeInput2.value as HTMLInputElement).value
+  ]
+
+  newModelValue.sort((a, b) => Number(a) - Number(b))
 
   if (newModelValue[0] == newModelValue[1]) {
     newModelValue[0] = props.minValue
