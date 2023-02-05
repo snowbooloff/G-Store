@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
@@ -12,7 +12,7 @@ const emit = defineEmits(['update:isVisible'])
 
 const modalWindow = ref(null)
 
-function outSideClickHandler(event) {
+function outSideClickHandler(event: Event) {
   if (event.target != modalWindow.value) {
     emit('update:isVisible', false)
   }
@@ -25,7 +25,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="modalWindow" class="modal-window" @click.stop="outSideClickHandler">
+  <div
+    ref="modalWindow"
+    class="modal-window"
+    @click.stop="outSideClickHandler"
+  >
     <slot></slot>
   </div>
 </template>
