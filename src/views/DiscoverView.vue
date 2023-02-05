@@ -8,7 +8,7 @@ import GenreItem from '../components/GenreItem.vue'
 import GameBoard from '../components/GameBoard.vue'
 
 //Composables
-import fetchGames from '../composables/fetchGames.js'
+import fetchGames from '../composables/fetchGames'
 
 //Utils
 import { useStore } from 'vuex'
@@ -41,21 +41,18 @@ onMounted(() => {
   const f1 = fetchGames(newReleasesGamesList, 1, {
     date: pastDatePeriod,
     size: 8,
-    platforms: [1, 2, 3],
     sort: '-released',
     rating: [10, 100]
   })
   const f2 = fetchGames(comingSoonGamesList, 1, {
     date: nextDatePeriod,
     size: 8,
-    platforms: [''],
     sort: '-added',
     rating: ['-']
   })
   const f3 = fetchGames(highestRatingGamesList, 1, {
     date: '',
     size: 8,
-    platforms: [''],
     sort: '-metacritic',
     rating: [10, 96]
   })

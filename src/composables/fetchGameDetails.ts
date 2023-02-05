@@ -9,7 +9,8 @@ export default async function fetchGameDetails(gameArr: any, id: number) {
       }
     })
     gameArr.value = response.data
-  } catch (err: any) {
+  } catch (err) {
+    console.warn(err)
     router.push('/error')
   }
   return gameArr

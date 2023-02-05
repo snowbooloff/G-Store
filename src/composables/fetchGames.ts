@@ -1,10 +1,12 @@
 import axios from 'axios'
+import router from '../router'
+import { IQuery } from '@/ts/query.interface'
 
 export default async function fetchGames(
-  arr,
-  page,
-  { date, size, sort, search, platforms, rating, tags = [], genres = [] },
-  totalGamesCount
+  arr: any,
+  page: number,
+  { date, size, sort, search, platforms = [], rating, tags = [], genres = [] }: IQuery,
+  totalGamesCount: any
 ) {
   try {
     const response = await axios.get('https://api.rawg.io/api/games?', {
@@ -20,10 +22,10 @@ export default async function fetchGames(
         genres: genres.join(',') || null,
         search: search,
 
-        key: '6be3bec5eec246719e96cc8c4b02ca8f',
         exclude_additions: true,
+        search_precise: true,
 
-        search_precise: true
+        key: '6be3bec5eec246719e96cc8c4b02ca8f'
       }
     })
     arr.value = response.data.results
@@ -31,7 +33,8 @@ export default async function fetchGames(
     if (totalGamesCount) {
       totalGamesCount.value = response.data.count
     }
-  } catch (error) {
-    console.warn(error)
+  } catch (err) {
+    console.warn(err)
+    router.push('/error')
   }
 }

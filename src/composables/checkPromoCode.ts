@@ -1,8 +1,9 @@
 import { getDatabase, ref, child, get } from 'firebase/database'
 
 interface IPromoCode {
-  isActive: boolean
-  isChecked: boolean
+  id?: number
+  isActive?: boolean
+  isChecked?: boolean
   value: string
   discount: number
   discountType: string
@@ -14,7 +15,9 @@ export default function checkPromo(currentValue: IPromoCode) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const fetchedData = snapshot.val()
-        const validatedPromo = fetchedData.find((promo) => promo.value === currentValue.value)
+        const validatedPromo = fetchedData.find(
+          (promo: IPromoCode) => promo.value === currentValue.value
+        )
 
         currentValue.isChecked = true
 

@@ -6,8 +6,8 @@ import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
 
 //Composables
-import fetchGames from '../composables/fetchGames.js'
-import fetchMoreGames from '../composables/fetchMoreGames.js'
+import fetchGames from '../composables/fetchGames'
+import fetchMoreGames from '../composables/fetchMoreGames'
 
 //Utils
 import { useRoute, useRouter } from 'vue-router'
