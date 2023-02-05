@@ -1,20 +1,18 @@
-<script setup>
-const props = defineProps({
-  modelValue: {
-    type: [String, Number],
-    required: true
-  },
-  submitFunc: {
-    type: Function,
-    required: true
-  },
-  funcArguments: {}
-})
+<script setup lang="ts">
+const props = defineProps<{
+  modelValue: string
+  submitFunc: Function
+  funcArguments?: {}
+}>()
 </script>
 
 <template>
   <div class="input">
-    <v-input class="input_text" v-bind:modelValue="modelValue" v-bind="$attrs" />
+    <v-input
+      class="input_text"
+      v-bind:modelValue="modelValue"
+      v-bind="$attrs"
+    />
     <input
       class="input__submit cursos-pointer"
       type="submit"
