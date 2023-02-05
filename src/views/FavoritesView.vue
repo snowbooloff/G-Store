@@ -7,7 +7,7 @@ import GameItem from '../components/GameItem.vue'
 import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
-import fetchGameDetails from '../composables/fetchGameDetails.js'
+import fetchGameDetails from '../composables/fetchGameDetails'
 
 //Utils
 import { localStorageUtil } from '../localStorage'

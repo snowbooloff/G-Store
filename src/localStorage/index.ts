@@ -1,10 +1,8 @@
 class LocalStorage {
-  constructor() {
-    this.favorites = 'favorites'
-    this.shopping = 'shopping'
-  }
+  public favorites: string = 'favorites'
+  public shopping: string = 'shopping'
 
-  getList(category) {
+  getList(category: string) {
     const localStorageList = localStorage.getItem(category)
     if (localStorageList !== null) {
       return JSON.parse(localStorageList)
@@ -12,8 +10,13 @@ class LocalStorage {
     return []
   }
 
-  placeItem(category, id) {
-    let list = this.getList(category)
+  checkItem(category: string, id: number) {
+    const list = this.getList(category)
+    return list.includes(id)
+  }
+
+  placeItem(category: string, id: number) {
+    const list = this.getList(category)
     const checkIndex = list.indexOf(id)
     let itemStatus = false
 

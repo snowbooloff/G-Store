@@ -1,5 +1,5 @@
-<script setup>
-import { ref } from 'vue'
+<script setup lang="ts">
+import { ref, computed } from 'vue'
 
 //Utils
 import { localStorageUtil } from '../../../localStorage'
@@ -10,19 +10,13 @@ const store = useStore()
 const route = useRoute()
 const router = useRouter()
 
-const props = defineProps({
-  price: {
-    type: Number
-  },
-  gameId: {
-    type: Number
-  },
-  gameName: {
-    type: String
-  }
-})
+const props = defineProps<{
+  price: number
+  gameId: number
+  gameName: string
+}>()
 
-const checkGame = localStorageUtil.getList(localStorageUtil.shopping).includes(props.gameId)
+const checkGame = localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId)
 
 const text = ref(checkGame ? 'Added to cart' : props.price == 0 ? 'Free' : '$' + props.price)
 
@@ -30,10 +24,13 @@ const activeClass = ref(checkGame ? 'bttn_buy-active' : 'bttn_buy')
 
 function setGameToShopping() {
   if (text.value != 'Added to cart') {
+    console.log(localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId))
+
     text.value = 'Added to cart'
     activeClass.value = 'bttn_buy-active'
     localStorageUtil.placeItem(localStorageUtil.shopping, props.gameId)
     store.commit('notification/pushNotification', `${props.gameName}: added to shopping cart`)
+    console.log(localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId))
   } else {
     router.push('/shopping')
   }
@@ -41,8 +38,18 @@ function setGameToShopping() {
 </script>
 
 <template>
-  <button class="bttn" :class="activeClass" @click="setGameToShopping">
-    {{ text }}
+  <button
+    class="bttn"
+    :class="activeClass"
+    @click="setGameToShopping"
+  >
+    {{
+      localStorageUtil.checkItem(localStorageUtil.shopping, props.gameId)
+        ? 'Added to cart'
+        : props.price == 0
+        ? 'Free'
+        : '$' + props.price
+    }}
   </button>
 </template>
 

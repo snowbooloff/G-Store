@@ -7,8 +7,8 @@ import ShoppingItem from '../components/ShoppingItem.vue'
 import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
-import fetchGameDetails from '../composables/fetchGameDetails.js'
-import checkPromo from '../composables/checkPromoCode.js'
+import fetchGameDetails from '../composables/fetchGameDetails'
+import checkPromo from '../composables/checkPromoCode'
 
 //Utils
 import { localStorageUtil } from '../localStorage'

@@ -1,20 +1,18 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 
 //Components
 import MetacriticScore from '../components/MetacriticScore.vue'
 import GamePlatforms from '../components/GamePlatforms.vue'
-import PageLoader from '../components/PageLoader.vue'
 
 //Composables
-import fetchGameDetails from '../composables/fetchGameDetails.js'
+import fetchGameDetails from '../composables/fetchGameDetails'
 
 //Utils
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 const route = useRoute()
-const router = useRouter()
 
 const store = useStore()
 
@@ -22,7 +20,7 @@ const game = ref([])
 
 function fetching() {
   store.commit('loading/setLoading', true)
-  fetchGameDetails(game, route.params.id, router).then(() => {
+  fetchGameDetails(game, route.params.id).then(() => {
     store.commit('loading/setLoading', false)
   })
 }
@@ -33,19 +31,18 @@ onMounted(() => {
 watch(route, () => {
   fetching()
 })
+
+const loading = computed(() => store.state.loading.isLoading)
 </script>
 
-<template>
+<template v-if="!loading">
   <v-lazy-image
     class="page__img"
     :imgSrc="game.background_image"
     :alt="game.name"
   />
 
-  <section
-    class="game-block large-container flex"
-    v-if="!$store.state.isLoading"
-  >
+  <section class="game-block large-container flex">
     <div class="title-block flex flex_column">
       <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
