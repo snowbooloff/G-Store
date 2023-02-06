@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <div class="loading flex flex_justify-center flex_align-center">
     <icon-logo class="loading__spiner main-white" />

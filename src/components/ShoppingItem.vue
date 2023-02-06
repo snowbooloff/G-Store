@@ -1,36 +1,50 @@
-<script setup>
+<script setup lang="ts">
 import { inject } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
 
 //Components
 import GamePlatforms from './GamePlatforms.vue'
 import GameTitle from './GameTitle.vue'
 
-const props = defineProps({
-  game: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<{
+  game: IGame
+}>()
 
-const { removeGame } = inject('shoppingRemove')
+const { removeGame }: any = inject('shoppingRemove')
 </script>
 
 <template>
   <article class="shopping-item flex">
-    <v-lazy-image class="shopping-item_img" :imgSrc="game.background_image" :alt="game.name" />
+    <v-lazy-image
+      class="shopping-item_img"
+      :imgSrc="game.background_image"
+      :alt="game.name"
+    />
 
     <div class="shopping-pannel flex">
       <div class="shopping-details flex flex_column">
-        <game-title class="shopping-details__title" :gameId="game.id" :gameName="game.name" />
+        <game-title
+          class="shopping-details__title"
+          :gameId="game.id"
+          :gameName="game.name"
+        />
 
-        <game-platforms class="shopping-details__platforms" :platforms="game.parent_platforms" />
+        <game-platforms
+          class="shopping-details__platforms"
+          :platforms="game.parent_platforms"
+        />
 
         <h3 class="shopping-details__price main-blue">
           {{ game.suggestions_count == 0 ? 'Free' : '$' + game.suggestions_count / 10 }}
         </h3>
       </div>
 
-      <button class="shopping-pannel__bttn cursor-pointer" @click="removeGame(game)">
+      <button
+        class="shopping-pannel__bttn cursor-pointer"
+        @click="removeGame(game)"
+      >
         <icon-cross class="shopping-pannel__icon" />
       </button>
     </div>

@@ -1,16 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import { computed, watch } from 'vue'
 
 //Utils
 import { useStore } from 'vuex'
 const store = useStore()
 
-const notificationList = computed(() => store.state.notification.notificationList)
-let notificationCount = 0
+const props = defineProps<{
+  delay: number
+}>()
+
+const notificationList = computed<string[]>(() => store.state.notification.notificationList)
+let notificationCount: number = 0
 
 watch(notificationList.value, () => {
   if (notificationCount < notificationList.value.length) {
-    setTimeout(() => store.commit('notification/removeNotification'), 2500)
+    setTimeout(() => store.commit('notification/removeNotification'), props.delay)
   }
   notificationCount = notificationList.value.length
 })

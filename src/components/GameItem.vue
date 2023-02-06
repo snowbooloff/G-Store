@@ -1,15 +1,15 @@
-<script setup>
+<script setup lang="ts">
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
+
 //Components
 import MetacriticScore from './MetacriticScore.vue'
 import GamePlatforms from './GamePlatforms.vue'
 import GameTitle from './GameTitle.vue'
 
-const props = defineProps({
-  game: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<{
+  game: IGame
+}>()
 </script>
 
 <template>
@@ -23,12 +23,22 @@ const props = defineProps({
 
     <div class="game-nav-bar flex flex_column">
       <div class="game-info flex flex_align-center">
-        <game-platforms class="game-info__platform" :platforms="game.parent_platforms" />
+        <game-platforms
+          class="game-info__platform"
+          :platforms="game.parent_platforms"
+        />
 
-        <metacritic-score class="game-info__score" :score="game.metacritic" />
+        <metacritic-score
+          class="game-info__score"
+          :score="game.metacritic"
+        />
       </div>
 
-      <game-title class="game-nav-bar__title" :gameId="game.id" :gameName="game.name" />
+      <game-title
+        class="game-nav-bar__title"
+        :gameId="game.id"
+        :gameName="game.name"
+      />
 
       <nav class="game-nav-bar__buttons buttons-block flex">
         <v-price-button
@@ -38,7 +48,11 @@ const props = defineProps({
           :gameId="game.id"
         />
 
-        <v-like-button class="buttons-block__like-bttn" :gameId="game.id" :gameName="game.name" />
+        <v-like-button
+          class="buttons-block__like-bttn"
+          :gameId="game.id"
+          :gameName="game.name"
+        />
       </nav>
     </div>
   </article>

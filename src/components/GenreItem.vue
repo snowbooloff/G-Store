@@ -1,15 +1,19 @@
-<script setup>
-const props = defineProps({
-  genre: {
-    type: Object,
-    required: true
-  }
-})
+<script setup lang="ts">
+// TS Interfaces
+import { IGenres } from '@/ts/genres.interface'
+
+const props = defineProps<{
+  genre: IGenres
+}>()
 </script>
 
 <template>
   <article class="genre-item flex flex_justify-center flex_align-center cursor-pointer">
-    <v-lazy-image class="genre-item__pic" :imgSrc="genre.image_background" :alt="genre.name" />
+    <v-lazy-image
+      class="genre-item__pic"
+      :imgSrc="genre.image_background"
+      :alt="genre.name"
+    />
 
     <h2 class="genre-item__title main-white cursor-pointer">
       {{ genre.name }}

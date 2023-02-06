@@ -1,9 +1,7 @@
-<script setup>
-const props = defineProps({
-  score: {
-    type: Number
-  }
-})
+<script setup lang="ts">
+const props = defineProps<{
+  score?: number
+}>()
 </script>
 
 <template>

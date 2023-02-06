@@ -1,21 +1,20 @@
-<script setup>
-import { onMounted, inject } from 'vue'
+<script setup lang="ts">
+import { inject } from 'vue'
 
+import { IPlatforms } from '@/ts/platforms.interface'
+
+//Utils
 import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-
 const route = useRoute()
 const router = useRouter()
 
-const props = defineProps({
-  platforms: {
-    type: Array,
-    required: true
-  }
-})
-let { setPlatform } = route.name == 'explore' ? inject('setPlatforms') : ''
+const props = defineProps<{
+  platforms: IPlatforms[]
+}>()
 
-function goToExplore(platformId, platformName) {
+let { setPlatform }: any = route.name == 'explore' ? inject('setPlatforms') : ''
+
+function goToExplore(platformId: number, platformName: string) {
   if (route.name != 'explore') {
     router.push({
       path: '/explore',
@@ -29,7 +28,7 @@ function goToExplore(platformId, platformName) {
   }
 }
 
-const validPlatforms = ['PC', 'PlayStation', 'Xbox', 'Android', 'iOS', 'Nintendo']
+const validPlatforms: string[] = ['PC', 'PlayStation', 'Xbox', 'Android', 'iOS', 'Nintendo']
 const filteredPlatforms = props.platforms.filter((platform) =>
   validPlatforms.includes(platform['platform']['name'])
 )
@@ -39,7 +38,7 @@ const filteredPlatforms = props.platforms.filter((platform) =>
   <div class="game-platforms flex flex_align-center">
     <component
       v-for="platform of filteredPlatforms"
-      :key="platform['platform']['name']"
+      :key="platform['platform']['id']"
       :is="`icon-${platform['platform']['name'].toLowerCase()}`"
       class="game-platforms__icon cursor-pointer"
       @click="goToExplore(platform['platform']['id'], platform['platform']['name'])"

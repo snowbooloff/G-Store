@@ -1,5 +1,5 @@
 <template>
-  <notification />
+  <notification :delay="2500" />
   <header>
     <custom-header />
   </header>
@@ -8,7 +8,7 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted } from 'vue'
 
 //Components

@@ -1,12 +1,10 @@
-<script setup>
-import { ref, watch, onMounted } from 'vue'
+<script setup lang="ts">
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
 
-const props = defineProps({
-  game: {
-    type: Object,
-    required: true
-  }
-})
+const props = defineProps<{
+  game: IGame
+}>()
 </script>
 
 <template>
@@ -21,7 +19,11 @@ const props = defineProps({
     <div class="game-board__info">
       <h1 class="game-board__name main-white">{{ game.name }}</h1>
 
-      <h3 class="game-board__genres second-white" v-for="genre in game.genres" :key="genre['name']">
+      <h3
+        class="game-board__genres second-white"
+        v-for="genre in game.genres"
+        :key="genre['name']"
+      >
         {{ genre['name'] }}
       </h3>
     </div>

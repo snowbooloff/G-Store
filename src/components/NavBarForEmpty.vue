@@ -1,10 +1,11 @@
-<script setup></script>
-
 <template>
   <div class="nav-bar-for-empty">
     <h3 class="nav-bar-for-empty__text main-blue"><slot></slot></h3>
     <span>
-      <button class="nav-bar-for-empty__bttn bttn bttn_transparent" @click="$router.push('/')">
+      <button
+        class="nav-bar-for-empty__bttn bttn bttn_transparent"
+        @click="$router.push('/')"
+      >
         Discover Page
       </button>
       <button

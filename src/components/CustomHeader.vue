@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 
 //Components
@@ -8,11 +8,11 @@ import UserAvatar from '../components/UserAvatar.vue'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const userNickname = computed(() => store.state.user.userInfo.nickname)
+const userNickname = computed<string>(() => store.state.user.userInfo.nickname)
 
-const isAuth = computed(() => store.state.user.isAuth)
+const isAuth = computed<boolean>(() => store.state.user.isAuth)
 
-const headerUserName = computed(() => {
+const headerUserName = computed<string>(() => {
   return isAuth.value ? userNickname.value : 'Profile'
 })
 
@@ -21,21 +21,40 @@ const menuIsActive = ref(false)
 
 <template>
   <div class="header container flex flex_space-between">
-    <div class="logo flex flex_align-center main-black cursor-pointer" @click="$router.push('/')">
+    <div
+      class="logo flex flex_align-center main-black cursor-pointer"
+      @click="$router.push('/')"
+    >
       <icon-logo class="logo__icon icon" />
       <p class="logo__title no-copy">GStore</p>
     </div>
 
     <nav class="nav-bar flex flex_align-center no-copy">
-      <router-link class="nav-bar__link main-black" to="/"> Discover </router-link>
+      <router-link
+        class="nav-bar__link main-black"
+        to="/"
+      >
+        Discover
+      </router-link>
 
-      <router-link class="nav-bar__link main-black" to="/explore"> Explore </router-link>
+      <router-link
+        class="nav-bar__link main-black"
+        to="/explore"
+      >
+        Explore
+      </router-link>
 
-      <router-link to="/favorites" class="nav-bar__link icon main-black">
+      <router-link
+        to="/favorites"
+        class="nav-bar__link icon main-black"
+      >
         <component :is="$route.name == 'favorites' ? 'icon-like-active' : 'icon-like'" />
       </router-link>
 
-      <router-link to="/shopping" class="nav-bar__link icon main-black">
+      <router-link
+        to="/shopping"
+        class="nav-bar__link icon main-black"
+      >
         <component :is="$route.name == 'shopping' ? 'icon-cart-active' : 'icon-cart'" />
       </router-link>
 
@@ -43,25 +62,44 @@ const menuIsActive = ref(false)
         class="user flex flex_align-center cursor-pointer main-black"
         @click.stop="menuIsActive = !menuIsActive"
       >
-        <user-avatar :size="'30px'" class="user_pic" />
+        <user-avatar
+          :size="'30px'"
+          class="user_pic"
+        />
         <p class="user__text">
           {{ headerUserName }}
         </p>
-        <icon-arrow class="user__arrow icon" :class="{ icon_active: menuIsActive }" />
-        <v-modal-window class="user__menu" v-model:isVisible="menuIsActive" v-if="menuIsActive">
-          <router-link v-if="!isAuth" class="user__bttn main-black" to="/register"
+        <icon-arrow
+          class="user__arrow icon"
+          :class="{ icon_active: menuIsActive }"
+        />
+        <v-modal-window
+          class="user__menu"
+          v-model:isVisible="menuIsActive"
+          v-if="menuIsActive"
+        >
+          <router-link
+            v-if="!isAuth"
+            class="user__bttn main-black"
+            to="/register"
             >Sign Up</router-link
           >
-          <router-link v-if="!isAuth" class="user__bttn main-black" to="/login"
+          <router-link
+            v-if="!isAuth"
+            class="user__bttn main-black"
+            to="/login"
             >Sign In</router-link
           >
-          <router-link v-if="isAuth" class="user__bttn main-black" to="/user"
+          <router-link
+            v-if="isAuth"
+            class="user__bttn main-black"
+            to="/user"
             >My Profile</router-link
           >
           <router-link
             v-if="isAuth"
             class="user__bttn main-black"
-            to="/"
+            to="/login"
             @click="$store.dispatch('user/signOut')"
             >Sign Out</router-link
           >

@@ -1,24 +1,28 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 
 //Utils
 import { useStore } from 'vuex'
 const store = useStore()
 
-const props = defineProps({
-  size: {
-    type: String,
-    required: true
-  }
-})
+const props = defineProps<{
+  size: string
+}>()
 
-const userImage = computed(() => store.state.user.userInfo.image)
+const userImage = computed<string>(() => store.state.user.userInfo.image)
 </script>
 
 <template>
   <div class="user-avatar">
-    <icon-user v-if="!userImage" class="user-avatar__icon main-white" />
-    <img v-else :src="userImage" class="user-avatar__img" />
+    <icon-user
+      v-if="!userImage"
+      class="user-avatar__icon main-white"
+    />
+    <img
+      v-else
+      :src="userImage"
+      class="user-avatar__img"
+    />
   </div>
 </template>
 

@@ -1,18 +1,16 @@
-<script setup>
-const props = defineProps({
-  gameId: {
-    type: Number,
-    required: true
-  },
-  gameName: {
-    type: String,
-    required: true
-  }
-})
+<script setup lang="ts">
+const props = defineProps<{
+  gameId: number
+  gameName: string
+}>()
 </script>
 
 <template>
-  <router-link :to="`/game/${gameId}`" class="game-title" :title="gameName">
+  <router-link
+    :to="`/game/${gameId}`"
+    class="game-title"
+    :title="gameName"
+  >
     <h3 class="game-title__header">
       {{ gameName }}
     </h3>
