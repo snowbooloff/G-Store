@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -29,13 +32,11 @@ const nextDatePeriod = `${date.year}-${date.month}-${date.day},${date.nextYear}-
 
 const randomPage = Math.floor(Math.random() * 10) + 1
 
-const newReleasesGamesList = ref([])
-const comingSoonGamesList = ref([])
-const highestRatingGamesList = ref([])
-const gamesForBoard = ref([])
+const newReleasesGamesList = ref<IGame[]>([])
+const comingSoonGamesList = ref<IGame[]>([])
+const highestRatingGamesList = ref<IGame[]>([])
+const gamesForBoard = ref<IGame[]>([])
 onMounted(() => {
-  window.scrollTo(0, 0)
-
   store.commit('loading/setLoading', true)
 
   const f1 = fetchGames(newReleasesGamesList, 1, {
@@ -120,7 +121,7 @@ onMounted(() => {
             path: '/explore',
             query: {
               date: nextDatePeriod,
-              rating: [0, 100],
+              rating: JSON.stringify([0, 100]),
               title: 'Coming Soon'
             }
           })
@@ -180,7 +181,7 @@ onMounted(() => {
 
     <items-list
       class="genre-list"
-      :itemsList="$store.state.genres.genresList"
+      :itemsList="store.state.genres.genresList"
     >
       <template #item="slotProps">
         <genre-item
@@ -189,7 +190,7 @@ onMounted(() => {
             $router.push({
               path: '/explore',
               query: {
-                genres: [slotProps.item.id],
+                genres: JSON.stringify([slotProps.item.id]),
                 title: `${slotProps.item.name} Games`
               }
             })

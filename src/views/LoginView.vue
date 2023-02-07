@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
 
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -31,7 +31,11 @@ const registrationError = ref('')
 
     <div class="auth">
       <p class="auth__text second-white">Email Address:</p>
-      <v-input class="auth__input" v-model="userData.email" type="email" />
+      <v-input
+        class="auth__input"
+        v-model="userData.email"
+        type="email"
+      />
     </div>
 
     <div class="auth">
@@ -50,7 +54,12 @@ const registrationError = ref('')
         />
       </div>
     </div>
-    <p class="page-block__error" v-show="registrationError.length">{{ registrationError }}</p>
+    <p
+      class="page-block__error"
+      v-show="registrationError.length"
+    >
+      {{ registrationError }}
+    </p>
     <button
       class="page-block__bttn bttn bttn_buy"
       :class="{ shake: registrationError.length }"
@@ -59,7 +68,12 @@ const registrationError = ref('')
       SIGN IN
     </button>
     <span class="second-white">
-      New to GSTORE? <router-link to="/register" class="main-white">Sign Up</router-link>
+      New to GSTORE?
+      <router-link
+        to="/register"
+        class="main-white"
+        >Sign Up</router-link
+      >
     </span>
   </section>
 </template>

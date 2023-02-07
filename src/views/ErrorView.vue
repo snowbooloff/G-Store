@@ -1,5 +1,3 @@
-<script setup></script>
-
 <template>
   <section class="page pt-64px">
     <h1 class="page__item main-blue no-copy">404</h1>

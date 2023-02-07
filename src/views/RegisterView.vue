@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive } from 'vue'
 
 //Utils
@@ -26,7 +26,7 @@ function registeringUser() {
   createUserWithEmailAndPassword(auth, userData.email, userData.password)
     .then((data) => {
       console.log(auth)
-      updateProfile(auth.currentUser, {
+      updateProfile(auth.currentUser!, {
         displayName: userData.nickname
       })
     })
@@ -61,12 +61,21 @@ function validateData() {
 
     <div class="auth">
       <p class="auth__text second-white">Nickname:</p>
-      <v-input class="auth__input" v-model="userData.nickname" type="text" maxlength="12" />
+      <v-input
+        class="auth__input"
+        v-model="userData.nickname"
+        type="text"
+        maxlength="12"
+      />
     </div>
 
     <div class="auth">
       <p class="auth__text second-white">Email Address:</p>
-      <v-input class="auth__input" v-model="userData.email" type="email" />
+      <v-input
+        class="auth__input"
+        v-model="userData.email"
+        type="email"
+      />
     </div>
 
     <div class="auth">
@@ -102,7 +111,12 @@ function validateData() {
         />
       </div>
     </div>
-    <p class="page-block__error" v-show="registrationError.length">{{ registrationError }}</p>
+    <p
+      class="page-block__error"
+      v-show="registrationError.length"
+    >
+      {{ registrationError }}
+    </p>
     <button
       class="page-block__bttn bttn bttn_buy"
       :class="{ shake: registrationError.length }"
@@ -112,7 +126,11 @@ function validateData() {
     </button>
     <span class="second-white">
       Already have a GStore account?
-      <router-link to="login" class="main-white">Sign In</router-link>
+      <router-link
+        to="login"
+        class="main-white"
+        >Sign In</router-link
+      >
     </span>
   </section>
 </template>

@@ -1,22 +1,16 @@
 import { getDatabase, ref, child, get } from 'firebase/database'
 
-interface IPromoCode {
-  id?: number
-  isActive?: boolean
-  isChecked?: boolean
-  value: string
-  discount: number
-  discountType: string
-}
+// TS Interfaces
+import { IPromo } from '@/ts/promo.interface'
 
-export default function checkPromo(currentValue: IPromoCode) {
+export default function checkPromo(currentValue: IPromo) {
   const dbRef = ref(getDatabase())
   get(child(dbRef, `Promo`))
     .then((snapshot) => {
       if (snapshot.exists()) {
         const fetchedData = snapshot.val()
         const validatedPromo = fetchedData.find(
-          (promo: IPromoCode) => promo.value === currentValue.value
+          (promo: IPromo) => promo.value === currentValue.value
         )
 
         currentValue.isChecked = true

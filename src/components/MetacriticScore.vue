@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
-  score?: number
+  score: number | null
 }>()
 </script>
 

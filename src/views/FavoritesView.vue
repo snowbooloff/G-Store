@@ -1,5 +1,8 @@
-<script setup>
-import { ref, onMounted, watch, computed } from 'vue'
+<script setup lang="ts">
+import { ref, onMounted, computed } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -11,15 +14,10 @@ import fetchGameDetails from '../composables/fetchGameDetails'
 
 //Utils
 import { localStorageUtil } from '../localStorage'
-import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-
-const route = useRoute()
-const router = useRouter()
-
 const store = useStore()
 
-const favGamesList = ref([])
+const favGamesList = ref<IGame[]>([])
 
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.favorites)
@@ -27,10 +25,10 @@ onMounted(() => {
   if (storageList.length) {
     store.commit('loading/setLoading', true)
 
-    storageList.forEach((gameId) => {
-      const game = ref([])
+    storageList.forEach((gameId: string) => {
+      const game = ref<IGame | any>({})
 
-      fetchGameDetails(game, gameId, router)
+      fetchGameDetails(game, gameId)
         .then(() => {
           favGamesList.value.push(game.value)
         })
@@ -42,6 +40,7 @@ onMounted(() => {
     })
   }
 })
+const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
 <template>
@@ -49,7 +48,7 @@ onMounted(() => {
     <h1 class="page-block__title main-white">Favorite Games</h1>
 
     <items-list
-      v-if="!$store.state.isLoading && favGamesList.length"
+      v-if="!loading && favGamesList.length"
       class="game-list"
       :itemsList="favGamesList"
     >
@@ -57,7 +56,7 @@ onMounted(() => {
         <game-item :game="slotProps.item" />
       </template>
     </items-list>
-    <nav-bar-for-empty v-if="!$store.state.isLoading && !favGamesList.length">
+    <nav-bar-for-empty v-if="!loading && !favGamesList.length">
       Favorites list is empty
     </nav-bar-for-empty>
   </section>

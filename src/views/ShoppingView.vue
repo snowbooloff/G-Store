@@ -1,5 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { ref, reactive, watch, onMounted, computed, provide } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
+import { IPromo } from '@/ts/promo.interface'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -12,15 +16,11 @@ import checkPromo from '../composables/checkPromoCode'
 
 //Utils
 import { localStorageUtil } from '../localStorage'
-import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-
-const route = useRoute()
-const router = useRouter()
 
 const store = useStore()
 
-const shoppingList = ref([])
+const shoppingList = ref<IGame[]>([])
 
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.shopping)
@@ -28,10 +28,10 @@ onMounted(() => {
   if (storageList.length) {
     store.commit('loading/setLoading', true)
 
-    storageList.forEach((gameId) => {
-      const game = ref([])
+    storageList.forEach((gameId: string) => {
+      const game = ref<IGame | any>([])
 
-      fetchGameDetails(game, gameId, router)
+      fetchGameDetails(game, gameId)
         .then(() => {
           shoppingList.value.push(game.value)
         })
@@ -48,14 +48,14 @@ provide('shoppingRemove', {
   removeGame
 })
 
-function removeGame(game) {
+function removeGame(game: IGame): void {
   const index = shoppingList.value.indexOf(game)
   shoppingList.value.splice(index, 1)
   localStorageUtil.placeItem(localStorageUtil.shopping, game.id)
   store.commit('notification/pushNotification', `${game.name}: removed from shopping cart`)
 }
 
-const promoCode = reactive({
+const promoCode = reactive<IPromo>({
   isActive: false,
   isChecked: false,
   value: '',
@@ -70,7 +70,7 @@ watch(promoCode, () => {
   }
 })
 
-const totalPrice = computed(() => {
+const totalPrice = computed<string>(() => {
   let price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
   if (promoCode.discountType == '%' && promoCode.isActive) {
     price = price - (price / 100) * promoCode.discount
@@ -79,12 +79,14 @@ const totalPrice = computed(() => {
   }
   return price.toFixed(2)
 })
-const salesTax = computed(() => {
-  return (totalPrice.value / 79).toFixed(2)
+const salesTax = computed<string>(() => {
+  return (+totalPrice.value / 79).toFixed(2)
 })
-const grandTotal = computed(() => {
+const grandTotal = computed<string>(() => {
   return (+salesTax.value + +totalPrice.value).toFixed(2)
 })
+
+const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
 <template>
@@ -100,7 +102,7 @@ const grandTotal = computed(() => {
 
     <div class="shopping-block flex">
       <items-list
-        v-if="!$store.state.isLoading && shoppingList.length"
+        v-if="!loading && shoppingList.length"
         class="shopping-block__content game-list"
         :itemsList="shoppingList"
       >
@@ -108,7 +110,7 @@ const grandTotal = computed(() => {
           <shopping-item :game="slotProps.item" />
         </template>
       </items-list>
-      <nav-bar-for-empty v-if="!$store.state.isLoading && !shoppingList.length">
+      <nav-bar-for-empty v-if="!loading && !shoppingList.length">
         Shopping list is empty
       </nav-bar-for-empty>
 

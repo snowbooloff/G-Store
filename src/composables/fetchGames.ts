@@ -1,12 +1,15 @@
 import axios from 'axios'
 import router from '../router'
+
+// TS Interfaces
 import { IQuery } from '@/ts/query.interface'
+import type { Ref } from 'vue'
 
 export default async function fetchGames(
-  arr: any,
+  arr: Ref,
   page: number,
   { date, size, sort, search, platforms = [], rating, tags = [], genres = [] }: IQuery,
-  totalGamesCount: any
+  totalGamesCount?: any
 ) {
   try {
     const response = await axios.get('https://api.rawg.io/api/games?', {

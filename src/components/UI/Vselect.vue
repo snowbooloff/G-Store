@@ -1,7 +1,10 @@
 <script setup lang="ts">
+// TS Interfaces
+import { ISelectOptions } from '@/ts/selectOptions.interface'
+
 const props = defineProps<{
   modelValue: string
-  options: [{ value: string; name: string }]
+  options: ISelectOptions[]
 }>()
 
 const emit = defineEmits(['update:modelValue'])

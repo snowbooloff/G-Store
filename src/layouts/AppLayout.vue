@@ -13,13 +13,20 @@ watch(
         metaLayout && (await import(/* @vite-ignore */ `../layouts/${metaLayout}.vue`))
       layout.value = markRaw(component?.default)
     } catch (e) {}
+    console.log(1)
   },
   { immediate: true }
 )
+watch(route, () => {
+  window.scrollTo(0, 0)
+})
 </script>
 
 <template>
-  <component :is="layout" class="page container">
+  <component
+    :is="layout"
+    :class="[$route.name !== 'game' ? 'container page_padding' : '', 'page']"
+  >
     <router-view />
   </component>
 </template>
@@ -28,6 +35,8 @@ watch(
 .page {
   gap: var(--extra-large-spacing);
   margin-bottom: var(--extra-large-spacing);
+}
+.page_padding {
   padding-top: 16px !important;
 }
 .page-block {

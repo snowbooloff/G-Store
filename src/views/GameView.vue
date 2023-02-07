@@ -1,5 +1,8 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
 
 //Components
 import MetacriticScore from '../components/MetacriticScore.vue'
@@ -13,10 +16,9 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
 const route = useRoute()
-
 const store = useStore()
 
-const game = ref([])
+const game = ref<IGame | any>({})
 
 function fetching() {
   store.commit('loading/setLoading', true)
@@ -31,8 +33,7 @@ onMounted(() => {
 watch(route, () => {
   fetching()
 })
-
-const loading = computed(() => store.state.loading.isLoading)
+const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
 <template v-if="!loading">
@@ -98,7 +99,7 @@ const loading = computed(() => store.state.loading.isLoading)
       <li
         class="details-list__subtitle second-white"
         v-for="developer in game.developers"
-        :key="developer.name"
+        :key="developer.id"
       >
         {{ developer.name }}
       </li>
@@ -108,7 +109,7 @@ const loading = computed(() => store.state.loading.isLoading)
       <li
         class="details-list__subtitle second-white"
         v-for="publisher in game.publishers"
-        :key="publisher.name"
+        :key="publisher.id"
       >
         {{ publisher.name }}
       </li>
@@ -142,7 +143,6 @@ const loading = computed(() => store.state.loading.isLoading)
 .page__img {
   aspect-ratio: 3 / 1;
   object-position: top center;
-  border-radius: var(--medium-radius);
 }
 
 .game-block {

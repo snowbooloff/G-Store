@@ -1,5 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, reactive, watch, computed, provide } from 'vue'
+
+// TS Interfaces
+import { IGame } from '@/ts/game.interface'
+import { ISelectOptions } from '@/ts/selectOptions.interface'
+import { IQuery } from '@/ts/query.interface'
 
 //Components
 import ItemsList from '../components/ItemsList.vue'
@@ -18,16 +23,16 @@ const router = useRouter()
 
 const store = useStore()
 
-const exploreGamesList = ref([])
+const exploreGamesList = ref<IGame[]>([])
 const totalGamesCount = ref(0)
 let currentPage = 1
 
-const query = reactive({
+const query = reactive<IQuery>({
   sort: route.query.sort || '',
-  date: route.query.date || '',
-  rating: route.query.rating || [10, 100],
-  genres: route.query.genres || [],
-  platforms: route.query.platforms || [],
+  date: route.query.date ? route.query.date : '',
+  rating: route.query.rating ? JSON.parse(`${route.query.rating}`) : [10, 100],
+  genres: route.query.genres ? JSON.parse(`${route.query.genres}`) : [],
+  platforms: route.query.platforms ? JSON.parse(`${route.query.platforms}`) : [],
   tags: [],
   search: '',
   size: 24
@@ -47,15 +52,15 @@ provide('setPlatforms', {
   setPlatform
 })
 
-function setPlatform(platformId) {
-  if (!query.platforms.includes(String(platformId))) {
-    query.platforms.push(String(platformId))
+function setPlatform(platformId: number) {
+  if (!query.platforms.includes(platformId)) {
+    query.platforms.push(platformId)
   }
 }
 
 const filterIsActive = ref(true)
 
-const sortOptions = reactive([
+const sortOptions = reactive<ISelectOptions[]>([
   { value: '-metacritic', name: 'Rating: High to Low' },
   { value: 'metacritic', name: 'Rating: Low to High' },
   { value: '-released', name: 'Date: Newest to Oldest' },
@@ -70,11 +75,10 @@ function fetching() {
 }
 
 onMounted(() => {
-  window.scrollTo(0, 0)
   fetching()
 })
 
-const totalPagesCount = computed(() => {
+const totalPagesCount = computed<number>(() => {
   return Math.ceil(totalGamesCount.value / query.size)
 })
 
@@ -98,6 +102,8 @@ function loadMoreGames() {
     fetchMoreGames(exploreGamesList, currentPage, query)
   }
 }
+
+const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
 <template>
@@ -135,7 +141,7 @@ function loadMoreGames() {
 
     <div class="explore-block flex">
       <items-list
-        v-show="!$store.state.isLoading && exploreGamesList.length"
+        v-show="!loading && exploreGamesList.length"
         class="explore-block__content game-list"
         :itemsList="exploreGamesList"
       >
@@ -145,7 +151,7 @@ function loadMoreGames() {
       </items-list>
 
       <h3
-        v-show="!$store.state.isLoading && !exploreGamesList.length"
+        v-show="!loading && !exploreGamesList.length"
         class="explore-block__not-found second-white"
       >
         List is empty
@@ -161,7 +167,7 @@ function loadMoreGames() {
           <v-checkbox
             class="filters__item"
             v-model="query.platforms"
-            :value="'1'"
+            :value="1"
           >
             PC
           </v-checkbox>
@@ -170,7 +176,7 @@ function loadMoreGames() {
             tabindex="2"
             class="filters__item"
             v-model="query.platforms"
-            :value="'2'"
+            :value="2"
           >
             PlayStation
           </v-checkbox>
@@ -178,7 +184,7 @@ function loadMoreGames() {
           <v-checkbox
             class="filters__item"
             v-model="query.platforms"
-            :value="'3'"
+            :value="3"
           >
             XBOX
           </v-checkbox>
@@ -186,7 +192,7 @@ function loadMoreGames() {
           <v-checkbox
             class="filters__item"
             v-model="query.platforms"
-            :value="'4'"
+            :value="4"
           >
             iOS
           </v-checkbox>
@@ -194,7 +200,7 @@ function loadMoreGames() {
           <v-checkbox
             class="filters__item"
             v-model="query.platforms"
-            :value="'7'"
+            :value="7"
           >
             Nintendo
           </v-checkbox>
@@ -202,7 +208,7 @@ function loadMoreGames() {
           <v-checkbox
             class="filters__item"
             v-model="query.platforms"
-            :value="'8'"
+            :value="8"
           >
             Android
           </v-checkbox>
@@ -241,9 +247,9 @@ function loadMoreGames() {
 
           <v-checkbox
             class="filters__item"
-            v-for="genre in $store.state.genres.genresList"
+            v-for="genre in store.state.genres.genresList"
             v-model="query.genres"
-            :value="genre.id.toString()"
+            :value="genre.id"
           >
             {{ genre.name }}
           </v-checkbox>
@@ -272,7 +278,7 @@ function loadMoreGames() {
   </section>
 
   <div
-    v-if="!$store.state.isLoading"
+    v-if="!loading"
     class="observer"
     v-intersection="loadMoreGames"
   ></div>

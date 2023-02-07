@@ -1,10 +1,13 @@
+// TS Interfaces
+import type { LocationQueryValue } from 'vue-router'
+
 export interface IQuery {
-  date: string
+  date?: string | LocationQueryValue[]
+  sort?: string | LocationQueryValue[]
+  rating?: any
+  genres?: any
+  platforms?: any
+  tags?: string[]
   size: number
-  sort: string
-  search: string
-  platforms: string[]
-  rating: number[]
-  tags: string[]
-  genres: string[]
+  search?: string
 }

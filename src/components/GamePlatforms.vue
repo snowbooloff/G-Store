@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 
+// TS Interfaces
 import { IPlatforms } from '@/ts/platforms.interface'
 
 //Utils
@@ -19,7 +20,7 @@ function goToExplore(platformId: number, platformName: string) {
     router.push({
       path: '/explore',
       query: {
-        platforms: [platformId],
+        platforms: JSON.stringify([platformId]),
         title: platformName + ' Games'
       }
     })

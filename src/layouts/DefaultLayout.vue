@@ -8,7 +8,7 @@ import PageLoader from '../components/PageLoader.vue'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const loading = computed(() => store.state.loading.isLoading)
+const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
 <template>

@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const props = defineProps<{
-  modelValue: string[]
+  modelValue: number[]
   minValue: number
   maxValue: number
   stepValue: number
@@ -21,7 +21,7 @@ function updateRange() {
     (rangeInput2.value as HTMLInputElement).value
   ]
 
-  newModelValue.sort((a, b) => Number(a) - Number(b))
+  newModelValue.sort((a, b) => +a - +b)
 
   if (newModelValue[0] == newModelValue[1]) {
     newModelValue[0] = props.minValue
