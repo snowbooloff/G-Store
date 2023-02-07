@@ -44,7 +44,7 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      component: () => import('../views/RegisterView.vue'),
+      component: () => import('../views/authViews/RegisterView.vue'),
       meta: {
         layout: 'AuthLayout',
         access: 'no auth'
@@ -53,7 +53,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/LoginView.vue'),
+      component: () => import('../views/authViews/LoginView.vue'),
       meta: {
         layout: 'AuthLayout',
         access: 'no auth'

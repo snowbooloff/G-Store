@@ -203,7 +203,27 @@ onMounted(() => {
 
 <style scoped>
 .game-list {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(4, 0.25fr);
+}
+@media (max-width: 1440px) {
+  .game-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .game-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .game-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 425px) {
+  .game-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 
 .genre-list {

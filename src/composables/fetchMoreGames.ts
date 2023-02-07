@@ -1,9 +1,9 @@
 import axios from 'axios'
 import router from '../router'
+import type { Ref } from 'vue'
 
 // TS Interfaces
 import { IQuery } from '@/ts/query.interface'
-import type { Ref } from 'vue'
 
 export default async function fetchMoreGames(
   arr: Ref,

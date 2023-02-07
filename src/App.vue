@@ -34,17 +34,6 @@ header {
   margin-bottom: 48px;
 }
 
-#modals {
-  position: fixed;
-  z-index: 999;
-  top: 16px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  display: flex;
-  flex-flow: column;
-  gap: var(--medium-spacing);
-}
-
 #app {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;

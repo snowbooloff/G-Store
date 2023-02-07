@@ -21,6 +21,7 @@ function updateValue(Event: Event) {
   width: 100%;
   border-radius: 10px;
   padding: 8px;
+  background-color: var(--main-white);
   outline: none;
   border: none;
   font-size: 0.875em;
