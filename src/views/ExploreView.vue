@@ -58,7 +58,7 @@ function setPlatform(platformId: number) {
   }
 }
 
-const filterIsActive = ref(true)
+const filterIsActive = ref<boolean>(true)
 
 const sortOptions = reactive<ISelectOptions[]>([
   { value: '-metacritic', name: 'Rating: High to Low' },
@@ -285,9 +285,6 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
 </template>
 
 <style scoped>
-.game-list {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-}
 .search-block {
   gap: var(--medium-spacing);
 }
@@ -334,5 +331,16 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
 
 .filters__item {
   margin-top: var(--small-spacing);
+}
+@media (max-width: 1024px) {
+  .explore-block {
+    flex-flow: column-reverse;
+    align-items: flex-start;
+    gap: var(--medium-spacing);
+  }
+  .filters {
+    min-width: 100%;
+    position: static;
+  }
 }
 </style>

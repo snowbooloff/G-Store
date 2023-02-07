@@ -19,6 +19,7 @@ const props = defineProps<{
       :alt="game.name"
       :imgSrc="game.background_image"
       :gameId="game.id"
+      @click="$router.push(`/game/${game.id}`)"
     />
 
     <div class="game-nav-bar flex flex_column">
@@ -98,6 +99,7 @@ const props = defineProps<{
 
 .buttons-block__price-bttn {
   width: 50%;
+  height: 100;
 }
 
 .buttons-block__like-bttn {

@@ -29,5 +29,26 @@ const props = defineProps<{
 .items-list {
   display: grid;
   gap: var(--medium-spacing);
+  grid-template-columns: repeat(4, 0.25fr);
+}
+@media (max-width: 1440px) {
+  .items-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .items-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 768px) {
+  .items-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 425px) {
+  .items-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
 </style>

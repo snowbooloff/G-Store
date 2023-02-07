@@ -202,31 +202,22 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.game-list {
-  grid-template-columns: repeat(4, 0.25fr);
+.genre-list {
+  grid-template-columns: repeat(6, 0.166fr);
 }
 @media (max-width: 1440px) {
-  .game-list {
+  .genre-list {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 @media (max-width: 768px) {
-  .game-list {
+  .genre-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media (max-width: 768px) {
-  .game-list {
+  .genre-list {
     grid-template-columns: repeat(2, 1fr);
   }
-}
-@media (max-width: 425px) {
-  .game-list {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-.genre-list {
-  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
 }
 </style>

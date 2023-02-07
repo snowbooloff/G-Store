@@ -37,7 +37,7 @@ header {
 #app {
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
-  font-size: 16px;
+  font-size: calc(10px + (20 - 10) * ((100vh - 250px) / (1440 - 250)));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
