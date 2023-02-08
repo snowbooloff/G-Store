@@ -5,6 +5,11 @@ import IconCross from './IconCross.vue'
 import IconSearch from './IconSearch.vue'
 import IconEye from './IconEye.vue'
 import IconEdit from './IconEdit.vue'
+import IconBurger from './IconBurger.vue'
+import IconDiscover from './IconDiscover.vue'
+import IconDiscoverActive from './IconDiscoverActive.vue'
+import IconExplore from './IconExplore.vue'
+import IconExploreActive from './IconExploreActive.vue'
 import IconLike from './IconLike.vue'
 import IconLikeActive from './IconLikeActive.vue'
 import IconCart from './IconCart.vue'
@@ -45,6 +50,26 @@ export default [
   {
     name: 'icon-edit',
     component: IconEdit
+  },
+  {
+    name: 'icon-burger',
+    component: IconBurger
+  },
+  {
+    name: 'icon-discover',
+    component: IconDiscover
+  },
+  {
+    name: 'icon-discover-active',
+    component: IconDiscoverActive
+  },
+  {
+    name: 'icon-explore',
+    component: IconExplore
+  },
+  {
+    name: 'icon-explore-active',
+    component: IconExploreActive
   },
   {
     name: 'icon-like',
