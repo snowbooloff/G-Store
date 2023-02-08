@@ -1,44 +1,51 @@
+import { ref } from 'vue'
 import axios from 'axios'
 import router from '../router'
-import type { Ref } from 'vue'
-import { key } from '../api/rawg'
 
 // TS Interfaces
 import { IQuery } from '@/ts/query.interface'
+import { IGame } from '@/ts/game.interface'
 
-export default async function fetchGames(
-  arr: Ref,
+//Api
+import { key } from '../api/rawg'
+
+export function fetchGames(
   page: number,
-  { date, size, sort, search, platforms = [], rating, tags = [], genres = [] }: IQuery,
-  totalGamesCount?: any
+  { date, size, sort, search, platforms = [], rating, tags = [], genres = [] }: IQuery
 ) {
-  try {
-    const response = await axios.get('https://api.rawg.io/api/games?', {
-      params: {
-        page: page,
+  const data = ref<IGame[]>([])
+  const totalItemsCount = ref<number>(0)
 
-        dates: date,
-        page_size: size,
-        ordering: sort,
-        metacritic: rating.join(','),
-        parent_platforms: platforms.join(',') || '1,2,3,4,7,8',
-        tags: tags.join(',') || null,
-        genres: genres.join(',') || null,
-        search: search,
+  const fetching = async () => {
+    try {
+      const response = await axios.get('https://api.rawg.io/api/games?', {
+        params: {
+          page: page,
 
-        exclude_additions: true,
-        search_precise: true,
+          dates: date,
+          page_size: size,
+          ordering: sort,
+          metacritic: rating.join(','),
+          parent_platforms: platforms.join(',') || '1,2,3,4,7,8',
+          tags: tags.join(',') || null,
+          genres: genres.join(',') || null,
+          search: search,
 
-        key: key
-      }
-    })
-    arr.value = response.data.results
+          exclude_additions: true,
+          search_precise: true,
 
-    if (totalGamesCount) {
-      totalGamesCount.value = response.data.count
+          key: key
+        }
+      })
+      data.value = response.data.results
+      totalItemsCount.value = response.data.count
+    } catch (err) {
+      console.warn(err)
+      router.push('/error')
     }
-  } catch (err) {
-    console.warn(err)
-    router.push('/error')
   }
+
+  return fetching().then(() => {
+    return { data, totalItemsCount }
+  })
 }
