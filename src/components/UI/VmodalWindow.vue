@@ -26,6 +26,7 @@ onBeforeUnmount(() => {
 
 <template>
   <div
+    v-if="isVisible"
     ref="modalWindow"
     class="modal-window"
     @click.stop="outSideClickHandler"

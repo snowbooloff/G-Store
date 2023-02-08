@@ -100,7 +100,7 @@ function validateData() {
       <button
         class="page-block__bttn bttn bttn_buy"
         :class="{ shake: registrationError.length }"
-        @click="validateData"
+        @click.prevent="validateData"
       >
         SIGN UP
       </button>

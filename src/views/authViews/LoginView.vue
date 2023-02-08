@@ -13,6 +13,8 @@ const userData = reactive({
 })
 
 function loginingUser() {
+  console.log(1)
+
   const auth = getAuth()
   signInWithEmailAndPassword(auth, userData.email, userData.password).catch((error) => {
     correctErrorText(error, loginError)
@@ -54,7 +56,7 @@ const loginError = ref('')
       <button
         class="auth-form__bttn bttn bttn_buy"
         :class="{ shake: loginError.length }"
-        @click="loginingUser"
+        @click.prevent="loginingUser"
       >
         SIGN IN
       </button>
