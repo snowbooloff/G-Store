@@ -16,7 +16,7 @@ const headerUserName = computed<string>(() => {
   return isAuth.value ? userNickname.value : 'Profile'
 })
 
-const menuIsActive = ref<boolean>(false)
+const isMenuShow = ref<boolean>(false)
 
 const isBurgerMenuShow = ref<boolean>(window.innerWidth <= 600 ? true : false)
 const isBurgerMenuActive = ref<boolean>(false)
@@ -80,7 +80,7 @@ onBeforeUnmount(() => {
 
       <div
         class="user flex flex_align-center cursor-pointer main-black"
-        @click.stop="menuIsActive = !menuIsActive"
+        @click.stop="isMenuShow = !isMenuShow"
       >
         <user-avatar
           :size="'30px'"
@@ -91,43 +91,37 @@ onBeforeUnmount(() => {
         </p>
         <icon-arrow
           class="user__arrow icon"
-          :class="{ icon_active: menuIsActive }"
+          :class="{ icon_active: isMenuShow }"
         />
         <v-modal-window
-          class="user__menu"
-          v-model:isVisible="menuIsActive"
+          class="user__menu flex flex_column"
+          v-model:isVisible="isMenuShow"
         >
           <link-icon
-            :text="'Shopping'"
-            :route="'/shopping'"
-            :firstIcon="'icon-cart'"
-            :secondIcon="'icon-cart-active'"
+            v-if="!isAuth"
+            :text="'Sign Up'"
+            :route="'/register'"
           />
-          <router-link
+
+          <link-icon
             v-if="!isAuth"
-            class="user__bttn main-black"
-            to="/register"
-            >Sign Up</router-link
-          >
-          <router-link
-            v-if="!isAuth"
-            class="user__bttn main-black"
-            to="/login"
-            >Sign In</router-link
-          >
-          <router-link
+            :text="'Sign In'"
+            :route="'/login'"
+          />
+
+          <link-icon
             v-if="isAuth"
-            class="user__bttn main-black"
-            to="/user"
-            >My Profile</router-link
-          >
-          <router-link
+            :text="'My Profile'"
+            :route="'/user'"
+            :firstIcon="'icon-user'"
+          />
+
+          <link-icon
             v-if="isAuth"
-            class="user__bttn main-black"
-            to="/login"
+            :text="'Sign Out'"
+            :route="'/login'"
             @click="$store.dispatch('user/signOut')"
-            >Sign Out</router-link
-          >
+          />
         </v-modal-window>
       </div>
     </nav>
@@ -145,18 +139,22 @@ onBeforeUnmount(() => {
         class="burger-menu__content flex flex_column no-copy"
         v-model:isVisible="isBurgerMenuActive"
       >
-        <div class="user flex flex_align-center cursor-pointer">
+        <div class="user flex flex_align-center cursor-pointer main-black">
           <user-avatar
             :size="'30px'"
-            class="user_pic main-black"
+            class="user_pic"
           />
-          <router-link
-            class="nav-bar__link user__text main-black"
-            to="/user"
-          >
+          <p class="user__text">
             {{ headerUserName }}
-          </router-link>
+          </p>
         </div>
+
+        <link-icon
+          v-if="isAuth"
+          :text="'My Profile'"
+          :route="'/user'"
+          :firstIcon="'icon-user'"
+        />
 
         <link-icon
           :text="'Discover'"
@@ -186,30 +184,24 @@ onBeforeUnmount(() => {
           :secondIcon="'icon-cart-active'"
         />
 
-        <router-link
+        <link-icon
           v-if="!isAuth"
-          class="user__bttn main-black"
-          to="/register"
-        >
-          Sign Up
-        </router-link>
+          :text="'Sign Up'"
+          :route="'/register'"
+        />
 
-        <router-link
+        <link-icon
           v-if="!isAuth"
-          class="user__bttn main-black"
-          to="/login"
-        >
-          Sign In
-        </router-link>
+          :text="'Sign In'"
+          :route="'/login'"
+        />
 
-        <router-link
+        <link-icon
           v-if="isAuth"
-          class="user__bttn main-black"
-          to="/login"
+          :text="'Sign Out'"
+          :route="'/login'"
           @click="$store.dispatch('user/signOut')"
-        >
-          Sign Out
-        </router-link>
+        />
       </v-modal-window>
     </div>
   </div>
@@ -233,7 +225,6 @@ onBeforeUnmount(() => {
 
 .icon {
   height: 20px;
-  width: 20px;
 }
 .icon_active {
   transform: rotate(180deg);
@@ -243,13 +234,6 @@ onBeforeUnmount(() => {
   gap: var(--medium-spacing);
 }
 
-.nav-bar__link {
-  font-size: 16px;
-  text-decoration: none;
-}
-.router-link-active {
-  color: var(--main-blue);
-}
 .user__text {
   font-size: 16px;
   margin-left: var(--small-spacing);
@@ -263,25 +247,15 @@ onBeforeUnmount(() => {
 }
 .user__menu {
   top: 110%;
-}
-.user__bttn {
-  display: block;
-  font-size: 16px;
-  margin-bottom: var(--medium-spacing);
-  text-decoration: none;
-}
-.user__bttn:last-child {
-  margin-bottom: 0;
+  right: 2vw;
+  gap: var(--medium-spacing);
 }
 
-.burger-menu {
-  position: relative;
-  height: 100%;
-}
 .burger-menu__content {
   position: absolute;
   top: 110%;
-  right: 0;
+  right: 2vw;
+  width: 150px;
   gap: var(--large-spacing);
 }
 </style>

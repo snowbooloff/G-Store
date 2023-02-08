@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Commit } from 'vuex'
+import { key } from '../api/rawg'
 
 type genresState = { genresList: object[] }
 
@@ -18,7 +19,7 @@ export const genresModule = {
       try {
         const response = await axios.get('https://api.rawg.io/api/genres?', {
           params: {
-            key: '6be3bec5eec246719e96cc8c4b02ca8f',
+            key: key,
             page_size: 12
           }
         })

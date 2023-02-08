@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { computed, watch } from 'vue'
+
+//Utils
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+const store = useStore()
+const router = useRouter()
+
+const isAuth = computed<boolean>(() => store.state.user.isAuth)
+
+watch(isAuth, () => {
+  if (isAuth) {
+    router.push('/')
+  }
+})
+</script>
 <template>
   <div v-bind="$attrs">
     <section class="auth">

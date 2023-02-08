@@ -13,7 +13,7 @@ const props = defineProps<{
     class="link main-black flex flex_align-center"
   >
     <span
-      class="link__span flex flex_align-center"
+      class="link__span"
       v-if="firstIcon"
     >
       <component
@@ -32,11 +32,12 @@ const props = defineProps<{
   text-decoration: none;
 }
 .link__span {
+  height: 20px;
   margin-right: 2px;
 }
 
 .link__icon {
-  height: 20px;
+  height: 100%;
 }
 .router-link-active {
   color: var(--main-blue);
