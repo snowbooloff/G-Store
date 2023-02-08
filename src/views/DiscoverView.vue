@@ -11,7 +11,7 @@ import GenreItem from '../components/GenreItem.vue'
 import GameBoard from '../components/GameBoard.vue'
 
 //Composables
-import fetchGames from '../composables/fetchGames'
+import { fetchGames } from '../composables/fetchGames'
 
 //Utils
 import { useStore } from 'vuex'
@@ -30,7 +30,7 @@ const date = {
 const pastDatePeriod = `${date.previousYear}-${date.month}-${date.day},${date.year}-${date.month}-${date.day}`
 const nextDatePeriod = `${date.year}-${date.month}-${date.day},${date.nextYear}-${date.month}-${date.day}`
 
-const randomPage = Math.floor(Math.random() * 10) + 1
+const randomPage: number = Math.floor(Math.random() * 10) + 1
 
 const newReleasesGamesList = ref<IGame[]>([])
 const comingSoonGamesList = ref<IGame[]>([])
@@ -39,30 +39,42 @@ const gamesForBoard = ref<IGame[]>([])
 onMounted(() => {
   store.commit('loading/setLoading', true)
 
-  const f1 = fetchGames(newReleasesGamesList, 1, {
+  const f1 = fetchGames(1, {
     date: pastDatePeriod,
     size: 8,
     sort: '-released',
     rating: [10, 100]
+  }).then(({ data }) => {
+    newReleasesGamesList.value = data.value
   })
-  const f2 = fetchGames(comingSoonGamesList, 1, {
+
+  const f2 = fetchGames(1, {
     date: nextDatePeriod,
     size: 8,
     sort: '-added',
     rating: ['-']
+  }).then(({ data }) => {
+    comingSoonGamesList.value = data.value
   })
-  const f3 = fetchGames(highestRatingGamesList, 1, {
+
+  const f3 = fetchGames(1, {
     date: '',
     size: 8,
     sort: '-metacritic',
     rating: [10, 96]
+  }).then(({ data }) => {
+    highestRatingGamesList.value = data.value
   })
-  const f4 = fetchGames(gamesForBoard, randomPage, {
+
+  const f4 = fetchGames(randomPage, {
     date: '',
     size: 3,
     platforms: [''],
     rating: [10, 100]
+  }).then(({ data }) => {
+    gamesForBoard.value = data.value
   })
+
   Promise.all([f1, f2, f3, f4]).then(() => {
     store.commit('loading/setLoading', false)
   })

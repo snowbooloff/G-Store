@@ -11,8 +11,7 @@ import ItemsList from '../components/ItemsList.vue'
 import GameItem from '../components/GameItem.vue'
 
 //Composables
-import fetchGames from '../composables/fetchGames'
-import fetchMoreGames from '../composables/fetchMoreGames'
+import { fetchGames } from '../composables/fetchGames'
 
 //Utils
 import { useRoute, useRouter } from 'vue-router'
@@ -24,8 +23,8 @@ const router = useRouter()
 const store = useStore()
 
 const exploreGamesList = ref<IGame[]>([])
-const totalGamesCount = ref(0)
-let currentPage = 1
+const totalGamesCount = ref<number>(0)
+let currentPage: number = 1
 
 const query = reactive<IQuery>({
   sort: route.query.sort || '',
@@ -69,7 +68,9 @@ const sortOptions = reactive<ISelectOptions[]>([
 
 function fetching() {
   store.commit('loading/setLoading', true)
-  fetchGames(exploreGamesList, currentPage, query, totalGamesCount).then(() => {
+  fetchGames(currentPage, query).then(({ data, totalItemsCount }) => {
+    exploreGamesList.value = data.value
+    totalGamesCount.value = totalItemsCount.value
     store.commit('loading/setLoading', false)
   })
 }
@@ -99,7 +100,10 @@ watch(query, () => {
 function loadMoreGames() {
   if (currentPage < totalPagesCount.value) {
     currentPage++
-    fetchMoreGames(exploreGamesList, currentPage, query)
+    fetchGames(currentPage, query).then(({ data, totalItemsCount }) => {
+      exploreGamesList.value = [...exploreGamesList.value, ...data.value]
+      totalGamesCount.value = totalItemsCount.value
+    })
   }
 }
 
