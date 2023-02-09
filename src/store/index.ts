@@ -1,4 +1,5 @@
 import { createStore, Store } from 'vuex'
+
 import { userModule } from './userModule'
 import { notificationModule } from './notificationModule'
 import { loadingModule } from './loadingModule'

@@ -2,7 +2,9 @@ import axios from 'axios'
 import { Commit } from 'vuex'
 import { key } from '../api/rawg'
 
-type genresState = { genresList: object[] }
+interface genresState {
+  genresList: object[]
+}
 
 export const genresModule = {
   namespaced: true,

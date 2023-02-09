@@ -1,6 +1,18 @@
 import { getAuth, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
 import { ref, getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 
+import { Commit } from 'vuex'
+
+interface userState {
+  isAuth: boolean
+  userInfo: {
+    nickname: string
+    email: string
+    image: string
+    registrationDate: string
+  }
+}
+
 export const userModule = {
   namespaced: true,
   state: () => ({
@@ -12,26 +24,25 @@ export const userModule = {
       registrationDate: ''
     }
   }),
-  getters: {},
   mutations: {
-    setAuth(state, authValue) {
+    setAuth(state: userState, authValue: boolean) {
       state.isAuth = authValue
     },
-    setUserNickname(state, nickname) {
+    setUserNickname(state: userState, nickname: string) {
       state.userInfo.nickname = nickname
     },
-    setUserEmail(state, email) {
+    setUserEmail(state: userState, email: string) {
       state.userInfo.email = email
     },
-    setUserImage(state, picUrl) {
+    setUserImage(state: userState, picUrl: string) {
       state.userInfo.image = picUrl
     },
-    setUserRegDate(state, date) {
+    setUserRegDate(state: userState, date: string) {
       state.userInfo.registrationDate = date
     }
   },
   actions: {
-    checkAuth({ state, commit }) {
+    checkAuth({ state, commit }: { state: userState; commit: Commit }) {
       const auth = getAuth()
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -43,7 +54,7 @@ export const userModule = {
         }
       })
     },
-    signOut({ state, commit }) {
+    signOut({ state, commit }: { state: userState; commit: Commit }) {
       const auth = getAuth()
       signOut(auth).then(() => {
         commit('setAuth', false)
@@ -52,26 +63,6 @@ export const userModule = {
         commit('setUserEmail', '')
         commit('setUserRegDate', '')
       })
-    },
-    uploadUserPic({ state, commit }, userPic) {
-      if (userPic) {
-        const auth = getAuth()
-        const storage = getStorage()
-
-        const pictureRef = ref(storage, `userAvatars/${auth.currentUser.uid}/avatar`)
-
-        uploadBytes(pictureRef, userPic).then(() => {
-          getDownloadURL(pictureRef).then((url) => {
-            updateProfile(auth.currentUser, {
-              photoURL: url
-            })
-            commit('setUserImage', url)
-            commit('notification/pushNotification', 'Profile image successfully uploaded', {
-              root: true
-            })
-          })
-        })
-      }
     }
   }
 }
