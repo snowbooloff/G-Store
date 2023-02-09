@@ -36,17 +36,13 @@ const props = defineProps<{
     grid-template-columns: repeat(3, 1fr);
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .items-list {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (max-width: 768px) {
-  .items-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 425px) {
+
+@media (max-width: 600px) {
   .items-list {
     grid-template-columns: repeat(1, 1fr);
   }
