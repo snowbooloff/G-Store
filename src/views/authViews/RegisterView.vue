@@ -92,7 +92,7 @@ function validateData() {
         />
       </div>
       <p
-        class="page-block__error"
+        class="auth-form__error"
         v-show="registrationError.length"
       >
         {{ registrationError }}

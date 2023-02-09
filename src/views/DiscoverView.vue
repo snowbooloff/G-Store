@@ -215,21 +215,6 @@ onMounted(() => {
 
 <style scoped>
 .genre-list {
-  grid-template-columns: repeat(6, 0.166fr);
-}
-@media (max-width: 1440px) {
-  .genre-list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 768px) {
-  .genre-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 768px) {
-  .genre-list {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  grid-template-columns: repeat(auto-fit, 0.166fr);
 }
 </style>

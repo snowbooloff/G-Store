@@ -1,9 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed, reactive } from 'vue'
 
 //Components
 import UserAvatar from '../components/UserAvatar.vue'
+
+//Composables
+import correctErrorText from '../composables/correctErrorText'
+
 //Utils
+import { getAuth, updateProfile, updatePassword, updateEmail } from 'firebase/auth'
+import { ref as FRef, getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { useStore } from 'vuex'
 const store = useStore()
 
@@ -11,27 +17,86 @@ const userData = computed(() => store.state.user.userInfo)
 const correctedRegDate = computed(() =>
   new Date(userData.value.registrationDate).toLocaleDateString('en-GB')
 )
-const s = ref('')
 
-const inputAttrs = reactive({
-  value: '',
-  isVisible: false,
-  placeholder: '',
-  previousX: 0
+const newUserData = reactive({
+  email: '',
+  nickname: '',
+  password: ''
 })
 
-function showInput(element, placeholder) {
-  console.log(element.target)
-  if (inputAttrs.previousX == element.pageX) {
-    inputAttrs.isVisible = false
-  } else {
-    inputAttrs.isVisible = true
+const inputData = reactive({
+  isEmailInputShow: false,
+  isNicknameInputShow: false,
+  isPasswordInputShow: false
+})
+
+const updateError = ref('')
+
+function updateProfileImage(userPic: any) {
+  if (userPic) {
+    const auth = getAuth()
+    const storage = getStorage()
+
+    const pictureRef = FRef(storage, `userAvatars/${auth.currentUser!.uid}/avatar`)
+
+    uploadBytes(pictureRef, userPic).then(() => {
+      getDownloadURL(pictureRef).then((url) => {
+        updateProfile(auth.currentUser!, {
+          photoURL: url
+        })
+        store.commit('user/setUserImage', url)
+
+        store.commit('notification/pushNotification', 'Profile image successfully uploaded', {
+          root: true
+        })
+      })
+    })
   }
-  inputAttrs.placeholder = placeholder
-  inputAttrs.previousX = element.pageX
 }
-function sas(sas) {
-  console.log(sas)
+
+function updateUserNickname() {
+  if (newUserData.nickname.length < 4) {
+    updateError.value = 'Nickname to be a minimum of 4 characters'
+  } else {
+    const auth = getAuth()
+    updateProfile(auth.currentUser!, {
+      displayName: newUserData.nickname
+    })
+      .then(() => {
+        store.commit('user/setUserNickname', newUserData.nickname)
+        store.commit('notification/pushNotification', 'Nnickname successfully updated')
+      })
+      .catch((error) => {
+        correctErrorText(error, updateError)
+      })
+  }
+
+  setTimeout(() => (updateError.value = ''), 1000)
+}
+
+function updateUserEmail() {
+  const auth = getAuth()
+  updateEmail(auth.currentUser!, newUserData.email)
+    .then(() => {
+      store.commit('user/setUserEmail', newUserData.email)
+      store.commit('notification/pushNotification', 'Email Address successfully updated')
+    })
+    .catch((error) => {
+      correctErrorText(error, updateError)
+    })
+  setTimeout(() => (updateError.value = ''), 1000)
+}
+
+function updateUserPassword() {
+  const auth = getAuth()
+  updatePassword(auth.currentUser!, newUserData.password)
+    .then(() => {
+      store.commit('notification/pushNotification', 'Password successfully updated')
+    })
+    .catch((error) => {
+      correctErrorText(error, updateError)
+    })
+  setTimeout(() => (updateError.value = ''), 1000)
 }
 </script>
 
@@ -43,46 +108,82 @@ function sas(sas) {
         class="profile-avatar__input cursor-pointer"
         type="file"
         accept="image/png, image/jpeg"
-        @input="$store.dispatch('user/uploadUserPic', $event.target.files[0])"
+        @input="updateProfileImage($event.target.files[0])"
       />
     </div>
 
+    <p
+      class="page-block__error"
+      v-show="updateError.length"
+    >
+      {{ updateError }}
+    </p>
+
     <div class="user-info flex flex_column">
-      <v-input-submit
-        v-if="inputAttrs.isVisible"
-        class="input"
-        v-model="inputAttrs.value"
-        :placeholder="inputAttrs.placeholder"
-        :submitFunc="sas"
-        :funcArguments="'sas'"
-      />
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Nickname:</h3>
-        <button class="datails__bttn cursor-pointer" @click="showInput($event, 'New Nickname')">
-          <icon-edit class="datails__icon datails__icon_1 main-blue" />
-        </button>
-
-        <h3 class="datails__item main-blue">{{ userData.nickname }}</h3>
+        <div class="edit flex">
+          <button
+            class="edit__bttn cursor-pointer"
+            @click="inputData.isNicknameInputShow = !inputData.isNicknameInputShow"
+          >
+            <icon-edit class="edit__icon main-blue" />
+          </button>
+          <h3 class="edit__item main-blue">{{ userData.nickname }}</h3>
+        </div>
       </div>
+
+      <v-input-submit
+        v-if="inputData.isNicknameInputShow"
+        v-model="newUserData.nickname"
+        type="text"
+        maxlength="12"
+        placeholder="New Nickname"
+        :submitFunc="updateUserNickname"
+      />
 
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Email Address:</h3>
-        <button
-          class="datails__bttn datails__bttn_2 cursor-pointer"
-          @click="showInput($event, 'New Email Address')"
-        >
-          <icon-edit class="datails__icon datails__icon_2 main-blue" />
-        </button>
-        <h3 class="datails__item main-blue">{{ userData.email }}</h3>
+        <div class="edit flex">
+          <button
+            class="edit__bttn cursor-pointer"
+            @click="inputData.isEmailInputShow = !inputData.isEmailInputShow"
+          >
+            <icon-edit class="edit__icon main-blue" />
+          </button>
+          <h3 class="edit__item main-blue">{{ userData.email }}</h3>
+        </div>
       </div>
+
+      <v-input-submit
+        v-if="inputData.isEmailInputShow"
+        v-model="newUserData.email"
+        type="email"
+        placeholder="New Email Address"
+        :submitFunc="updateUserEmail"
+      />
 
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Password:</h3>
-        <button class="datails__bttn cursor-pointer" @click="showInput">
-          <icon-edit class="datails__icon main-blue" />
-        </button>
-        <h3 class="datails__item main-blue">Change Password</h3>
+        <div class="edit flex">
+          <button
+            class="edit__bttn cursor-pointer"
+            @click="inputData.isPasswordInputShow = !inputData.isPasswordInputShow"
+          >
+            <icon-edit class="edit__icon main-blue" />
+          </button>
+          <h3 class="edit__item main-blue">Change Password</h3>
+        </div>
       </div>
+
+      <v-input-submit
+        v-if="inputData.isPasswordInputShow"
+        v-model="newUserData.password"
+        type="text"
+        maxlength="12"
+        placeholder="New Password"
+        :submitFunc="updateUserPassword"
+      />
 
       <div class="details flex flex_align-center">
         <h3 class="datails__item main-white">Registration Date:</h3>
@@ -110,6 +211,10 @@ function sas(sas) {
   left: 0;
   opacity: 0;
 }
+
+.page-block__error {
+  color: #d00000;
+}
 .user-info {
   width: 500px;
   gap: var(--medium-spacing);
@@ -118,18 +223,35 @@ function sas(sas) {
   background: var(--second-black);
   border-radius: var(--medium-radius);
 }
-.details {
+.datails__date,
+.edit {
+  margin-left: auto;
 }
-.datails__bttn {
+
+.edit__bttn {
   border: none;
   background: none;
   margin-left: auto;
   margin-right: var(--small-spacing);
 }
-.datails__date {
-  margin-left: auto;
-}
-.datails__icon {
+.edit__icon {
   height: 17px;
+}
+
+@media (max-width: 525px) {
+  .user-info {
+    width: 100%;
+  }
+}
+@media (max-width: 375px) {
+  .details {
+    flex-flow: column;
+    gap: var(--small-spacing);
+  }
+  .edit,
+  .datails__date,
+  .edit {
+    margin-left: 0;
+  }
 }
 </style>
