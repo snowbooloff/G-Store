@@ -11,6 +11,7 @@ import ComponentsIcons from './components/icons'
 
 //Directives
 import Intersection from './directives/Vintersection'
+import Focus from './directives/Vfocus'
 
 //Firebase
 import './api/firebase'
@@ -25,4 +26,9 @@ ComponentsIcons.forEach((element) => {
   app.component(element.name, element.component)
 })
 
-app.directive('intersection', Intersection).use(store).use(router).mount('#app')
+app
+  .directive('intersection', Intersection)
+  .directive('focus', Focus)
+  .use(store)
+  .use(router)
+  .mount('#app')

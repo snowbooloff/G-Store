@@ -60,6 +60,15 @@ const router = createRouter({
       }
     },
     {
+      path: '/reset',
+      name: 'reset',
+      component: () => import('../views/authViews/ResetView.vue'),
+      meta: {
+        layout: 'AuthLayout',
+        access: 'no auth'
+      }
+    },
+    {
       path: '/user',
       name: 'user',
       component: () => import('../views/UserView.vue'),

@@ -16,7 +16,7 @@ function checkItem(): boolean {
   return localStorageUtil.checkItem(localStorageUtil.favorites, props.gameId)
 }
 
-const activeIcon = ref(checkItem() ? 'icon-like-active' : 'icon-like')
+const activeIcon = ref<string>(checkItem() ? 'icon-like-active' : 'icon-like')
 
 function setFavGame() {
   const itemStatus: boolean = localStorageUtil.placeItem(localStorageUtil.favorites, props.gameId)

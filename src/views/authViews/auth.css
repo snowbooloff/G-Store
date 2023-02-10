@@ -1,18 +1,37 @@
+.page-block__title {
+  text-align: center;
+}
+
 .auth-form {
   gap: var(--medium-spacing);
   width: 300px;
 }
-.auth-form__input {
+
+.auth-area__input {
   margin-top: var(--small-spacing);
 }
-.auth-form__error {
+
+.error-info {
+  text-align: center;
   color: #d00000;
 }
+
+.auth-form__help {
+  text-align: end;
+}
+
 .auth-form__bttn {
   width: 100%;
 }
+
 .auth-form__span {
   text-align: center;
+}
+
+@media (max-width: 310px) {
+  .auth-form {
+    width: 100%;
+  }
 }
 
 .shake {
@@ -42,11 +61,5 @@
   40%,
   60% {
     transform: translate3d(4px, 0, 0);
-  }
-}
-
-@media (max-width: 310px) {
-  .auth-form {
-    width: 100%;
   }
 }

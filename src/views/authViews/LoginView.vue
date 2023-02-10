@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 //Composables
 import correctErrorText from '../../composables/correctErrorText'
@@ -13,8 +13,6 @@ const userData = reactive({
 })
 
 function loginingUser() {
-  console.log(1)
-
   const auth = getAuth()
   signInWithEmailAndPassword(auth, userData.email, userData.password).catch((error) => {
     correctErrorText(error, loginError)
@@ -23,6 +21,11 @@ function loginingUser() {
 }
 
 const loginError = ref('')
+watch(loginError, (newValue) => {
+  if (newValue.length) {
+    setTimeout(() => (loginError.value = ''), 1500)
+  }
+})
 </script>
 
 <template>
@@ -35,6 +38,7 @@ const loginError = ref('')
         <v-input
           class="auth-area__input"
           v-model="userData.email"
+          v-focus
           type="email"
         />
       </div>
@@ -48,7 +52,7 @@ const loginError = ref('')
         />
       </div>
       <p
-        class="auth-form__error"
+        class="error-info"
         v-show="loginError.length"
       >
         {{ loginError }}
@@ -66,6 +70,14 @@ const loginError = ref('')
           to="/register"
           class="main-white"
           >Sign Up</router-link
+        >
+      </span>
+      <span class="auth-form__span second-white">
+        Need Help?
+        <router-link
+          to="/reset"
+          class="main-white"
+          >Reset Password</router-link
         >
       </span>
     </form>

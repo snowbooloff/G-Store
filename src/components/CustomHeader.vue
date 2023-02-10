@@ -26,6 +26,7 @@ function checkWindowWidth(): void {
     isBurgerMenuShow.value = true
   } else {
     isBurgerMenuShow.value = false
+    isBurgerMenuActive.value = false
   }
 }
 

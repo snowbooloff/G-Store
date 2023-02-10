@@ -1,9 +1,9 @@
 class LocalStorage {
-  public favorites: string = 'favorites'
-  public shopping: string = 'shopping'
+  readonly favorites: string = 'favorites'
+  readonly shopping: string = 'shopping'
 
   getList(category: string) {
-    const localStorageList = localStorage.getItem(category)
+    const localStorageList: string | null = localStorage.getItem(category)
     if (localStorageList !== null) {
       return JSON.parse(localStorageList)
     }
@@ -16,9 +16,9 @@ class LocalStorage {
   }
 
   placeItem(category: string, id: number) {
-    const list = this.getList(category)
-    const checkIndex = list.indexOf(id)
-    let itemStatus = false
+    const list: number[] = this.getList(category)
+    const checkIndex: number = list.indexOf(id)
+    let itemStatus: boolean = false
 
     if (checkIndex == -1) {
       list.push(id)

@@ -347,4 +347,12 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
     position: static;
   }
 }
+
+@media (max-width: 425px) {
+  .nav-bar {
+    flex-flow: column;
+    align-items: flex-start;
+    gap: var(--small-spacing);
+  }
+}
 </style>

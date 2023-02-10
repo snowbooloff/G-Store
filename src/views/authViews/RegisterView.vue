@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref, reactive,watch } from 'vue'
 
 //Composables
 import correctErrorText from '../../composables/correctErrorText'
@@ -35,6 +35,11 @@ function registeringUser() {
 }
 
 const registrationError = ref('')
+watch(registrationError, (newValue) => {
+  if (newValue.length) {
+    setTimeout(() => (registrationError.value = ''), 1500)
+  }
+})
 
 function validateData() {
   if (userData.password != userData.repeatedPassword) {
@@ -45,7 +50,6 @@ function validateData() {
     registrationError.value = 'Missing password'
   } else {
     registeringUser()
-    setTimeout(() => (registrationError.value = ''), 1000)
   }
 }
 </script>
@@ -60,6 +64,7 @@ function validateData() {
         <v-input
           class="auth-area__input"
           v-model="userData.nickname"
+          v-focus
           type="text"
           maxlength="12"
         />
@@ -92,7 +97,7 @@ function validateData() {
         />
       </div>
       <p
-        class="auth-form__error"
+        class="error-info"
         v-show="registrationError.length"
       >
         {{ registrationError }}

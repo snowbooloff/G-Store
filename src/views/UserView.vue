@@ -26,7 +26,6 @@ const newUserData = reactive({
 })
 
 const updateError = ref<string>('')
-
 watch(updateError, (newValue) => {
   if (newValue.length) {
     setTimeout(() => (updateError.value = ''), 1500)
@@ -177,12 +176,12 @@ function clearUserData() {
 
       <v-input-submit
         v-if="inputData.nicknameInput.isShow"
-        :class="{ shake: updateError.length }"
         v-model="inputData.nicknameInput.value"
+        :submitFunc="updateUserNickname"
+        :class="{ shake: updateError.length }"
         type="text"
         maxlength="12"
         placeholder="New Nickname"
-        :submitFunc="updateUserNickname"
       />
 
       <div class="details flex flex_align-center">

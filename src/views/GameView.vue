@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, computed } from 'vue'
+import { ref, watch, onMounted, onBeforeMount, computed } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -20,13 +20,13 @@ const store = useStore()
 
 const game = ref<IGame | any>({})
 
+store.commit('loading/setLoading', true)
+
 function fetching() {
-  store.commit('loading/setLoading', true)
   fetchGameDetails(game, route.params.id).then(() => {
     store.commit('loading/setLoading', false)
   })
 }
-
 onMounted(() => {
   fetching()
 })
@@ -36,14 +36,18 @@ watch(route, () => {
 const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 
-<template v-if="!loading">
+<template>
   <v-lazy-image
     class="page__img"
+    v-if="!loading"
     :imgSrc="game.background_image"
     :alt="game.name"
   />
 
-  <section class="game-block large-container flex">
+  <section
+    class="game-block large-container flex"
+    v-if="!loading"
+  >
     <div class="title-block flex flex_column">
       <h1 class="title-block__name main-blue">{{ game.name }}</h1>
 
