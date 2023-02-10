@@ -4,7 +4,6 @@ import IconUser from './IconUser.vue'
 import IconCross from './IconCross.vue'
 import IconSearch from './IconSearch.vue'
 import IconEye from './IconEye.vue'
-import IconEdit from './IconEdit.vue'
 import IconBurger from './IconBurger.vue'
 import IconDiscover from './IconDiscover.vue'
 import IconDiscoverActive from './IconDiscoverActive.vue'
@@ -46,10 +45,6 @@ export default [
   {
     name: 'icon-eye',
     component: IconEye
-  },
-  {
-    name: 'icon-edit',
-    component: IconEdit
   },
   {
     name: 'icon-burger',
