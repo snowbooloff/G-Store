@@ -4,7 +4,7 @@ import store from './store/index'
 import router from './router'
 
 //UI Components
-import ComponentsUI from './components/ui'
+import ComponentsUI from './components/UI'
 
 //Icons Components
 import ComponentsIcons from './components/icons'
