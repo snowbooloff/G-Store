@@ -2,7 +2,7 @@
 import { ref, watch } from 'vue'
 
 //Composables
-import correctErrorText from '@/composables/correctErrorText'
+import correctErrorText from '../../composables/correctErrorText'
 
 //Utils
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'

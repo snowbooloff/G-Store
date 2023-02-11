@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 //Utils
-import { localStorageUtil } from '@/localStorage'
+import { localStorageUtil } from '../../../localStorage'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 

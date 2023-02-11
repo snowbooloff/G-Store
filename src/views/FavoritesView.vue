@@ -5,15 +5,15 @@ import { ref, onMounted, computed } from 'vue'
 import { IGame } from '@/ts/game.interface'
 
 //Components
-import ItemsList from '@/components/ItemsList.vue'
-import GameItem from '@/components/GameItem.vue'
-import NavBarForEmpty from '@/components/NavBarForEmpty.vue'
+import ItemsList from '../components/ItemsList.vue'
+import GameItem from '../components/GameItem.vue'
+import NavBarForEmpty from '../components/NavBarForEmpty.vue'
 
 //Composables
-import fetchGameDetails from '@/composables/fetchGameDetails'
+import fetchGameDetails from '../composables/fetchGameDetails'
 
 //Utils
-import { localStorageUtil } from '@/localStorage'
+import { localStorageUtil } from '../localStorage'
 import { useStore } from 'vuex'
 const store = useStore()
 

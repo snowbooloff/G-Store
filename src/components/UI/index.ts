@@ -1,16 +1,16 @@
-import Vcheckbox from '@/components/UI/Vcheckbox.vue'
-import Vselect from '@/components/UI/Vselect.vue'
-import VlazyImage from '@/components/UI/VlazyImage.vue'
-import VrangeSlider from '@/components/UI/VrangeSlider.vue'
-import VmodalWindow from '@/components/UI/VmodalWindow.vue'
+import Vcheckbox from './Vcheckbox.vue'
+import Vselect from './Vselect.vue'
+import VlazyImage from './VlazyImage.vue'
+import VrangeSlider from './VrangeSlider.vue'
+import VmodalWindow from './VmodalWindow.vue'
 
-import Vinput from '@/components/UI/Vinput.vue'
-import VsearchInput from '@/components/UI/VsearchInput.vue'
-import VinputSubmit from '@/components/UI/VinputSubmit.vue'
-import VpasswordInput from '@/components/UI/VpasswordInput.vue'
+import Vinput from './Vinput.vue'
+import VsearchInput from './VsearchInput.vue'
+import VinputSubmit from './VinputSubmit.vue'
+import VpasswordInput from './VpasswordInput.vue'
 
-import VlikeButton from '@/components/UI/buttons/VlikeButton.vue'
-import VpriceButton from '@/components/UI/buttons/VpriceButton.vue'
+import VlikeButton from './buttons/VlikeButton.vue'
+import VpriceButton from './buttons/VpriceButton.vue'
 
 export default [
   {

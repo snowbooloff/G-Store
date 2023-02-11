@@ -5,13 +5,13 @@ import { ref, onMounted } from 'vue'
 import { IGame } from '@/ts/game.interface'
 
 //Components
-import ItemsList from '@/components/ItemsList.vue'
-import GameItem from '@/components/GameItem.vue'
-import GenreItem from '@/components/GenreItem.vue'
-import GameBoard from '@/components/GameBoard.vue'
+import ItemsList from '../components/ItemsList.vue'
+import GameItem from '../components/GameItem.vue'
+import GenreItem from '../components/GenreItem.vue'
+import GameBoard from '../components/GameBoard.vue'
 
 //Composables
-import { fetchGames } from '@/composables/fetchGames'
+import { fetchGames } from '../composables/fetchGames'
 
 //Utils
 import { useStore } from 'vuex'

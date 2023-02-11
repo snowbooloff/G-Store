@@ -7,11 +7,11 @@ import { ISelectOptions } from '@/ts/selectOptions.interface'
 import { IQuery } from '@/ts/query.interface'
 
 //Components
-import ItemsList from '@/components/ItemsList.vue'
-import GameItem from '@/components/GameItem.vue'
+import ItemsList from '../components/ItemsList.vue'
+import GameItem from '../components/GameItem.vue'
 
 //Composables
-import { fetchGames } from '@/composables/fetchGames'
+import { fetchGames } from '../composables/fetchGames'
 
 //Utils
 import { useRoute, useRouter } from 'vue-router'

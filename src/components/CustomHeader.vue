@@ -2,8 +2,8 @@
 import { ref, computed, onBeforeUnmount } from 'vue'
 
 //Components
-import LinkIcon from '@/components/LinkIcon.vue'
-import UserAvatar from '@/components/UserAvatar.vue'
+import LinkIcon from './LinkIcon.vue'
+import UserAvatar from './UserAvatar.vue'
 
 //Utils
 import { useStore } from 'vuex'
