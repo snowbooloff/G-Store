@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 //Views
-import Discover from '@/views/DiscoverView.vue'
+import Discover from '../views/DiscoverView.vue'
 
 //Utils
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/explore',
       name: 'explore',
-      component: () => import('@/views/ExploreView.vue'),
+      component: () => import('../views/ExploreView.vue'),
       meta: {
         layout: 'DefaultLayout'
       }
@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: '/favorites',
       name: 'favorites',
-      component: () => import('@/views/FavoritesView.vue'),
+      component: () => import('../views/FavoritesView.vue'),
       meta: {
         layout: 'DefaultLayout'
       }
@@ -36,7 +36,7 @@ const router = createRouter({
     {
       path: '/shopping',
       name: 'shopping',
-      component: () => import('@/views/ShoppingView.vue'),
+      component: () => import('../views/ShoppingView.vue'),
       meta: {
         layout: 'DefaultLayout'
       }
@@ -44,7 +44,7 @@ const router = createRouter({
     {
       path: '/register',
       name: 'register',
-      component: () => import('@/views/authViews/RegisterView.vue'),
+      component: () => import('../views/authViews/RegisterView.vue'),
       meta: {
         layout: 'AuthLayout',
         access: 'no auth'
@@ -53,7 +53,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/authViews/LoginView.vue'),
+      component: () => import('../views/authViews/LoginView.vue'),
       meta: {
         layout: 'AuthLayout',
         access: 'no auth'
@@ -62,7 +62,7 @@ const router = createRouter({
     {
       path: '/reset',
       name: 'reset',
-      component: () => import('@/views/authViews/ResetView.vue'),
+      component: () => import('../views/authViews/ResetView.vue'),
       meta: {
         layout: 'AuthLayout',
         access: 'no auth'
@@ -71,7 +71,7 @@ const router = createRouter({
     {
       path: '/user',
       name: 'user',
-      component: () => import('@/views/UserView.vue'),
+      component: () => import('../views/UserView.vue'),
       meta: {
         layout: 'UserLayout',
         access: 'auth only'
@@ -80,7 +80,7 @@ const router = createRouter({
     {
       path: '/game/:id',
       name: 'game',
-      component: () => import('@/views/GameView.vue'),
+      component: () => import('../views/GameView.vue'),
       meta: {
         layout: 'DefaultLayout'
       }
@@ -88,7 +88,7 @@ const router = createRouter({
     {
       path: '/:pathMatch(.*)*',
       name: 'pageNotFound',
-      component: () => import('@/views/ErrorView.vue'),
+      component: () => import('../views/ErrorView.vue'),
       meta: {
         layout: 'DefaultLayout'
       }

@@ -1,5 +1,5 @@
-import { IAuthors } from '@/ts/authors.interface'
-import { IGenres } from '@/ts/genres.interface'
+import { IAuthors } from './authors.interface'
+import { IGenres } from './genres.interface'
 import { IPlatforms } from '@/ts/platforms.interface'
 
 export interface IGame {

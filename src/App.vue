@@ -12,9 +12,9 @@
 import { onMounted } from 'vue'
 
 //Components
-import CustomHeader from '@/components/CustomHeader.vue'
-import Notification from '@/components/Notification.vue'
-import AppLayout from '@/layouts/AppLayout.vue'
+import CustomHeader from './components/CustomHeader.vue'
+import Notification from './components/Notification.vue'
+import AppLayout from './layouts/AppLayout.vue'
 
 //Utils
 import { useStore } from 'vuex'

@@ -1,13 +1,13 @@
 import { ref } from 'vue'
 import axios from 'axios'
-import router from '@/router'
+import router from '../router'
 
 // TS Interfaces
 import { IQuery } from '@/ts/query.interface'
 import { IGame } from '@/ts/game.interface'
 
 //Api
-import { key } from '@/api/rawg'
+import { key } from '../api/rawg'
 
 export function fetchGames(
   page: number,
