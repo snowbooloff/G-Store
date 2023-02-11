@@ -2,10 +2,10 @@
 import { ref, computed, reactive, watch } from 'vue'
 
 //Components
-import UserAvatar from '../components/UserAvatar.vue'
+import UserAvatar from '@/components/UserAvatar.vue'
 
 //Composables
-import correctErrorText from '../composables/correctErrorText'
+import correctErrorText from '@/composables/correctErrorText'
 
 //Utils
 import { getAuth, updateProfile, updatePassword, updateEmail } from 'firebase/auth'
@@ -18,12 +18,6 @@ const userData = computed(() => store.state.user.userInfo)
 const correctedRegDate = computed(() =>
   new Date(userData.value.registrationDate).toLocaleDateString('en-GB')
 )
-
-const newUserData = reactive({
-  email: '',
-  nickname: '',
-  password: ''
-})
 
 const updateError = ref<string>('')
 watch(updateError, (newValue) => {

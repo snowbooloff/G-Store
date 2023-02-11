@@ -12,9 +12,9 @@
 import { onMounted } from 'vue'
 
 //Components
-import CustomHeader from './components/CustomHeader.vue'
-import Notification from './components/Notification.vue'
-import AppLayout from './layouts/AppLayout.vue'
+import CustomHeader from '@/components/CustomHeader.vue'
+import Notification from '@/components/Notification.vue'
+import AppLayout from '@/layouts/AppLayout.vue'
 
 //Utils
 import { useStore } from 'vuex'
@@ -27,8 +27,8 @@ onMounted(() => {
 </script>
 
 <style>
-@import url('./assets/main.css');
-@import url('./assets/buttons.css');
+@import url('@/assets/main.css');
+@import url('@/assets/buttons.css');
 
 header {
   margin-bottom: 48px;

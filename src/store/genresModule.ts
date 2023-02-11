@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Commit } from 'vuex'
-import { key } from '../api/rawg'
+import { key } from '@/api/rawg'
 
 interface genresState {
   genresList: object[]

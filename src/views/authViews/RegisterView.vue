@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive,watch } from 'vue'
+import { ref, reactive, watch } from 'vue'
 
 //Composables
-import correctErrorText from '../../composables/correctErrorText'
+import correctErrorText from '@/composables/correctErrorText'
 
 //Utils
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'

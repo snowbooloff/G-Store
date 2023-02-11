@@ -1,5 +1,4 @@
-import { getAuth, onAuthStateChanged, signOut, updateProfile } from 'firebase/auth'
-import { ref, getStorage, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth'
 
 import { Commit } from 'vuex'
 

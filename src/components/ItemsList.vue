@@ -1,13 +1,4 @@
 <script setup lang="ts">
-// TS Interfaces
-import { IGame } from '@/ts/game.interface'
-import { IGenres } from '@/ts/genres.interface'
-
-interface IItemsList {
-  id: number
-  item: IGame | IGenres
-}
-
 const props = defineProps<{
   itemsList: any[]
 }>()
