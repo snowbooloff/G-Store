@@ -5,8 +5,8 @@ import { inject } from 'vue'
 import { IGame } from '@/ts/game.interface'
 
 //Components
-import GamePlatforms from './GamePlatforms.vue'
-import GameTitle from './GameTitle.vue'
+import GamePlatforms from '@/components/GamePlatforms.vue'
+import GameTitle from '@/components/GameTitle.vue'
 
 const props = defineProps<{
   game: IGame

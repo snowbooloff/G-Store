@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 //Components
-import PageLoader from '../components/PageLoader.vue'
+import PageLoader from '@/components/PageLoader.vue'
 
 //Utils
 import { useStore } from 'vuex'

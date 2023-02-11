@@ -5,11 +5,11 @@ import { ref, watch, onMounted, onBeforeMount, computed } from 'vue'
 import { IGame } from '@/ts/game.interface'
 
 //Components
-import MetacriticScore from '../components/MetacriticScore.vue'
-import GamePlatforms from '../components/GamePlatforms.vue'
+import MetacriticScore from '@/components/MetacriticScore.vue'
+import GamePlatforms from '@/components/GamePlatforms.vue'
 
 //Composables
-import fetchGameDetails from '../composables/fetchGameDetails'
+import fetchGameDetails from '@/composables/fetchGameDetails'
 
 //Utils
 import { useRoute } from 'vue-router'

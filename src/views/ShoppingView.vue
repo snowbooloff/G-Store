@@ -6,13 +6,13 @@ import { IGame } from '@/ts/game.interface'
 import { IPromo } from '@/ts/promo.interface'
 
 //Components
-import ItemsList from '../components/ItemsList.vue'
-import ShoppingItem from '../components/ShoppingItem.vue'
-import NavBarForEmpty from '../components/NavBarForEmpty.vue'
+import ItemsList from '@/components/ItemsList.vue'
+import ShoppingItem from '@/components/ShoppingItem.vue'
+import NavBarForEmpty from '@/components/NavBarForEmpty.vue'
 
 //Composables
-import fetchGameDetails from '../composables/fetchGameDetails'
-import checkPromo from '../composables/checkPromoCode'
+import fetchGameDetails from '@/composables/fetchGameDetails'
+import checkPromo from '@/composables/checkPromoCode'
 
 //Utils
 import { localStorageUtil } from '../localStorage'
