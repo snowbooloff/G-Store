@@ -6,7 +6,7 @@ import { IGame } from '@/ts/game.interface'
 
 //Components
 import GamePlatforms from '@/components/GamePlatforms.vue'
-import GameTitle from '.@/components/GameTitle.vue'
+import GameTitle from '@/components/GameTitle.vue'
 
 const props = defineProps<{
   game: IGame
