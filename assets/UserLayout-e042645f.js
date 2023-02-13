@@ -1,0 +1,1 @@
+import{_ as a,o as r,a as s,v as o,a8 as t,a9 as n}from"./-plugin-vue-export-helper-b66d6dea.js";const c={};function l(e,d){return r(),s("div",t(n(e.$attrs)),[o(e.$slots,"default")],16)}const _=a(c,[["render",l]]);export{_ as default};
