@@ -18,7 +18,7 @@ defineProps(['modelValue'])
   background-color: var(--main-white);
   outline: none;
   border: none;
-  font-size: 0.875em;
+  font-size: 16px;
   line-height: 1;
 }
 .input:focus-visible {
