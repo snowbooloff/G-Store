@@ -1,0 +1,1 @@
+import{C as s}from"./vendor-8bbb4221.js";import{k as e,r as o}from"./index-24cb0f64.js";async function c(r,t){try{const a=await s.get(`https://api.rawg.io/api/games/${t}`,{params:{key:e}});r.value=await a.data}catch(a){console.warn(a),o.push("/error")}}export{c as f};
