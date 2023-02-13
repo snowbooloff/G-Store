@@ -173,12 +173,9 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
   gap: var(--small-spacing);
 }
 
-.buttons-block__price-bttn {
-  width: 70%;
-}
-
+.buttons-block__price-bttn,
 .buttons-block__like-bttn {
-  width: 70%;
+  width: 100%;
 }
 
 .game-details {
@@ -203,5 +200,41 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
 
 .details-list__title:nth-child(1) {
   margin: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .title-block,
+  .game-details {
+    width: 65%;
+  }
+  .game-block__buttons,
+  .details-list {
+    width: 35%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .game-block {
+    flex-flow: column;
+  }
+  .title-block,
+  .game-details,
+  .game-block__buttons,
+  .details-list {
+    width: 100%;
+  }
+  .buttons-block {
+    gap: var(--small-spacing);
+    flex-flow: row;
+    align-items: stretch;
+  }
+
+  .buttons-block__price-bttn,
+  .buttons-block__like-bttn {
+    width: 50%;
+  }
+  .details-list {
+    text-align: start;
+  }
 }
 </style>
