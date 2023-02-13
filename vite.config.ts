@@ -6,7 +6,6 @@ const path = require('path')
 export default defineConfig({
   base: '/G-Store/',
   build: {
-    outDir: './dist/',
     rollupOptions: {
       output: {
         sanitizeFileName: false
