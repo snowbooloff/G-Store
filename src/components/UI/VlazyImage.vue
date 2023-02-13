@@ -1,7 +1,6 @@
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   imgSrc: string | null
-  submitFunc?: number
   alt?: string
 }>()
 

@@ -2,23 +2,17 @@
 // TS Interfaces
 import { ISelectOptions } from '@/ts/selectOptions.interface'
 
-const props = defineProps<{
+defineProps<{
   modelValue: string
   options: ISelectOptions[]
 }>()
-
-const emit = defineEmits(['update:modelValue'])
-
-function updateValue(Event: Event) {
-  emit('update:modelValue', (Event.target as HTMLInputElement).value)
-}
 </script>
 
 <template>
   <select
     class="select main-white"
     :value="modelValue"
-    @change="updateValue"
+    @change="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   >
     <option
       class="second-white"

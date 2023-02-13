@@ -10,7 +10,6 @@ export default {
     function callback(entries: any, observer?: IntersectionObserver) {
       if (entries[0].isIntersecting) {
         binding.value()
-        console.log(binding)
       }
     }
 

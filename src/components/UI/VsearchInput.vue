@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const prop = defineProps<{
-  modelValue: string | null
-}>()
+defineProps(['modelValue'])
+
 const emit = defineEmits(['update:modelValue'])
 
 let delayTime: number

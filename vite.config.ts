@@ -5,13 +5,6 @@ const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/G-Store/',
-  build: {
-    rollupOptions: {
-      output: {
-        sanitizeFileName: false
-      }
-    }
-  },
   plugins: [vue()],
   resolve: {
     alias: {

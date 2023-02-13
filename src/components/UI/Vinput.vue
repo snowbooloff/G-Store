@@ -1,18 +1,12 @@
 <script setup lang="ts">
 defineProps(['modelValue'])
-
-const emit = defineEmits(['update:modelValue'])
-
-function updateValue(Event: Event) {
-  emit('update:modelValue', (Event.target as HTMLInputElement).value)
-}
 </script>
 
 <template>
   <input
     class="input main-black"
     :value="modelValue"
-    @input="updateValue"
+    @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
   />
 </template>
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onBeforeUnmount } from 'vue'
-
-const props = defineProps({
+defineProps({
   isVisible: {
     type: Boolean,
     default: false
