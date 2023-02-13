@@ -21,7 +21,7 @@ defineProps(['modelValue'])
   font-size: 0.875em;
   line-height: 1;
 }
-.input:focus {
+.input:focus-visible {
   box-shadow: 0px 0px 6px var(--main-white);
 }
 </style>
