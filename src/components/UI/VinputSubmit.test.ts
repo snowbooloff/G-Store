@@ -1,16 +1,17 @@
 import VinputSubmit from './VinputSubmit.vue'
 import { render, screen } from '@testing-library/vue'
 test('check input submit visivility', () => {
-  function log() {
-    console.log('test')
-  }
-
-  render(VinputSubmit, {
+  const options = {
     props: {
       modelValue: '',
-      submitFunc: log
+      submitFunc: console.log('test')
     }
-  })
+  }
 
-  screen.debug()
+  render(VinputSubmit, options)
+
+  const inputSubmit = screen.getByText('SUBMIT')
+  const inputSubmitDisplay = inputSubmit.style.getPropertyValue('display')
+
+  expect(inputSubmitDisplay).toBe('none')
 })
