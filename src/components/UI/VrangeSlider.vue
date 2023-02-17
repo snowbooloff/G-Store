@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const props = defineProps<{
-  modelValue: number[]
+  modelValue: [number, number]
   minValue: number
   maxValue: number
   stepValue: number
@@ -54,12 +54,14 @@ function updateRange() {
     />
     <input
       class="range-slider__input range-slider__input_1 main-white"
+      type="number"
       placeholder="Min"
       v-model="modelValue[0]"
       @change="updateRange"
     />
     <input
       class="range-slider__input range-slider__input_2 main-white"
+      type="number"
       placeholder="Max"
       v-model="modelValue[1]"
       @change="updateRange"

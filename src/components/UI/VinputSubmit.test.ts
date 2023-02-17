@@ -1,6 +1,15 @@
-import VinputSubmit from './VinputSubmit.vue'
 import { render, screen } from '@testing-library/vue'
-test('check input submit visivility', () => {
+
+import VinputSubmit from './VinputSubmit.vue'
+import Vinput from './Vinput.vue'
+
+import { config } from '@vue/test-utils'
+
+config.global.components = {
+  'v-input': Vinput
+}
+
+it('check input submit visivility', () => {
   function testFunc() {
     console.log(test)
   }
