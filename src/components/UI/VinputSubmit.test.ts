@@ -24,7 +24,6 @@ it('check input submit visivility', () => {
   render(VinputSubmit, options)
 
   const inputSubmit = screen.getByRole('button', { hidden: true })
-  const inputSubmitDisplay = inputSubmit.style.getPropertyValue('display')
 
-  expect(inputSubmitDisplay).toBe('none')
+  expect(inputSubmit.style['display']).toBe('none')
 })

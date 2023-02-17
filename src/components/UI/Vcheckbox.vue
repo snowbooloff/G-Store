@@ -37,6 +37,7 @@ function updateCheckBox() {
     <input
       class="checkbox__input"
       type="checkbox"
+      :checked="modelValue.includes(value)"
       :value="value"
       @change="updateCheckBox"
     />
