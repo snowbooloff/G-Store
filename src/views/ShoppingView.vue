@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, watch, onMounted, computed, provide } from 'vue'
+import { shallowRef, ref, reactive, watch, onMounted, computed, provide } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -28,18 +28,16 @@ onMounted(() => {
   if (storageList.length) {
     store.commit('loading/setLoading', true)
 
-    storageList.forEach((gameId: string) => {
-      const game = ref<IGame | any>([])
+    storageList.forEach((gameId: number) => {
+      const game = shallowRef<IGame | any>({})
 
-      fetchGameDetails(game, gameId)
-        .then(() => {
-          shoppingList.value.push(game.value)
-        })
-        .then(() => {
-          if (gameId == storageList[storageList.length - 1]) {
-            store.commit('loading/setLoading', false)
-          }
-        })
+      fetchGameDetails(game, gameId).then(() => {
+        shoppingList.value.push(game.value)
+
+        if (shoppingList.value.length == storageList.length) {
+          store.commit('loading/setLoading', false)
+        }
+      })
     })
   }
 })
@@ -72,16 +70,20 @@ watch(promoCode, () => {
 
 const totalPrice = computed<string>(() => {
   let price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
+
   if (promoCode.discountType == '%' && promoCode.isActive) {
     price = price - (price / 100) * promoCode.discount
   } else if (promoCode.discountType == '$' && promoCode.isActive) {
     price = price - promoCode.discount
   }
+
   return price.toFixed(2)
 })
+
 const salesTax = computed<string>(() => {
   return (+totalPrice.value / 79).toFixed(2)
 })
+
 const grandTotal = computed<string>(() => {
   return (+salesTax.value + +totalPrice.value).toFixed(2)
 })

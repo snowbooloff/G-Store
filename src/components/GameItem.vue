@@ -7,7 +7,7 @@ import MetacriticScore from '@/components/MetacriticScore.vue'
 import GamePlatforms from '@/components/GamePlatforms.vue'
 import GameTitle from '@/components/GameTitle.vue'
 
-const props = defineProps<{
+defineProps<{
   game: IGame
 }>()
 </script>

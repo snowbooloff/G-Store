@@ -1,11 +1,13 @@
 import axios from 'axios'
 import router from '@/router'
+
 import type { Ref } from 'vue'
+type gameId = number | string | string[]
 
 //Api
 import { key } from '../api/rawg'
 
-export default async function fetchGameDetails(gameArr: Ref, id: string | string[]) {
+export default async function fetchGameDetails(gameArr: Ref, id: gameId) {
   try {
     const response = await axios.get(`https://api.rawg.io/api/games/${id}`, {
       params: {

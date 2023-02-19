@@ -1,18 +1,14 @@
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { shallowRef, reactive } from 'vue'
+
+//Components
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
 import correctErrorText from '@/composables/correctErrorText'
 
 //Utils
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-
-const route = useRoute()
-const router = useRouter()
-
-const store = useStore()
 
 const userData = reactive({
   email: '',
@@ -34,12 +30,7 @@ function registeringUser() {
     })
 }
 
-const registrationError = ref('')
-watch(registrationError, (newValue) => {
-  if (newValue.length) {
-    setTimeout(() => (registrationError.value = ''), 1500)
-  }
-})
+const registrationError = shallowRef('')
 
 function validateData() {
   if (userData.password != userData.repeatedPassword) {
@@ -96,12 +87,10 @@ function validateData() {
           maxlength="12"
         />
       </div>
-      <p
-        class="error-info"
-        v-show="registrationError.length"
-      >
-        {{ registrationError }}
-      </p>
+      <error-message
+        v-model:error-text="registrationError"
+        :delay="1500"
+      />
       <button
         class="page-block__bttn bttn bttn_buy"
         :class="{ shake: registrationError.length }"

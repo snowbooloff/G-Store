@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, reactive, watch, computed, provide } from 'vue'
+import { ref, reactive, watch, computed, provide } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -59,12 +59,12 @@ function setPlatform(platformId: number) {
 
 const filterIsActive = ref<boolean>(true)
 
-const sortOptions = reactive<ISelectOptions[]>([
+const sortOptions: ISelectOptions[] = [
   { value: '-metacritic', name: 'Rating: High to Low' },
   { value: 'metacritic', name: 'Rating: Low to High' },
   { value: '-released', name: 'Date: Newest to Oldest' },
   { value: 'released', name: 'Date: Oldest to Newest' }
-])
+]
 
 function fetching() {
   store.commit('loading/setLoading', true)

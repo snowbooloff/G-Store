@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, onMounted, onBeforeMount, computed } from 'vue'
+import { shallowRef, onMounted, computed } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -18,7 +18,7 @@ import { useStore } from 'vuex'
 const route = useRoute()
 const store = useStore()
 
-const game = ref<IGame | any>({})
+const game = shallowRef<IGame | any>({})
 
 store.commit('loading/setLoading', true)
 
@@ -30,9 +30,7 @@ function fetching() {
 onMounted(() => {
   fetching()
 })
-watch(route, () => {
-  fetching()
-})
+
 const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 

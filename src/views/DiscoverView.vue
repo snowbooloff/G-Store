@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { shallowRef, onMounted } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -32,10 +32,10 @@ const nextDatePeriod = `${date.year}-${date.month}-${date.day},${date.nextYear}-
 
 const randomPage: number = Math.floor(Math.random() * 10) + 1
 
-const newReleasesGamesList = ref<IGame[]>([])
-const comingSoonGamesList = ref<IGame[]>([])
-const highestRatingGamesList = ref<IGame[]>([])
-const gamesForBoard = ref<IGame[]>([])
+const newReleasesGamesList = shallowRef<IGame[]>([])
+const comingSoonGamesList = shallowRef<IGame[]>([])
+const highestRatingGamesList = shallowRef<IGame[]>([])
+const gamesForBoard = shallowRef<IGame[]>([])
 onMounted(() => {
   store.commit('loading/setLoading', true)
 

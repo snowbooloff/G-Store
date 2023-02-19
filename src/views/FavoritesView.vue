@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { shallowRef, onMounted, computed } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
@@ -17,7 +17,7 @@ import { localStorageUtil } from '@/localStorage'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const favGamesList = ref<IGame[]>([])
+const favGamesList = shallowRef<IGame[]>([])
 
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.favorites)
@@ -25,21 +25,20 @@ onMounted(() => {
   if (storageList.length) {
     store.commit('loading/setLoading', true)
 
-    storageList.forEach((gameId: string) => {
-      const game = ref<IGame | any>({})
+    storageList.forEach((gameId: number) => {
+      const game = shallowRef<IGame | any>({})
 
-      fetchGameDetails(game, gameId)
-        .then(() => {
-          favGamesList.value.push(game.value)
-        })
-        .then(() => {
-          if (gameId == storageList[storageList.length - 1]) {
-            store.commit('loading/setLoading', false)
-          }
-        })
+      fetchGameDetails(game, gameId).then(() => {
+        favGamesList.value.push(game.value)
+
+        if (favGamesList.value.length == storageList.length) {
+          store.commit('loading/setLoading', false)
+        }
+      })
     })
   }
 })
+
 const loading = computed<boolean>(() => store.state.loading.isLoading)
 </script>
 

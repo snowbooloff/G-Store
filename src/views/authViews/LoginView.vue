@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { shallowRef, reactive } from 'vue'
+
+//Components
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
 import correctErrorText from '@/composables/correctErrorText'
@@ -16,16 +19,10 @@ function loginingUser() {
   const auth = getAuth()
   signInWithEmailAndPassword(auth, userData.email, userData.password).catch((error) => {
     correctErrorText(error, loginError)
-    setTimeout(() => (loginError.value = ''), 1000)
   })
 }
 
-const loginError = ref('')
-watch(loginError, (newValue) => {
-  if (newValue.length) {
-    setTimeout(() => (loginError.value = ''), 1500)
-  }
-})
+const loginError = shallowRef<string>('')
 </script>
 
 <template>
@@ -51,12 +48,10 @@ watch(loginError, (newValue) => {
           maxlength="12"
         />
       </div>
-      <p
-        class="error-info"
-        v-show="loginError.length"
-      >
-        {{ loginError }}
-      </p>
+      <error-message
+        v-model:error-text="loginError"
+        :delay="1500"
+      />
       <button
         class="auth-form__bttn bttn bttn_buy"
         :class="{ shake: loginError.length }"

@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { shallowRef } from 'vue'
+
+//Components
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
 import correctErrorText from '@/composables/correctErrorText'
 
 //Utils
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth'
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const userEmail = ref('')
+const userEmail = shallowRef('')
 
 function loginingUser() {
   const auth = getAuth()
@@ -25,12 +28,7 @@ function loginingUser() {
     })
 }
 
-const resetError = ref('')
-watch(resetError, (newValue) => {
-  if (newValue.length) {
-    setTimeout(() => (resetError.value = ''), 1500)
-  }
-})
+const resetError = shallowRef('')
 </script>
 
 <template>
@@ -48,12 +46,10 @@ watch(resetError, (newValue) => {
         />
       </div>
 
-      <p
-        class="error-info"
-        v-show="resetError.length"
-      >
-        {{ resetError }}
-      </p>
+      <error-message
+        v-model:error-text="resetError"
+        :delay="1500"
+      />
       <button
         class="auth-form__bttn bttn bttn_buy"
         :class="{ shake: resetError.length }"
