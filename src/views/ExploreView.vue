@@ -85,16 +85,14 @@ const totalPagesCount = computed<number>(() => {
 
 watch(query, () => {
   currentPage = 1
-  query.date = ''
 
-  router.push(route.path)
-
-  let firstCondition = query.rating[0] >= 10 && query.rating[0] <= 100
-  let secondCondition = query.rating[1] >= 10 && query.rating[1] <= 100
-
-  if (firstCondition && secondCondition) {
-    fetching()
+  if (route.fullPath !== route.path) {
+    router.push(route.path)
   }
+
+  console.log(1)
+
+  fetching()
 })
 
 function loadMoreGames() {

@@ -9,7 +9,7 @@ config.global.components = {
   'v-input': Vinput
 }
 
-it('check input submit visivility', () => {
+it('checking input submit visivility', () => {
   function testFunc() {
     console.log(test)
   }

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/vue'
 
 import Vcheckbox from './Vcheckbox.vue'
 
-describe('check input checkbox status', () => {
+describe('checking input checkbox status', () => {
   const modelValueArr: (string | number)[] = [1, 2, 3]
 
   it('checking with a value that is in an array', () => {

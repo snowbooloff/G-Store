@@ -8,8 +8,8 @@ const props = defineProps<{
   stepValue: number
 }>()
 
-const rangeInput1 = ref<HTMLElement | null>(null)
-const rangeInput2 = ref<HTMLElement | null>(null)
+const rangeInput1 = ref<HTMLInputElement | null>(null)
+const rangeInput2 = ref<HTMLInputElement | null>(null)
 
 const emit = defineEmits(['update:modelValue'])
 
@@ -29,6 +29,23 @@ function updateRange() {
   }
 
   emit('update:modelValue', newModelValue)
+}
+
+function checkFirstInputsValue(event: Event) {
+  const value = (event.target as HTMLInputElement).value
+
+  if (Number(value) >= props.minValue && Number(value) < props.maxValue) {
+    ;(rangeInput1.value as HTMLInputElement).value = value
+    setTimeout(updateRange, 500)
+  }
+}
+
+function checkSecondInputsValue(event: Event) {
+  const value = (event.target as HTMLInputElement).value
+  if (Number(value) > props.minValue && Number(value) <= props.maxValue) {
+    ;(rangeInput2.value as HTMLInputElement).value = value
+    setTimeout(updateRange, 500)
+  }
 }
 </script>
 
@@ -54,17 +71,15 @@ function updateRange() {
     />
     <input
       class="range-slider__input range-slider__input_1 main-white"
-      type="number"
       placeholder="Min"
-      v-model="modelValue[0]"
-      @change="updateRange"
+      :value="modelValue[0]"
+      @input="checkFirstInputsValue"
     />
     <input
       class="range-slider__input range-slider__input_2 main-white"
-      type="number"
       placeholder="Max"
-      v-model="modelValue[1]"
-      @change="updateRange"
+      :value="modelValue[1]"
+      @input="checkSecondInputsValue"
     />
   </section>
 </template>

@@ -2,10 +2,10 @@ import VmodalWindow from './VmodalWindow.vue'
 
 import { render, screen } from '@testing-library/vue'
 
-describe('check model window visivility', () => {
+describe('checking model window visivility', () => {
   const windowText: string = 'Test'
 
-  it('check with props', () => {
+  it('checking with props', () => {
     const options = {
       props: {
         isVisible: true
@@ -22,7 +22,7 @@ describe('check model window visivility', () => {
     expect(modalWindow.innerHTML).toBeTruthy()
   })
 
-  it('check whitout props', () => {
+  it('checking whitout props', () => {
     const options = {
       slots: {
         default: windowText
