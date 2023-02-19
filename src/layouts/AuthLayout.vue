@@ -11,7 +11,7 @@ const isAuth = computed<boolean>(() => store.state.user.isAuth)
 
 watch(isAuth, () => {
   if (isAuth) {
-    router.push('/')
+    router.push('/user')
   }
 })
 </script>

@@ -9,6 +9,7 @@ export default function checkPromo(currentValue: IPromo) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const fetchedData = snapshot.val()
+
         const validatedPromo = fetchedData.find(
           (promo: IPromo) => promo.value === currentValue.value
         )

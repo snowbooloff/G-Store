@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 defineProps(['modelValue'])
 
-const showPassowrd = ref(false)
+const showPassowrd = shallowRef(false)
 </script>
 
 <template>
