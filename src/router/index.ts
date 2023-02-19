@@ -4,7 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Discover from '@/views/DiscoverView.vue'
 
 //Utils
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import loadingLayout from '@/router/loadingLayouts'
+import { authenticationUser } from '@/router/authenticationUser'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,7 +15,7 @@ const router = createRouter({
       name: 'discover',
       component: Discover,
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     },
     {
@@ -22,7 +23,7 @@ const router = createRouter({
       name: 'explore',
       component: () => import('@/views/ExploreView.vue'),
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     },
     {
@@ -30,7 +31,7 @@ const router = createRouter({
       name: 'favorites',
       component: () => import('@/views/FavoritesView.vue'),
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     },
     {
@@ -38,7 +39,7 @@ const router = createRouter({
       name: 'shopping',
       component: () => import('@/views/ShoppingView.vue'),
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     },
     {
@@ -46,7 +47,7 @@ const router = createRouter({
       name: 'register',
       component: () => import('@/views/authViews/RegisterView.vue'),
       meta: {
-        layout: 'AuthLayout',
+        layoutName: 'AuthLayout',
         access: 'no auth'
       }
     },
@@ -55,7 +56,7 @@ const router = createRouter({
       name: 'login',
       component: () => import('@/views/authViews/LoginView.vue'),
       meta: {
-        layout: 'AuthLayout',
+        layoutName: 'AuthLayout',
         access: 'no auth'
       }
     },
@@ -64,7 +65,7 @@ const router = createRouter({
       name: 'reset',
       component: () => import('@/views/authViews/ResetView.vue'),
       meta: {
-        layout: 'AuthLayout',
+        layoutName: 'AuthLayout',
         access: 'no auth'
       }
     },
@@ -73,7 +74,7 @@ const router = createRouter({
       name: 'user',
       component: () => import('@/views/UserView.vue'),
       meta: {
-        layout: 'UserLayout',
+        layoutName: 'UserLayout',
         access: 'auth only'
       }
     },
@@ -82,7 +83,7 @@ const router = createRouter({
       name: 'game',
       component: () => import('@/views/GameView.vue'),
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     },
     {
@@ -90,29 +91,25 @@ const router = createRouter({
       name: 'pageNotFound',
       component: () => import('@/views/ErrorView.vue'),
       meta: {
-        layout: 'DefaultLayout'
+        layoutName: 'GameLayout'
       }
     }
   ]
 })
 
-type user = object | null
-
-function getCurrentUser(): Promise<user> {
-  return new Promise((resolve, reject) => {
-    onAuthStateChanged(getAuth(), (user) => resolve(user), reject)
-  })
-}
-
 router.beforeEach(async (to, from, next) => {
-  const isAuth: user = await getCurrentUser()
+  const isAuth: object | null = await authenticationUser()
+
   const firstCondition = to.meta.access == 'auth only' && !isAuth
   const secondCondition = to.meta.access == 'no auth' && isAuth
+
   if (firstCondition || secondCondition) {
     next({ name: 'discover' })
   } else {
     next()
   }
 })
+
+router.beforeEach(loadingLayout)
 
 export default router

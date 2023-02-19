@@ -15,6 +15,7 @@ watch(isAuth, () => {
   }
 })
 </script>
+
 <template>
   <div v-bind="$attrs">
     <section class="auth">

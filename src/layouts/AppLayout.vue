@@ -1,21 +1,10 @@
 <script setup lang="ts">
-import { markRaw, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { watch } from 'vue'
 
-const layout = ref()
+//Utils
+import { useRoute } from 'vue-router'
 const route = useRoute()
 
-watch(
-  () => route.meta?.layout as string | undefined,
-  async (metaLayout) => {
-    try {
-      const component =
-        metaLayout && (await import(/* @vite-ignore */ `../layouts/${metaLayout}.vue`))
-      layout.value = markRaw(component?.default)
-    } catch (e) {}
-  },
-  { immediate: true }
-)
 watch(route, () => {
   window.scrollTo(0, 0)
 })
@@ -23,7 +12,7 @@ watch(route, () => {
 
 <template>
   <component
-    :is="layout"
+    :is="route.meta.layoutComponent"
     :class="[$route.name !== 'game' ? 'container page_padding' : '', 'page']"
   >
     <router-view />

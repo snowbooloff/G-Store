@@ -97,8 +97,7 @@ onMounted(() => {
           $router.push({
             path: '/explore',
             query: {
-              sort: '-released',
-              title: 'New Releases'
+              sort: '-released'
             }
           })
         "
@@ -133,8 +132,7 @@ onMounted(() => {
             path: '/explore',
             query: {
               date: nextDatePeriod,
-              rating: JSON.stringify([0, 100]),
-              title: 'Coming Soon'
+              rating: JSON.stringify([0, 100])
             }
           })
         "
@@ -168,8 +166,7 @@ onMounted(() => {
           $router.push({
             path: '/explore',
             query: {
-              sort: '-metacritic',
-              title: 'Highest Rating Games'
+              sort: '-metacritic'
             }
           })
         "
@@ -202,8 +199,7 @@ onMounted(() => {
             $router.push({
               path: '/explore',
               query: {
-                genres: JSON.stringify([slotProps.item.id]),
-                title: `${slotProps.item.name} Games`
+                genres: JSON.stringify([slotProps.item.id])
               }
             })
           "

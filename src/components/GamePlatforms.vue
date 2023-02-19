@@ -15,13 +15,12 @@ const props = defineProps<{
 
 let { setPlatform }: any = route.name == 'explore' ? inject('setPlatforms') : ''
 
-function goToExplore(platformId: number, platformName: string) {
+function goToExplore(platformId: number) {
   if (route.name != 'explore') {
     router.push({
       path: '/explore',
       query: {
-        platforms: JSON.stringify([platformId]),
-        title: platformName + ' Games'
+        platforms: JSON.stringify([platformId])
       }
     })
   } else {
@@ -42,7 +41,7 @@ const filteredPlatforms = props.platforms.filter((platform) =>
       :key="platform['platform']['id']"
       :is="`icon-${platform['platform']['name'].toLowerCase()}`"
       class="game-platforms__icon cursor-pointer"
-      @click="goToExplore(platform['platform']['id'], platform['platform']['name'])"
+      @click="goToExplore(platform['platform']['id'])"
     />
   </div>
 </template>

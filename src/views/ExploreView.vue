@@ -75,25 +75,23 @@ function fetching() {
   })
 }
 
-onMounted(() => {
-  fetching()
-})
-
 const totalPagesCount = computed<number>(() => {
   return Math.ceil(totalGamesCount.value / query.size)
 })
 
-watch(query, () => {
-  currentPage = 1
+watch(
+  query,
+  () => {
+    currentPage = 1
 
-  if (route.fullPath !== route.path) {
-    router.push(route.path)
-  }
+    if (route.fullPath !== route.path) {
+      router.push(route.path)
+    }
 
-  console.log(1)
-
-  fetching()
-})
+    fetching()
+  },
+  { immediate: true }
+)
 
 function loadMoreGames() {
   if (currentPage < totalPagesCount.value) {
