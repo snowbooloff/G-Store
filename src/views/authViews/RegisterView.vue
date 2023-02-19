@@ -30,7 +30,7 @@ function registeringUser() {
     })
 }
 
-const registrationError = shallowRef('')
+const registrationError = shallowRef<string>('')
 
 function validateData() {
   if (userData.password != userData.repeatedPassword) {

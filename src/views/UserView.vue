@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed, reactive, watch } from 'vue'
+import { shallowRef, computed, reactive, watch } from 'vue'
 
 //Components
 import UserAvatar from '@/components/UserAvatar.vue'
+import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
 import correctErrorText from '@/composables/correctErrorText'
@@ -19,12 +20,7 @@ const correctedRegDate = computed(() =>
   new Date(userData.value.registrationDate).toLocaleDateString('en-GB')
 )
 
-const updateError = ref<string>('')
-watch(updateError, (newValue) => {
-  if (newValue.length) {
-    setTimeout(() => (updateError.value = ''), 1500)
-  }
-})
+const updateError = shallowRef<string>('')
 
 interface InputData {
   nicknameInput: Input
@@ -129,12 +125,12 @@ function updateUserPassword() {
 }
 
 function clearUserData() {
-  inputData.nicknameInput.value = ''
-  inputData.nicknameInput.isShow = false
-  inputData.emailInput.value = ''
-  inputData.emailInput.isShow = false
-  inputData.passwordInput.value = ''
-  inputData.passwordInput.isShow = false
+  const inputsArr = Object.values(inputData)
+
+  for (let i = 0; i < inputsArr.length; i++) {
+    inputsArr[i].isShow = false
+    inputsArr[i].value = ''
+  }
 }
 </script>
 
@@ -150,12 +146,10 @@ function clearUserData() {
       />
     </div>
 
-    <p
-      class="page-block__error"
-      v-show="updateError.length"
-    >
-      {{ updateError }}
-    </p>
+    <error-message
+      v-model:error-text="updateError"
+      :delay="1500"
+    />
 
     <div class="user-info flex flex_column">
       <div class="details flex flex_align-center">

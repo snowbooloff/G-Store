@@ -28,7 +28,7 @@ function loginingUser() {
     })
 }
 
-const resetError = shallowRef('')
+const resetError = shallowRef<string>('')
 </script>
 
 <template>
