@@ -3,9 +3,10 @@ import { shallowRef, reactive } from 'vue'
 
 //Components
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import ShakeableWrapper from '@/components/ShakeableWrapper.vue'
 
 //Composables
-import correctErrorText from '@/composables/correctErrorText'
+import correctErrorText from '@/composables/correctFirebaseError'
 
 //Utils
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
@@ -52,13 +53,14 @@ const loginError = shallowRef<string>('')
         v-model:error-text="loginError"
         :delay="1500"
       />
-      <button
-        class="auth-form__bttn bttn bttn_buy"
-        :class="{ shake: loginError.length }"
-        @click.prevent="loginingUser"
-      >
-        SIGN IN
-      </button>
+      <shakeable-wrapper :condition="loginError.length">
+        <button
+          class="auth-form__bttn bttn bttn_buy"
+          @click.prevent="loginingUser"
+        >
+          SIGN IN
+        </button>
+      </shakeable-wrapper>
       <span class="auth-form__span second-white">
         New to GSTORE?
         <router-link

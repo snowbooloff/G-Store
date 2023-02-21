@@ -9,6 +9,7 @@ import { IPromo } from '@/ts/promo.interface'
 import ItemsList from '@/components/ItemsList.vue'
 import ShoppingItem from '@/components/ShoppingItem.vue'
 import NavBarForEmpty from '@/components/NavBarForEmpty.vue'
+import ShakeableWrapper from '@/components/ShakeableWrapper.vue'
 
 //Composables
 import fetchGameDetails from '@/composables/fetchGameDetails'
@@ -143,19 +144,24 @@ const loading = computed<boolean>(() => store.state.loading.isLoading)
 
         <div class="promo flex flex_column">
           <h3 class="promo__title main-white">Redeem Promo Code:</h3>
-          <v-input-submit
-            class="promo__input"
-            v-model="promoCode.value"
-            maxlength="15"
-            placeholder="PROMO1"
-            :submitFunc="checkPromo"
-            :funcArguments="promoCode"
-          />
+
+          <shakeable-wrapper :condition="promoCode.isChecked && !promoCode.isActive">
+            <v-input-submit
+              class="promo__input"
+              v-model="promoCode.value"
+              maxlength="15"
+              placeholder="PROMO1"
+              :submitFunc="checkPromo"
+              :funcArguments="promoCode"
+            />
+          </shakeable-wrapper>
+
           <span
             class="promo__status promo__status_red"
             v-show="promoCode.isChecked && !promoCode.isActive"
             >Invalid promo</span
           >
+
           <span
             class="promo__status promo__status_green"
             v-show="promoCode.isChecked && promoCode.isActive"

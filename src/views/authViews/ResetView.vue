@@ -5,7 +5,7 @@ import { shallowRef } from 'vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
-import correctErrorText from '@/composables/correctErrorText'
+import correctErrorText from '@/composables/correctFirebaseError'
 
 //Utils
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth'

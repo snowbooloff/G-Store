@@ -3,9 +3,10 @@ import { shallowRef, reactive } from 'vue'
 
 //Components
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import ShakeableWrapper from '@/components/ShakeableWrapper.vue'
 
 //Composables
-import correctErrorText from '@/composables/correctErrorText'
+import correctErrorText from '@/composables/correctFirebaseError'
 
 //Utils
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
@@ -91,13 +92,14 @@ function validateData() {
         v-model:error-text="registrationError"
         :delay="1500"
       />
-      <button
-        class="page-block__bttn bttn bttn_buy"
-        :class="{ shake: registrationError.length }"
-        @click.prevent="validateData"
-      >
-        SIGN UP
-      </button>
+      <shakeable-wrapper :condition="registrationError.length">
+        <button
+          class="auth-form__bttn bttn bttn_buy"
+          @click.prevent="validateData"
+        >
+          SIGN UP
+        </button>
+      </shakeable-wrapper>
       <span class="auth-form__span second-white">
         Already have a GStore account?
         <router-link

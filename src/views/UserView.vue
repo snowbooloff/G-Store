@@ -6,7 +6,7 @@ import UserAvatar from '@/components/UserAvatar.vue'
 import ErrorMessage from '@/components/ErrorMessage.vue'
 
 //Composables
-import correctErrorText from '@/composables/correctErrorText'
+import correctErrorText from '@/composables/correctFirebaseError'
 
 //Utils
 import { getAuth, updateProfile, updatePassword, updateEmail } from 'firebase/auth'
