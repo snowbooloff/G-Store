@@ -1,0 +1,1 @@
+.loading[data-v-cded3e9f]{width:100%;height:100%;position:fixed;top:0;left:0;z-index:140;background-color:var(--main-black)}.loading__spiner[data-v-cded3e9f]{height:15%;aspect-ratio:1 / 1;animation:loading-cded3e9f 1.25s linear infinite}@keyframes loading-cded3e9f{0%{transform:rotate(0)}to{transform:rotate(360deg)}}
