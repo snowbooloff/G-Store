@@ -1,7 +1,7 @@
 name: testing and building project
 on: [push]
 jobs:
-  check-bats-version:
+  init:
     runs-on: ubuntu-latest
     strategy:
       matrix:
