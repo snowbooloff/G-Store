@@ -61,7 +61,11 @@ function showCurrentInput(currentInput: Input) {
   }
 }
 
-function updateProfileImage(userPic: any) {
+interface EventFiles extends EventTarget {
+  files: [File]
+}
+
+function updateProfileImage(userPic: File) {
   if (userPic) {
     const auth = getAuth()
     const storage = getStorage()
@@ -142,7 +146,7 @@ function clearUserData() {
         class="profile-avatar__input cursor-pointer"
         type="file"
         accept="image/png, image/jpeg"
-        @input="updateProfileImage($event.target.files[0])"
+        @input="updateProfileImage(($event.target! as EventFiles).files[0]!)"
       />
     </div>
 
