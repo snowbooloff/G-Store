@@ -1,8 +1,7 @@
 <script setup lang="ts">
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
-
-const props = defineProps<{
+defineProps<{
   game: IGame
 }>()
 </script>

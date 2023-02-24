@@ -1,3 +1,4 @@
+import { FirebaseError } from 'firebase/app'
 import type { Ref } from 'vue'
 
 export default function correctErrorText(error: any, placeholder: Ref): void {

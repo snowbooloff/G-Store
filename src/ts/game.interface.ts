@@ -1,14 +1,14 @@
-import { IAuthors } from '@/ts/authors.interface'
 import { IGenres } from '@/ts/genres.interface'
 import { IPlatforms } from '@/ts/platforms.interface'
+import { IDefaultProperties } from '@/ts/defaultProperties.interface'
 
-export interface IGame {
+type IAuthors = IDefaultProperties
+
+export interface IGame extends IDefaultProperties {
   added: number
   background_image: string
   genres: IGenres[]
-  id: number
   metacritic: number
-  name: string
   parent_platforms: IPlatforms[]
   released: string
   suggestions_count: number

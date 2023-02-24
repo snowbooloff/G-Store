@@ -8,9 +8,9 @@ export default function checkPromo(currentValue: IPromo) {
   get(child(dbRef, `Promo`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        const fetchedData = snapshot.val()
+        const fetchedData: IPromo[] = snapshot.val()
 
-        const validatedPromo = fetchedData.find(
+        const validatedPromo: IPromo | undefined = fetchedData.find(
           (promo: IPromo) => promo.value === currentValue.value
         )
 
@@ -23,8 +23,6 @@ export default function checkPromo(currentValue: IPromo) {
         } else {
           currentValue.isActive = false
         }
-      } else {
-        console.log('No data available')
       }
     })
     .catch((error) => {

@@ -13,10 +13,10 @@ const props = defineProps<{
   platforms: IPlatforms[]
 }>()
 
-let { setPlatform }: any = route.name == 'explore' ? inject('setPlatforms') : ''
+let setPlatform = (route.name == 'explore' ? inject('setPlatforms') : '') as Function | string
 
 function goToExplore(platformId: number) {
-  if (route.name != 'explore') {
+  if (typeof setPlatform !== 'function') {
     router.push({
       path: '/explore',
       query: {

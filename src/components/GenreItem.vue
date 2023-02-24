@@ -2,7 +2,7 @@
 // TS Interfaces
 import { IGenres } from '@/ts/genres.interface'
 
-const props = defineProps<{
+defineProps<{
   genre: IGenres
 }>()
 </script>

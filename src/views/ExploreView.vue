@@ -47,9 +47,7 @@ function clearFilters() {
   query.search = ''
 }
 
-provide('setPlatforms', {
-  setPlatform
-})
+provide('setPlatforms', setPlatform)
 
 function setPlatform(platformId: number) {
   if (!query.platforms.includes(platformId)) {

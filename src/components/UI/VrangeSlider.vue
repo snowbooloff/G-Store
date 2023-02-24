@@ -8,8 +8,8 @@ const props = defineProps<{
   stepValue: number
 }>()
 
-const rangeInput1 = ref<HTMLInputElement | null>(null)
-const rangeInput2 = ref<HTMLInputElement | null>(null)
+const rangeInput1 = ref<HTMLInputElement | null>()
+const rangeInput2 = ref<HTMLInputElement | null>()
 
 const emit = defineEmits(['update:modelValue'])
 

@@ -8,11 +8,11 @@ import { IGame } from '@/ts/game.interface'
 import GamePlatforms from '@/components/GamePlatforms.vue'
 import GameTitle from '@/components/GameTitle.vue'
 
-const props = defineProps<{
+defineProps<{
   game: IGame
 }>()
 
-const { removeGame }: any = inject('shoppingRemove')
+const removeGame = inject('shoppingRemove') as Function
 </script>
 
 <template>

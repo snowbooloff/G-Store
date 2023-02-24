@@ -3,6 +3,7 @@ import { shallowRef, onMounted, computed } from 'vue'
 
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
+import type { Ref } from 'vue'
 
 //Components
 import ItemsList from '@/components/ItemsList.vue'
@@ -17,7 +18,7 @@ import { localStorageUtil } from '@/localStorage'
 import { useStore } from 'vuex'
 const store = useStore()
 
-const favGamesList = shallowRef<IGame[]>([])
+const favGamesList = shallowRef<[IGame] | []>([])
 
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.favorites)
@@ -26,10 +27,10 @@ onMounted(() => {
     store.commit('loading/setLoading', true)
 
     storageList.forEach((gameId: number) => {
-      const game = shallowRef<IGame | any>({})
+      const game = shallowRef<IGame | {}>({})
 
       fetchGameDetails(game, gameId).then(() => {
-        favGamesList.value.push(game.value)
+        ;(favGamesList as Ref<[IGame]>).value.push((game as Ref<IGame>).value)
 
         if (favGamesList.value.length == storageList.length) {
           store.commit('loading/setLoading', false)

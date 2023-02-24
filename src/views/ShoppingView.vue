@@ -4,6 +4,7 @@ import { shallowRef, ref, reactive, watch, onMounted, computed, provide } from '
 // TS Interfaces
 import { IGame } from '@/ts/game.interface'
 import { IPromo } from '@/ts/promo.interface'
+import type { Ref } from 'vue'
 
 //Components
 import ItemsList from '@/components/ItemsList.vue'
@@ -21,7 +22,7 @@ import { useStore } from 'vuex'
 
 const store = useStore()
 
-const shoppingList = ref<IGame[]>([])
+const shoppingList = ref<[IGame] | []>([])
 
 onMounted(() => {
   const storageList = localStorageUtil.getList(localStorageUtil.shopping)
@@ -30,10 +31,10 @@ onMounted(() => {
     store.commit('loading/setLoading', true)
 
     storageList.forEach((gameId: number) => {
-      const game = shallowRef<IGame | any>({})
+      const game = shallowRef<IGame | {}>({})
 
       fetchGameDetails(game, gameId).then(() => {
-        shoppingList.value.push(game.value)
+        ;(shoppingList as Ref<[IGame]>).value.push((game as Ref<IGame>).value)
 
         if (shoppingList.value.length == storageList.length) {
           store.commit('loading/setLoading', false)
@@ -43,12 +44,10 @@ onMounted(() => {
   }
 })
 
-provide('shoppingRemove', {
-  removeGame
-})
+provide('shoppingRemove', removeGame)
 
 function removeGame(game: IGame): void {
-  const index = shoppingList.value.indexOf(game)
+  const index = (shoppingList as Ref<[IGame]>).value.indexOf(game)
   shoppingList.value.splice(index, 1)
   localStorageUtil.placeItem(localStorageUtil.shopping, game.id)
   store.commit('notification/pushNotification', `${game.name}: removed from shopping cart`)
@@ -69,8 +68,13 @@ watch(promoCode, () => {
   }
 })
 
-const totalPrice = computed<string>(() => {
-  let price = shoppingList.value.reduce((acc, elem) => (acc += elem.suggestions_count / 10), 0)
+const totalPrice = computed<number>(() => {
+  let price: number
+
+  price = (shoppingList as Ref<[IGame]>).value.reduce(
+    (acc, elem) => (acc += elem.suggestions_count / 10),
+    0
+  )
 
   if (promoCode.discountType == '%' && promoCode.isActive) {
     price = price - (price / 100) * promoCode.discount
@@ -78,15 +82,18 @@ const totalPrice = computed<string>(() => {
     price = price - promoCode.discount
   }
 
-  return price.toFixed(2)
+  return parseFloat(price.toFixed(2))
 })
 
-const salesTax = computed<string>(() => {
-  return (+totalPrice.value / 79).toFixed(2)
+const salesTax = computed<number>(() => {
+  const tax: number = totalPrice.value / 79
+
+  return parseFloat(tax.toFixed(2))
 })
 
-const grandTotal = computed<string>(() => {
-  return (+salesTax.value + +totalPrice.value).toFixed(2)
+const grandTotal = computed<number>(() => {
+  const total: number = salesTax.value + totalPrice.value
+  return parseFloat(total.toFixed(2))
 })
 
 const loading = computed<boolean>(() => store.state.loading.isLoading)

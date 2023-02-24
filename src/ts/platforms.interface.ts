@@ -1,3 +1,5 @@
+import { IDefaultProperties } from '@/ts/defaultProperties.interface'
+
 export interface IPlatforms {
-  platform: { id: number; name: string }
+  platform: IDefaultProperties
 }
